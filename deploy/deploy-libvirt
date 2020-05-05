@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
+# Copyright (c) 2020, Loïc Deraed
 
 # Create a libvirt virtual machine and deploy cfengine onto it
-# Copyright (c) 2020, Loïc Deraed
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
@@ -84,7 +84,7 @@ main() {
 
     # if machine_name not specified, use a random hostname from 
     # 'candidate_hostnames.txt' as fallback.
-    fallback_hostname=$("$PROGDIR/../hostnames/pick.sh")
+    fallback_hostname="gen-$("$PROGDIR/../hostnames/pick.sh")"
     machine_name=${machine_name:-$fallback_hostname}
 
     echo "using machine name '$machine_name'" | blue
@@ -94,6 +94,10 @@ main() {
     cp "${disk_dir}/debian-10-generic-amd64-daily-20191205-98.qcow2" \
         "${disk_dir}/${machine_name}.qcow2"
 
+    echo "expanding disk" | blue
+
+    qemu-img resize "${disk_dir}/${machine_name}.qcow2" 10G
+
     echo "creating libvirt virtual machine" | blue
     output=$(capture_output pretty_wrapped_output create-vm "$machine_name")
 
@@ -101,7 +105,7 @@ main() {
 
     echo "The ip address is $ip_address"
 
-    ssh "debian@${ip_address}"
+    "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
 }
 
 main

@@ -1,5 +1,7 @@
-#!/bin/bash
-# Outputs a list of candidate hostnames to stdout
+#!/usr/bin/env bash
+# Copyright (c) 2020, Loïc Deraed
+
+# Prints a list of candidate hostnames
 
 candidates=$(
  (xidel https://en.wikipedia.org/wiki/List_of_marine_aquarium_fish_species --css 'table>tbody>tr>td:first-child';
