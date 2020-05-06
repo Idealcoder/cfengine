@@ -1,6 +1,7 @@
 #!/bin/sh
 # managed by cfengine3
 
+# fix colours
 export TERM=xterm-256color
 tput sgr0
 
@@ -9,5 +10,3 @@ neofetch --off --color_blocks off --disable resolution \
 --memory_percent on \
 --colors 4 4 11 4 11 11 --bold off \
 | awk '{print tolower($0)}'
-
-echo -n "machine managed by CFEngine 3"
