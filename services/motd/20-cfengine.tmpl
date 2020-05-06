@@ -6,8 +6,8 @@ tput sgr0
 
 neofetch --off --color_blocks off --disable resolution \
 --disable wm --disable theme --disable icons --disable term --disable shell \
---memory_percent on --separator ' ' \
---colors 4 4 10 4 10 11 --bold off \
+--memory_percent on \
+--colors 4 4 11 4 11 11 --bold off \
 | awk '{print tolower($0)}'
 
 echo "machine managed by CFEngine 3"
