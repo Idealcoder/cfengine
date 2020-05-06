@@ -1,9 +1,9 @@
 #!/bin/sh
 
 {{#data}}
-tput setf 3 \
-&& echo "{{key}}:	" \
-&& tput setf 7 \
+tput setaf 6 \
+&& echo -n "{{key}}:	" \
+&& tput setaf 4 \
 && echo "{{value}}" \
 && tput sgr0
 {{/data}}
