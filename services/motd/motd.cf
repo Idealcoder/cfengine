@@ -1,9 +1,15 @@
 bundle agent motd {
   vars:
     "name"   string => execresult("/usr/bin/hostname",  "noshell");
+    "kernel" string => execresult("/usr/bin/uname", "noshell");
     "uptime" string => execresult("/usr/bin/uptime -p", "noshell");
+
+    "cpu"    string => execresult("lscpu
+      | grep 'Model name'
+      | awk 'BEGIN {FS=\"   *\"}; {print $2}", "useshell");
     "memory" string => execresult("/usr/bin/uptime -p", "noshell");
-    "disk"   string => execresult("df -h -T -xtmpfs -xdevtmpfs -xsquashfs", "useshell");
+    "disk"   string => execresult("
+      df -h -T -xtmpfs -xdevtmpfs -xsquashfs", "useshell");
   files:
     "/etc/motd"
       create => "true",
@@ -11,7 +17,10 @@ bundle agent motd {
       template_method => "mustache",
       template_data => '{
       	"name": "$(name)"
+	"kernel": "todo"
 	"uptime": "$(uptime)"
+
+	"cpu": "todo"
 	"memory": "$(memory)"
 	"disk": "$(disk)"
       }';
