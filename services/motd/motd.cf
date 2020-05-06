@@ -30,5 +30,3 @@ body acl executable {
            "group:*:+rx",
 	   "all:+rx"};
 }
-
-
