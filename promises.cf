@@ -1,5 +1,6 @@
 body common control {
-  inputs => { "update_repo.cf"
+  inputs => { "lib/stdlib.cf"
+            , "update_repo.cf"
             , "services/motd/motd.cf" };
   bundlesequence => { update_repo, motd };
 }

@@ -18,6 +18,7 @@ bundle agent motd {
       create => "true",
       edit_template => "$(this.promise_dirname)/20-cfengine.tmpl",
       acl => executable,
+      edit_defaults => no_backup,
       template_method => "mustache",
       template_data => '{ 
         "data": [
