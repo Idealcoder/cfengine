@@ -29,10 +29,10 @@ bundle agent motd {
       }';
     "/etc/motd"
       create => "true",
-      edit_template => "$(sys.inputdir)/templates/emptyfile";
+      edit_template => "$(sys.inputdir)/templates/emptyfile",
+      edit_defaults => no_backup;
     "/etc/update-motd.d/10-uname"
-      create => "true",
-      edit_template => "$(sys.inputdir)/templates/emptyfile";
+      delete => tidy;
 }
 
 body acl executable {
