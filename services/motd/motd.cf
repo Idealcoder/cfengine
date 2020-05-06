@@ -21,12 +21,12 @@ bundle agent motd {
       template_method => "mustache",
       template_data => '{ 
         "data": [
-          {"key": "name",   "value": "($name)"},
-          {"key": "kernel", "value": "($kernel)"},
-          {"key": "uptime", "value": "($uptime)"},
-          {"key": "cpu",    "value": "($cpu)"},
-          {"key": "memory", "value": "($memory)"},
-          {"key": "disk",   "value": "($disk)"}
+          {"key": "name",   "value": "$(name)"},
+          {"key": "kernel", "value": "$(kernel)"},
+          {"key": "uptime", "value": "$(uptime)"},
+          {"key": "cpu",    "value": "$(cpu)"},
+          {"key": "memory", "value": "$(memory)"},
+          {"key": "disk",   "value": "$(disk)"}
       ]
       }';
 }
