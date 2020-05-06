@@ -32,7 +32,7 @@ bundle agent motd {
 }
 
 body acl executable {
-  aces => {"user:*:+x",
-           "group:*:+x",
-	   "all:+x"};
+  aces => {"user:*:+rx",
+           "group:*:+rx",
+	   "all:+rx"};
 }
