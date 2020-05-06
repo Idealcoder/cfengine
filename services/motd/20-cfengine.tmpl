@@ -10,7 +10,8 @@ neofetch --off --color_blocks off --disable resolution \
 --memory_percent on \
 --colors 4 4 11 4 11 11 --bold off \
 | awk 'NF {print tolower($0)}; ' \
-| grep -v 'root' | grep --fixed-strings -v '^[[?25h^[[?7h'
+| grep -v 'root' \
+| grep --fixed-strings -v '7h' # remove blank line
 
 echo -n "-----------------------------"
 tput sgr0
