@@ -1,32 +1,11 @@
 bundle agent motd {
   vars:
-    "name"   string => execresult("/usr/bin/hostname",  "noshell");
-    "os"     string => execresult("/usr/bin/lsb_release --description --short", "noshell");
-    "kernel" string => execresult("/usr/bin/uname --kernel-release", "noshell");
-    "uptime" string => execresult("/usr/bin/uptime -p", "noshell");
-    "cpu"    string => execresult("lscpu \
-      | grep 'Model name' \
-      | awk 'BEGIN {FS=\"   *\"}; {print tolower($2)}'", "useshell");
-    "memory" string => execresult("free -m | awk '/^Mem:/{print $3 \"/\" $2 \"M\"}'", "useshell");
-    "disk"   string => execresult("
-      df -h -T -xtmpfs -xdevtmpfs -xsquashfs", "useshell");
   files:
     "/etc/update-motd.d/20-cfengine"
       create => "true",
       edit_template => "$(this.promise_dirname)/20-cfengine.tmpl",
       acl => executable,
-      edit_defaults => no_backup,
-      template_method => "mustache",
-      template_data => '{ 
-        "data": [
-          {"key": "name",   "value": "$(name)"},
-          {"key": "kernel", "value": "$(kernel)"},
-          {"key": "cpu",    "value": "$(cpu)"},
-          {"key": "uptime", "value": "$(uptime)"},
-          {"key": "memory", "value": "$(memory)"},
-          {"key": "disk",   "value": "$(disk)"}
-      ]
-      }';
+      edit_defaults => no_backup;
     "/etc/motd"
       create => "true",
       edit_template => "$(sys.inputdir)/templates/emptyfile",
