@@ -2,5 +2,8 @@ body common control {
   inputs => { "lib/stdlib.cf"
             , "update_repo.cf"
             , "services/motd/motd.cf" };
+
   bundlesequence => { update_repo, motd };
+
+  package_module => "apt_get";
 }
