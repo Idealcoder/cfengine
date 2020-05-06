@@ -9,6 +9,8 @@ neofetch --off --color_blocks off --disable resolution \
 --disable wm --disable theme --disable icons --disable term --disable shell \
 --memory_percent on \
 --colors 4 4 11 4 11 11 --bold off \
-| awk 'length>5 {print tolower($0)}; END {print "---"}' \
-| grep -v 'root'
+| awk 'NF {print tolower($0)}; ' \
+| grep -v 'root' | grep -v '^[[?25h^[[?7h'
+
 echo -n "-----------------------------"
+tput sgr0
