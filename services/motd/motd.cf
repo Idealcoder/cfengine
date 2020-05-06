@@ -22,7 +22,8 @@ bundle agent motd {
         service_policy => "restart";
 
   packages:
-    "neofetch";
+    "neofetch"
+      policy => present;
 }
 
 body acl executable {
