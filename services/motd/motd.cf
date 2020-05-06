@@ -7,7 +7,7 @@ bundle agent motd {
     "cpu"    string => execresult("lscpu \
       | grep 'Model name' \
       | awk 'BEGIN {FS=\"   *\"}; {print $2}'", "useshell");
-    "memory" string => execresult("/usr/bin/uptime -p", "noshell");
+    "memory" string => execresult("free -h | awk '/^Mem:/{print \"[\",$7,\"/\",$2,\"]\"}'", "useshell");
     "disk"   string => execresult("
       df -h -T -xtmpfs -xdevtmpfs -xsquashfs", "useshell");
   files:
@@ -23,8 +23,8 @@ bundle agent motd {
         "data": [
           {"key": "name",   "value": "$(name)"},
           {"key": "kernel", "value": "$(kernel)"},
-          {"key": "uptime", "value": "$(uptime)"},
           {"key": "cpu",    "value": "$(cpu)"},
+          {"key": "uptime", "value": "$(uptime)"},
           {"key": "memory", "value": "$(memory)"},
           {"key": "disk",   "value": "$(disk)"}
       ]
