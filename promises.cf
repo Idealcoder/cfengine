@@ -1,10 +1,12 @@
 body common control {
-  inputs => { "lib/stdlib.cf"
-            , "update_repo.cf"
-	    , "services/cfengine/cfengine.cf"
-            , "services/motd/motd.cf" };
+  inputs =>         { "lib/stdlib.cf"
+                    , "update_repo.cf"
+	            , "services/cfengine/cfengine.cf"
+                    , "services/motd/motd.cf" };
 
-  bundlesequence => { update_repo, motd };
+  bundlesequence => { update_repo
+                    , cfengine
+		    , motd };
 
   package_module => "apt_get";
 }
