@@ -1,9 +1,10 @@
 #!/bin/sh
 
+tput sgr0
 {{#data}}
 tput setaf 6 \
 && echo -n "{{key}}:	" \
-&& tput setaf 4 \
+&& tput setaf 3 \
 && echo "{{value}}" \
 && tput sgr0
 {{/data}}
