@@ -2,6 +2,6 @@ bundle agent motd {
   files:
     "/etc/motd"
       create => "true",
-      edit_template => "motd.tmpl",
-      template_method="mustache",
+      edit_template => "$(this.promise_dirname)/motd.tmpl",
+      template_method => "mustache";
 }

@@ -1,10 +1,10 @@
 bundle agent update_repo {
   commands:
     "/usr/bin/git"
-      args => "pull --ff-only origin master"
+      args => "pull --ff-only origin master",
       contain => inputs_contain;
 }
 
 body contain inputs_contain {
-  chdir => "/var/lib/cfengine3/inputs"
+  chdir => "/var/lib/cfengine3/inputs";
 }
