@@ -1,4 +1,5 @@
 bundle agent motd {
+
   files:
     "/etc/update-motd.d/20-cfengine"
       create => "true",
@@ -14,10 +15,14 @@ bundle agent motd {
     "/etc/ssh/sshd_config"
       edit_line => replace_or_add(".*PrintLastLog.*", "PrintLastLog no"),
       classes => if_repaired("restart_ssh");
+
   services:
     restart_ssh::
       "ssh"
         service_policy => "restart";
+
+  packages:
+    "neofetch";
 }
 
 body acl executable {
