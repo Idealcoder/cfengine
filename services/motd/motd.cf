@@ -1,11 +1,16 @@
 bundle agent motd {
+  vars:
+    "name"   string => execresult("hostname"),
+    "uptime" string => execresult("uptime -p"),
+    "memory" string => execresult("uptime -p"),
+    "disk"   string => execresult("df -h -T -xtmpfs -xdevtmpfs -xsquashfs");
   files:
     "/etc/motd"
       create => "true",
       edit_template => "$(this.promise_dirname)/motd.tmpl",
       template_method => "mustache",
       template_data => '{
-      	"hostname": "x"
+      	"name": "x"
 	"uptime": "y"
 	"memory": "z"
 	"disk": "1"
