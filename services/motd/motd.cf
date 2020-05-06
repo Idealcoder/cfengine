@@ -1,9 +1,8 @@
 bundle agent motd {
   vars:
-    # "name"   string => execresult("/usr/bin/hostname",  "noshell");
-    "name" string => execresult("echo $0", "useshell");
+    "name"   string => execresult("/usr/bin/hostname",  "noshell");
     "os"     string => execresult("/usr/bib/lsb_release --description --short", "noshell");
-    "kernel" string => execresult("/usr/bin/uname --release-version", "noshell");
+    "kernel" string => execresult("/usr/bin/uname --kernel-release", "noshell");
     "uptime" string => execresult("/usr/bin/uptime -p", "noshell");
     "cpu"    string => execresult("lscpu \
       | grep 'Model name' \
@@ -14,7 +13,10 @@ bundle agent motd {
   files:
     "/etc/motd"
       create => "true",
-      edit_template => "$(this.promise_dirname)/motd.tmpl",
+      edit_template => "$(sys.inputs)/templates/emptyfile";
+    "/etc/update-motd.d/20-cfengine"
+      create => "true",
+      edit_template => "$(this.promise_dirname)/20-cfengine.tmpl",
       template_method => "mustache",
       template_data => '{
       	"name":   "$(name)"

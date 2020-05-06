@@ -1,0 +1,11 @@
+#!/bin/sh
+
+{{#data}}
+tput setf 3 \
+&& echo "{{key}}:	" \
+&& tput setf 7 \
+&& echo "{{value}}" \
+&& tput srg0
+{{/data}}
+
+machine managed by CFEngine 3
