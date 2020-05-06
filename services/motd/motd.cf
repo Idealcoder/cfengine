@@ -4,8 +4,8 @@ bundle agent motd {
     "kernel" string => execresult("/usr/bin/uname", "noshell");
     "uptime" string => execresult("/usr/bin/uptime -p", "noshell");
 
-    "cpu"    string => execresult("lscpu
-      | grep 'Model name'
+    "cpu"    string => execresult("lscpu \
+      | grep 'Model name' \
       | awk 'BEGIN {FS=\"   *\"}; {print $2}", "useshell");
     "memory" string => execresult("/usr/bin/uptime -p", "noshell");
     "disk"   string => execresult("
