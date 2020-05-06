@@ -1,0 +1,7 @@
+bundle agent cfengine {
+  files:
+    "/var/lib/cfengine3/modules"
+      comment => "copy over module files as they are in the wrong place",
+      copy_from => local_cp("/usr/share/cfengine3/modules"),
+      depth_search => recurse("inf");
+}
