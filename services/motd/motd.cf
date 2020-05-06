@@ -10,9 +10,9 @@ bundle agent motd {
       edit_template => "$(this.promise_dirname)/motd.tmpl",
       template_method => "mustache",
       template_data => '{
-      	"name": "x"
-	"uptime": "y"
-	"memory": "z"
-	"disk": "1"
+      	"name": "$(name)"
+	"uptime": "$(uptime)"
+	"memory": "$(memory)"
+	"disk": "$(disk)"
       }';
 }
