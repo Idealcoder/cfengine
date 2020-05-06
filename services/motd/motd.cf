@@ -1,8 +1,8 @@
 bundle agent motd {
   vars:
-    "name"   string => execresult("hostname"),
-    "uptime" string => execresult("uptime -p"),
-    "memory" string => execresult("uptime -p"),
+    "name"   string => execresult("hostname");
+    "uptime" string => execresult("uptime -p");
+    "memory" string => execresult("uptime -p");
     "disk"   string => execresult("df -h -T -xtmpfs -xdevtmpfs -xsquashfs");
   files:
     "/etc/motd"
