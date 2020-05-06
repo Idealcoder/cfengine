@@ -12,6 +12,8 @@ bundle agent motd {
       edit_defaults => no_backup;
     "/etc/update-motd.d/10-uname"
       delete => tidy;
+    "/etc/ssh/sshd_config"
+      edit_line => replace_or_add(".*PrintLastLog.*", "PrintLastLog no");
 }
 
 body acl executable {
