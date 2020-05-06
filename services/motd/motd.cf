@@ -1,7 +1,7 @@
 bundle agent motd {
   vars:
     "name"   string => execresult("/usr/bin/hostname",  "noshell");
-    "os"     string => execresult("/usr/bib/lsb_release --description --short", "noshell");
+    "os"     string => execresult("/usr/bin/lsb_release --description --short", "noshell");
     "kernel" string => execresult("/usr/bin/uname --kernel-release", "noshell");
     "uptime" string => execresult("/usr/bin/uptime -p", "noshell");
     "cpu"    string => execresult("lscpu \
