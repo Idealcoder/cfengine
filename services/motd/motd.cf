@@ -11,9 +11,6 @@ bundle agent motd {
     "disk"   string => execresult("
       df -h -T -xtmpfs -xdevtmpfs -xsquashfs", "useshell");
   files:
-    "/etc/motd"
-      create => "true",
-      edit_template => "$(sys.inputdir)/templates/emptyfile";
     "/etc/update-motd.d/20-cfengine"
       create => "true",
       edit_template => "$(this.promise_dirname)/20-cfengine.tmpl",
@@ -30,6 +27,12 @@ bundle agent motd {
           {"key": "disk",   "value": "$(disk)"}
       ]
       }';
+    "/etc/motd"
+      create => "true",
+      edit_template => "$(sys.inputdir)/templates/emptyfile";
+    "/etc/update-motd.d/10-uname"
+      create => "true",
+      edit_template => "$(sys.inputdir)/templates/emptyfile";
 }
 
 body acl executable {
