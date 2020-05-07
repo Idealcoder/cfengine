@@ -5,14 +5,16 @@ body common control {
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
                     , "services/motd/motd.cf"
-		    , "services/debloat/debloat.cf"};
+		    , "services/debloat/debloat.cf"
+		    , "services/shell/shell.cf"};
 
   bundlesequence => { cfengine
                     , update_repo
                     , apt
 		    , hosts
 		    , motd
-		    , debloat };
+		    , debloat
+		    , shell };
 
   package_module => "apt_get";
 }

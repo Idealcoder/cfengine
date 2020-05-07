@@ -1,0 +1,42 @@
+bundle agent shell {
+  vars:
+    "minimal_pkgs" slist => { 
+		    # utilities missing from minbase
+		      "bash"
+		    , "bash-completion"
+		    , "less"
+		    , "man"
+		    , "ca-certificates"
+		    , "bzip2"
+
+                    # minimal useful utilities
+		    , "vim"
+		    , "git"
+		    , "ssh"
+		    , "molly-guard"
+		    , "mosh"
+		    , "etckeeper"
+		    , "ncdu"
+		    , "htop"
+		    , "rsync"
+		    , "curl"
+		    , "mtr-tiny"
+		    , "ldnsutils"
+		    , "moreutils"
+		    , "e2fsprogs"
+		    , "irqbalance"
+		    };
+
+    "workstation_pkgs" slist => { 
+		    # extra utilities, too large to install everywhere
+		      "wbritish-huge"
+		    , "mr"
+		    };
+  packages:
+    any::
+      "$(minimal_pkgs)"
+        policy => "present";
+    workstation::
+      "$(workstation_pkgs)"
+        policy => "present";
+}
