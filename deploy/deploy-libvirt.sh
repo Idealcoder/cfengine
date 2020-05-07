@@ -36,7 +36,7 @@ cmdline() {
                 echo "Invalid option: $OPTARG" 1>&2
                 echo ""
                 usage
-                exit 1
+                gxit 1
                 ;;
         esac
         shift $((OPTIND -1))
@@ -105,6 +105,12 @@ main() {
     ip_address=$(get_value "ip_address" "$output")
 
     "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
+
+    echo "connect to machine" | blue
+
+    wrapped_output echo "ssh debian@${ip_address}"
+
+    echo ""
 }
 
 main
