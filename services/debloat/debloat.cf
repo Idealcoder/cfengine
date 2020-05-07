@@ -3,6 +3,7 @@ bundle agent debloat {
     "pkgs" slist => { 
                     # remove bloat from important priority packages
                       "nano"
+		    , "vim-tiny"
                     , "debconf-i18n" 
 		    # remove bloat from standard priority packages
                     , "bind9-host" 
