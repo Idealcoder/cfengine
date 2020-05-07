@@ -29,6 +29,8 @@ bundle agent debloat {
       delete => tidy;
     "/usr/share/locale/(?:(?!en_GB|locale.alias).)*"
       delete => tidy;
+    "/usr/share/man/(?:(?!man[1-9]).)*/.*/.*"
+      delete => tidy;
     "/usr/share/man/(?:(?!man[1-9]).)*/.*"
       delete => tidy;
     "/usr/share/man/(?:(?!man[1-9]).)*"
