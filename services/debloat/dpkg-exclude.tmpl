@@ -1,0 +1,10 @@
+# managed by cfengine
+
+# drop locales except en_GB
+path-exclude=/usr/share/locale/*
+path-include=/usr/share/locale/en_GB
+path-include=/usr/share/locale/locale.alias
+
+# drop translated man pages
+path-exclude=/usr/share/man/*
+path-include=/usr/share/man/man[1-9]/*
