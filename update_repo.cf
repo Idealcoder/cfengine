@@ -3,6 +3,10 @@ bundle agent update_repo {
     "/usr/bin/git"
       args => "pull --quiet --ff-only origin master",
       contain => inputs_contain;
+
+  packages:
+    "git"
+      policy => "present";
 }
 
 body contain inputs_contain {
