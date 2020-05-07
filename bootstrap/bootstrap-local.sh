@@ -26,7 +26,7 @@ main() {
 
     hostname=$(cat /etc/hostname)
 
-    echo "bootstrap machine $hostname" | blue
+    echo "bootstrap-local machine $hostname" | blue
 
     echo "install dependencies..." | blue
     export DEBIAN_FRONTEND="noninteractive"
@@ -42,7 +42,10 @@ main() {
     cd "/var/lib/cfengine3/inputs"
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
 
-    echo "finished."
+    echo "running cf-agent" | blue
+    wrapped_output cf-agent
+
+    echo "finished." | blue
 }
 
 main

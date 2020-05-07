@@ -3,11 +3,13 @@ body common control {
                     , "update_repo.cf"
 		    , "services/apt/apt.cf"
 	            , "services/cfengine/cfengine.cf"
+	            , "services/hosts/hosts.cf"
                     , "services/motd/motd.cf" };
 
   bundlesequence => { update_repo
                     , apt
                     , cfengine
+		    , hosts
 		    , motd };
 
   package_module => "apt_get";

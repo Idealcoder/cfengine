@@ -50,7 +50,7 @@ check_root() {
     fi
 }
 
-pretty_wrapped_output() {
+wrapped_output() {
     green()  { IFS= ; while read -r line; do echo -e '\e[32m'$line'\e[0m'; done; }
     prefix="-->"
 
@@ -68,7 +68,8 @@ capture_output() {
 }
 
 get_value() {
-    echo "$2" | grep "$1" | head -n 1 | awk -F '=' '{ print $2 }'
+    echo "$2" | grep "$1" | head -n 1 \
+      | awk -F '=' '{ print $2 }' | awk -F '\033' '{ print $1 }'
 }
 
 main() {
@@ -96,14 +97,12 @@ main() {
 
     echo "expanding disk" | blue
 
-    qemu-img resize "${disk_dir}/${machine_name}.qcow2" 10G
+    wrapped_output qemu-img resize "${disk_dir}/${machine_name}.qcow2" 10G
 
     echo "creating libvirt virtual machine" | blue
-    output=$(capture_output pretty_wrapped_output create-vm "$machine_name")
+    output=$(capture_output wrapped_output create-vm "$machine_name")
 
     ip_address=$(get_value "ip_address" "$output")
-
-    echo "The ip address is $ip_address"
 
     "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
 }

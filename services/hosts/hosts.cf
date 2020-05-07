@@ -1,0 +1,13 @@
+bundle agent hosts {
+  vars:
+    "hostname" string => execresult("/usr/bin/hostname","noshell");
+  files:
+    "/etc/hosts"
+      create => "true",
+      acl => readable,
+      edit_template => "$(this.promise_dirname)/hosts.tmpl",
+      template_method => "mustache",
+      template_data => '{
+        "hostname": "$(hostname)"
+      }';
+}
