@@ -7,6 +7,6 @@ bundle agent apt {
       classes => if_repaired("clear_apt_lists");
 
   commands:
-    clear_apt_cache::
+    clear_apt_lists::
       "/usr/bin/rm -rf /var/lib/apt/lists";
 }

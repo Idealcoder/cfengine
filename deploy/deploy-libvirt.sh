@@ -106,7 +106,7 @@ main() {
 
     "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
 
-    echo "connect to debian@${ip_address}"
+    echo "connect to debian@${ip_address}" | blue
 }
 
 main
