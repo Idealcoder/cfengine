@@ -1,0 +1,22 @@
+// Managed by CFEngine3
+
+// Tweaks sourced from 
+// https://github.com/debuerreotype/debuerreotype/blob/master/scripts/debuerreotype-minimizing-config
+
+// Don't install recommend packages
+APT::Install-Recommends "false";
+APT::Install-Suggests "false";
+
+// Aggressively remove suggested packages
+Apt::AutoRemove::SuggestsImportant "false";
+
+// Remove cached packages that are installed
+APT::Clean-Installed "true";
+
+// Keep indexes compressed
+Acquire::GzipIndexes "true";
+
+// Only need english, so remove translations file
+Acquire::Languages "none";
+
+

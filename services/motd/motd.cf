@@ -1,5 +1,4 @@
 bundle agent motd {
-
   files:
     "/etc/update-motd.d/20-cfengine"
       create => "true",

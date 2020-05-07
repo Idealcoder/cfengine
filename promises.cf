@@ -1,10 +1,12 @@
 body common control {
   inputs =>         { "lib/stdlib.cf"
                     , "update_repo.cf"
+		    , "services/apt/apt.cf"
 	            , "services/cfengine/cfengine.cf"
                     , "services/motd/motd.cf" };
 
   bundlesequence => { update_repo
+                    , apt
                     , cfengine
 		    , motd };
 
