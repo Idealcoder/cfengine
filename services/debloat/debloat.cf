@@ -21,6 +21,6 @@ bundle agent debloat {
       create => "true",
       acl => readable,
       edit_template => "$(this.promise_dirname)/dpkg-excludes.tmpl";
-    "/usr/share/locale/(?:(?!en_GB|locale.alias).)*"
+    "/usr/share/locale/(?:(?!en_GB|locale.alias).)*/*/*"
       delete => tidy;
 }
