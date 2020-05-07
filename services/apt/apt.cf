@@ -2,5 +2,6 @@ bundle agent apt {
   files:
     "/etc/apt/apt.conf"
       create => "true",
+      acl => readable,
       edit_template => "$(this.promise_dirname)/apt.conf.tmpl";
 }

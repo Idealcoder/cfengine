@@ -12,3 +12,20 @@ body common control {
 
   package_module => "apt_get";
 }
+
+body agent control {
+  # put file backups in a common folder
+  default_repository => "$(sys.workdir)/backups";
+}
+
+body acl executable {
+  aces => {"user:*:+rx",
+           "group:*:+rx",
+	   "all:+rx"};
+}
+
+body acl readable {
+  aces => {"user:*:+r",
+           "group:*:+r",
+	   "all:+r"};
+}
