@@ -5,7 +5,7 @@ bundle agent shell {
 		      "bash"
 		    , "bash-completion"
 		    , "less"
-		    , "man"
+		    , "man-db"
 		    , "ca-certificates"
 		    , "bzip2"
 
@@ -17,6 +17,7 @@ bundle agent shell {
 		    , "mosh"
 		    , "etckeeper"
 		    , "ncdu"
+		    , "tree"
 		    , "htop"
 		    , "rsync"
 		    , "curl"
