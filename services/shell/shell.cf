@@ -10,7 +10,6 @@ bundle agent shell {
 		    , "bzip2"
 
                     # minimal useful utilities
-		    , "zsh"
 		    , "vim"
 		    , "git"
 		    , "ssh"

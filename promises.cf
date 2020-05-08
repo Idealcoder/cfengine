@@ -6,7 +6,8 @@ body common control {
 	            , "services/hosts/hosts.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
-		    , "services/shell/shell.cf"};
+		    , "services/shell/shell.cf"
+		    , "services/ufw/ufw.cf"};
 
   bundlesequence => { cfengine
                     , update_repo
@@ -14,7 +15,8 @@ body common control {
 		    , hosts
 		    , motd
 		    , debloat
-		    , shell };
+		    , shell 
+		    , ufw };
 
   package_module => "apt_get";
 }
@@ -35,3 +37,10 @@ body acl readable {
            "group:*:+r",
 	   "all:+r"};
 }
+
+# todo
+#
+# - ufw
+# - ssh
+# - unattended upgrades
+# - users
