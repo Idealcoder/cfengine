@@ -41,8 +41,10 @@ main() {
     ssh -o "StrictHostKeyChecking no" \
         "$remote_machine" "chmod +x ~/bootstrap-local.sh && ~/bootstrap-local.sh"
 
-    # cleanup
-    ssh "$remote_machine" "rm ~/bootstrap-local.sh"
+    # cleanup (commented out as issue with ssh key changing)
+    # @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @
+    # ssh -o "StrictHostKeyChecking no" \
+    #     "$remote_machine" "rm ~/bootstrap-local.sh"
 }
 
 main

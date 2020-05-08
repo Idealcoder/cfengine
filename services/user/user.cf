@@ -1,11 +1,15 @@
 bundle agent user {
   vars:
-    "groups" string => execresult("/usr/bin/groups debian","noshell");
+    "all_groups" string => readfile("/etc/group");
+    "debian_groups" string => execresult("/usr/bin/groups debian","noshell");
 
   classes:
-    "sshuser_set" expression => regcmp("*.sshuser.*", "$(groups)");
+    "sshuser_exists" expression => regcmp(".*sshuser.*", "$(all_groups)");
+    "sshuser_set" expression => regcmp(".*sshuser.*", "$(debian_groups)");
 
   commands:
-    !sshuser_set::
+    !sshuser_exists::
+      "/usr/sbin/addgroup sshuser";
+    sshuser_exists.!sshuser_set::
       "/usr/sbin/adduser debian sshuser";
 }

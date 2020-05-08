@@ -53,5 +53,6 @@ body acl readable {
 # - debconf level, preseed??
 # - ssh
 # - unattended upgrades
+# - apt sources
 # - users
 # - auditd?
