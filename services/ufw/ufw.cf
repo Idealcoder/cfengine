@@ -35,10 +35,7 @@ bundle agent ufw {
     ufw_active.reload_ufw::
       "ufw rules updated and reloaded";
 
-    ufw_present::
-      "test $(ufw_status)";
-
-    ufw_inactive::
+    ufw_inactive&!ufw_active::
       "WARN ufw is inactive";
 }
 
