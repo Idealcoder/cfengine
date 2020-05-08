@@ -1,4 +1,4 @@
-bundle agent motd {
+bundle agent ufw {
   packages:
     "ufw"
       policy => "present";
