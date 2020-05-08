@@ -5,10 +5,11 @@ body common control {
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
 	            , "services/ssh/ssh.cf"
+		    , "services/ufw/ufw.cf"
+		    , "services/hardening/hardening.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
-		    , "services/shell/shell.cf"
-		    , "services/ufw/ufw.cf"};
+		    , "services/shell/shell.cf" };
 
   bundlesequence => { cfengine
                     , update_repo
@@ -16,6 +17,7 @@ body common control {
 		    , hosts
 		    , ssh
 		    , ufw
+		    , hardening
 		    , motd
 		    , debloat
 		    , shell };
@@ -42,6 +44,8 @@ body acl readable {
 
 # todo
 #
+# - debconf level, preseed??
 # - ssh
 # - unattended upgrades
 # - users
+# - auditd?

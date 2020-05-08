@@ -1,0 +1,28 @@
+bundle agent hardening {
+  vars:
+    "pkgs" slist => { 
+                    # use isolated TMP directories
+                      "libpam-tmpdir"
+
+		    # apparmour
+		    , "apparmor"
+		    , "apparmor-profiles"
+		    , "apparmor-profiles-extra"
+		    };
+  packages:
+    "$(pkgs)"
+      policy => "present";
+
+  files:
+    "/etc/login.defs";
+      comment => "make home directories for new users private",
+      edit_line => replace_or_add("UMASK.*","UMASK	026");
+
+    "/etc/adduser.conf"
+      comment => "make home directories for new users private",
+      edit_line => replace_or_add("DIR_MODE.*", "DIR_MODE=0751");
+
+    #"/etc/sysctl.d/local.conf":
+}
+
+#/etc/login.defs
