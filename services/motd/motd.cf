@@ -9,20 +9,9 @@ bundle agent motd {
       edit_template => "$(sys.inputdir)/templates/emptyfile";
     "/etc/update-motd.d/10-uname"
       delete => tidy;
-    "/etc/ssh/sshd_config"
-      edit_line => replace_or_add(".*PrintLastLog.*", "PrintLastLog no"),
-      classes => if_repaired("restart_ssh");
-
-  services:
-    restart_ssh::
-      "ssh"
-        service_policy => "restart";
 
   packages:
     "neofetch"
       policy => "present";
 
-  reports:
-    restart_ssh::
-      "ssh server restarted";
 }

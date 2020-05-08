@@ -13,10 +13,11 @@ body common control {
                     , update_repo
                     , apt
 		    , hosts
+		    , ssh
+		    , ufw
 		    , motd
 		    , debloat
-		    , shell 
-		    , ufw };
+		    , shell };
 
   package_module => "apt_get";
 }
@@ -40,7 +41,6 @@ body acl readable {
 
 # todo
 #
-# - ufw
 # - ssh
 # - unattended upgrades
 # - users

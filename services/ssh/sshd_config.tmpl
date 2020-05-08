@@ -1,0 +1,39 @@
+# managed by cfengine
+
+# hardening based on https://infosec.mozilla.org/guidelines/openssh#OpenSSH_server
+HostKey /etc/ssh/ssh_host_rsa_key
+
+KexAlgorithms diffie-hellman-group-exchange-sha256
+Ciphers aes256-gcm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
+
+# password based logins are disabled - only public key based logins are allowed
+AuthenticationMethods publickey
+
+# LogLevel VERBOSE logs user's key fingerprint on login, for audit trail
+LogLevel VERBOSE
+
+# root login is not allowed to ensure a clear audit trail
+PermitRootLogin no
+
+# use kernel sandbox mechanisms where possible in unprivileged processes
+UsePrivilegeSeparation sandbox
+
+# sftp disabled as not needed
+#Subsystem     sftp    /usr/lib/openssh/sftp-server
+
+# make sure password login disabled
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+# debian configuration
+X11Forwarding no
+PrintMotd no
+AcceptEnv LANG LC_*
+ClientAliveInternal 120
+
+# removes "Last login" motd line
+PrintLastLog no
+
+# whitelist ssh access
+AllowGroups sshuser

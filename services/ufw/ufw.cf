@@ -33,10 +33,10 @@ bundle agent ufw {
 
   reports:
     ufw_active.reload_ufw::
-      "ufw rules updated and reloaded";
+      "ufw firewall rules updated and reloaded";
 
     ufw_inactive&!ufw_active::
-      "WARN ufw is inactive";
+      "ufw firewall is inactive";
 }
 
 bundle edit_line rules(type, zero) {
