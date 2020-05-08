@@ -25,7 +25,7 @@ bundle agent ufw {
 
   commands:
     ufw_inactive::
-      "/usr/sbin/ufw enable --force"
+      "/usr/sbin/ufw --force enable"
         classes => if_ok("ufw_active");
     
     ufw_active.reload_ufw::
