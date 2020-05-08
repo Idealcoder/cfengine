@@ -22,25 +22,11 @@ bundle agent hardening {
       comment => "make home directories for new users private",
       edit_line => replace_or_add("DIR_MODE.*", "DIR_MODE=0751");
 
-    "/etc/sysctl.d/local.conf"
-      create => "true",
-      acl => readable,
-      edit_template => "$(this.promise_dirname)/sysctl_local.conf.tmpl",
-      classes => if_repaired("reload_sysctl");
-
     "/etc/cron.allow"
       create => "true",
       acl => readable,
       comment => "restrict cron to root user",
       edit_line => lines_present("root");
-
-  commands:
-    reload_sysctl::
-      "/usr/sbin/sysctl --system";
-
-  reports:
-    reload_sysctl::
-      "sysctl rules reloaded";
 }
 
 #/etc/login.defs

@@ -1,0 +1,16 @@
+bundle agent sysctl {
+  files:
+    "/etc/sysctl.d/local.conf"
+      create => "true",
+      acl => readable,
+      edit_template => "$(this.promise_dirname)/local.conf.tmpl",
+      classes => if_repaired("reload_sysctl");
+
+  commands:
+    reload_sysctl::
+      "/usr/sbin/sysctl --system";
+
+  reports:
+    reload_sysctl::
+      "sysctl rules reloaded";
+}

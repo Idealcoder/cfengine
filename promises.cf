@@ -6,6 +6,7 @@ body common control {
 	            , "services/hosts/hosts.cf"
 	            , "services/ssh/ssh.cf"
 		    , "services/ufw/ufw.cf"
+		    , "services/sysctl/sysctl.cf"
 		    , "services/hardening/hardening.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
@@ -17,6 +18,7 @@ body common control {
 		    , hosts
 		    , ssh
 		    , ufw
+		    , sysctl
 		    , hardening
 		    , motd
 		    , debloat
