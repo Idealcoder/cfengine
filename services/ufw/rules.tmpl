@@ -2,10 +2,10 @@
 ### {{{ cfengine ###
 
 ### tuple ### allow tcp 22 0.0.0.0/0 any 0.0.0.0/0 in
--A $(bundle.type)-user-input -p tcp --dport 22 -j ACCEPT
+-A $(rules.type)-user-input -p tcp --dport 22 -j ACCEPT
 
 ### tuple ### allow udp 60000:61000 0.0.0.0/0 any 0.0.0.0/0 mosh - in
--A $(bundle.type)-user-input -p udp -m multiport --dports 60000:61000 -j ACCEPT -m comment --comment 'dapp_mosh'
+-A $(rules.type)-user-input -p udp -m multiport --dports 60000:61000 -j ACCEPT -m comment --comment 'dapp_mosh'
 
 ### cfengine }} ###
 
