@@ -36,7 +36,7 @@ bundle agent hardening {
 
   commands:
     reload_sysctl::
-      "/usr/sbin/sysctl -p";
+      "/usr/sbin/sysctl --system";
 
   reports:
     reload_sysctl::
