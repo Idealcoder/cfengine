@@ -1,4 +1,12 @@
 bundle agent ufw {
+  vars:
+    "ufw_status" string => execresult("/usr/sbin/ufw status", "noshell");
+  classes:
+    "ufw_active"   
+      expression => strcmp("ufw_status", "Status: active");
+    "ufw_inactive" 
+      expression => strcmp("ufw_status", "Status: inactive");
+
   packages:
     "ufw"
       policy => "present",
@@ -15,7 +23,11 @@ bundle agent ufw {
         classes => if_repaired("reload_ufw");
 
   commands:
-    reload_ufw::
+    ufw_inactive::
+      "/usr/sbin/ufw enable"
+        classes => if_ok("ufw_active");
+    
+    ufw_active.reload_ufw::
       "/usr/sbin/ufw reload";
 
   reports:
