@@ -39,6 +39,9 @@ bundle agent ufw {
 
     ufw_present::
       "test $(ufw_status)";
+
+    ufw_present::
+      "test $(ufw_inactive)";
 }
 
 bundle edit_line rules(type, zero) {
