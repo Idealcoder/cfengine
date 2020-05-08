@@ -12,7 +12,7 @@ bundle agent ufw {
 
 bundle edit_line rules4 {
   insert_lines:
-    "$(promiser.directories)/rules.tmpl"
+    "$(this.promise_dirname)/rules.tmpl"
       insert_type => "file_preserve_block",
       location => loc;
 }
