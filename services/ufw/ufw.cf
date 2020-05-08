@@ -36,6 +36,8 @@ bundle agent ufw {
   reports:
     ufw_active.reload_ufw::
       "ufw rules updated and reloaded";
+
+    "test $(ufw_status)";
 }
 
 bundle edit_line rules(type, zero) {
