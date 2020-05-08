@@ -12,9 +12,9 @@ bundle agent ufw {
       edit_line => rules("ufw6"),
       classes => if_repaired("reload_ufw");
 
-#  commands:
-#    reload_ufw::
-#      "/usr/sbin/ufw reload";
+  commands:
+    reload_ufw::
+      "/usr/sbin/ufw reload";
 
   reports:
     reload_ufw::
