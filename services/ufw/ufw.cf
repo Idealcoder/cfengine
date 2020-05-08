@@ -21,7 +21,7 @@ bundle agent ufw {
       "ufw rules updated and reloaded";
 }
 
-bundle edit_line rules(type) {
+bundle edit_line rules(type, rules) {
   insert_lines:
     "$(this.promise_dirname)/rules.tmpl"
       insert_type => "file_preserve_block",
