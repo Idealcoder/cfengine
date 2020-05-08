@@ -29,6 +29,8 @@ bundle agent hardening {
       classes => if_repaired("reload_sysctl");
 
     "/etc/cron.allow"
+      create => "true",
+      acl => readable,
       comment => "restrict cron to root user",
       edit_line => lines_present("root");
 
