@@ -20,6 +20,7 @@ PermitRootLogin no
 #Subsystem     sftp    /usr/lib/openssh/sftp-server
 
 # make sure password login disabled
+UsePAM yes
 PasswordAuthentication no
 ChallengeResponseAuthentication no
 
