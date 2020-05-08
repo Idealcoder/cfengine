@@ -40,8 +40,8 @@ bundle agent ufw {
     ufw_present::
       "test $(ufw_status)";
 
-    ufw_present::
-      "test $(ufw_inactive)";
+    ufw_inactive::
+      "WARN ufw is inactive";
 }
 
 bundle edit_line rules(type, zero) {
