@@ -6,7 +6,19 @@ bundle agent locale {
   classes:
     "locale_set" expression => strcmp("$(locale_value)", "$(locale_current)");
 
+  files:
+    "/etc/locale.gen"
+      edit_line => replace_or_add(".*$(locale_value).*","$(locale_value)"),
+      classes => if_repaired("locale_gen");
+
   commands:
     !locale_set::
       "/usr/sbin/update-locale LANG=$(locale_value)";
+
+    locale_gen::
+      "/usr/sbin/locale-gen";
+
+  reports:
+    locale_gen::
+      "regenerated locales";
 }

@@ -9,7 +9,7 @@ bundle agent user {
 
   commands:
     !sshuser_exists::
-      "/usr/sbin/addgroup sshuser";
+      "/usr/sbin/addgroup sshuser --quiet";
     sshuser_exists.!sshuser_set::
-      "/usr/sbin/adduser debian sshuser";
+      "/usr/sbin/adduser debian sshuser --quiet";
 }
