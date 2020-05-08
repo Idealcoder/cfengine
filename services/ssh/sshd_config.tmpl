@@ -24,6 +24,10 @@ UsePAM yes
 PasswordAuthentication no
 ChallengeResponseAuthentication no
 
+# harden against users with no shell access
+AllowTcpForwarding no
+AllowAgentForwarding no
+
 # debian configuration
 X11Forwarding no
 PrintMotd no

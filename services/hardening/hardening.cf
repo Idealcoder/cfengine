@@ -14,7 +14,7 @@ bundle agent hardening {
       policy => "present";
 
   files:
-    "/etc/login.defs";
+    "/etc/login.defs"
       comment => "make home directories for new users private",
       edit_line => replace_or_add("UMASK.*","UMASK	026");
 
