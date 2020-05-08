@@ -12,12 +12,13 @@ bundle agent ufw {
 
 bundle edit_line rules4 {
   insert_lines:
+    " " location => loc4;
     "### tuple ### allow tcp 22 0.0.0.0/0 any 0.0.0.0/0 in" location => loc4;
     "-A ufw-user-input -p tcp --dport 22 -j ACCEPT" location => loc4;
-    "" location => loc4;
+    " " location => loc4;
     "### tuple ### allow udp 60000:61000 0.0.0.0/0 any 0.0.0.0/0 mosh - in" location => loc4;
     "-A ufw-user-input -p udp -m multiport --dports 60000:61000 -j ACCEPT -m comment --comment 'dapp_mosh'" location => loc4;
-    "" location => loc4;
+    " " location => loc4;
 }
 
 body location loc4 {
