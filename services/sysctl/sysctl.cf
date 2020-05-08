@@ -8,7 +8,7 @@ bundle agent sysctl {
 
   commands:
     reload_sysctl::
-      "/usr/sbin/sysctl --system";
+      "/usr/sbin/sysctl --system --quiet";
 
   reports:
     reload_sysctl::

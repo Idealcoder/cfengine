@@ -4,10 +4,12 @@ body common control {
                     , "update_repo.cf"
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
+	            , "services/user/user.cf"
 	            , "services/ssh/ssh.cf"
 		    , "services/ufw/ufw.cf"
 		    , "services/sysctl/sysctl.cf"
 		    , "services/hardening/hardening.cf"
+		    , "services/locale/locale.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
 		    , "services/shell/shell.cf" };
@@ -16,10 +18,12 @@ body common control {
                     , update_repo
                     , apt
 		    , hosts
+		    , user
 		    , ssh
 		    , ufw
 		    , sysctl
 		    , hardening
+		    , locale
 		    , motd
 		    , debloat
 		    , shell };

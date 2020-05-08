@@ -1,0 +1,11 @@
+bundle agent user {
+  vars:
+    "groups" string => execresult("/usr/bin/groups debian","noshell");
+
+  classes:
+    "sshuser_set" expression => regcmp("*.sshuser.*", "$(groups)");
+
+  commands:
+    !sshuser_set::
+      "/usr/sbin/adduser debian sshuser";
+}
