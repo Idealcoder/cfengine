@@ -5,15 +5,16 @@ bundle agent ufw {
       
   files:
     "/etc/ufw/user.rules"
-      edit_line => rules4;
-#   "/etc/ufw/user6.rules"
-#     edit_line => rules6;
+      edit_line => rules("ufw");
+    "/etc/ufw/user6.rules"
+      edit_line => rules("ufw6");
 }
 
-bundle edit_line rules4 {
+bundle edit_line rules(type) {
   insert_lines:
-    "$(this.promise_dirname)/rules.tmpl"
+    "$(this.promise_dirnamt)/rules.tmpl"
       insert_type => "file_preserve_block",
+      expand_scalars => "true",
       location => loc;
 }
 
