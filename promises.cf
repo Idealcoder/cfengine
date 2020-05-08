@@ -4,6 +4,7 @@ body common control {
                     , "update_repo.cf"
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
+	            , "services/ssh/ssh.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
 		    , "services/shell/shell.cf"
