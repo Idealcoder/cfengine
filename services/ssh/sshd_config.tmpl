@@ -16,9 +16,6 @@ LogLevel VERBOSE
 # root login is not allowed to ensure a clear audit trail
 PermitRootLogin no
 
-# use kernel sandbox mechanisms where possible in unprivileged processes
-UsePrivilegeSeparation sandbox
-
 # sftp disabled as not needed
 #Subsystem     sftp    /usr/lib/openssh/sftp-server
 
@@ -30,7 +27,7 @@ ChallengeResponseAuthentication no
 X11Forwarding no
 PrintMotd no
 AcceptEnv LANG LC_*
-ClientAliveInternal 120
+ClientAliveInterval 120
 
 # removes "Last login" motd line
 PrintLastLog no
