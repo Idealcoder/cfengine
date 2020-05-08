@@ -4,10 +4,21 @@ bundle agent ufw {
       policy => "present";
       
   files:
+    # same rules for ipv4 and ipv6
     "/etc/ufw/user.rules"
-      edit_line => rules("ufw");
+      edit_line => rules("ufw"),
+      classes => if_repaired("reload_ufw");
     "/etc/ufw/user6.rules"
-      edit_line => rules("ufw6");
+      edit_line => rules("ufw6"),
+      classes => if_repaired("reload_ufw");
+
+  commands:
+    reload_ufw::
+      "/usr/sbin/ufw reload";
+
+  reports:
+    reload_ufw::
+      "ufw rules updated and reloaded";
 }
 
 bundle edit_line rules(type) {

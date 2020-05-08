@@ -21,4 +21,8 @@ bundle agent motd {
   packages:
     "neofetch"
       policy => "present";
+
+  reports:
+    restart_ssh::
+      "ssh server restarted";
 }
