@@ -1,6 +1,8 @@
 bundle agent locale {
   vars:
     "locale_value" string => "en_GB.UTF-8 UTF-8";
+    "locale_single" string => "en_GB.UTF-8";
+
     "locale_current" string => readfile("/etc/default/locale");
 
   classes:
@@ -13,10 +15,7 @@ bundle agent locale {
 
   commands:
     !locale_set::
-      "/usr/sbin/update-locale LANG=\"$(locale_value)\""
-        # need to use shell, due to bug in how cfengine parses arguments
-        contain => in_shell;
-
+      "/usr/sbin/update-locale LANG=$(locale_single)";
 
     locale_gen::
       "/usr/sbin/locale-gen";
