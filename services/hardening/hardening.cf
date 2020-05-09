@@ -28,7 +28,7 @@ bundle agent hardening {
       comment => "restrict cron to root user",
       edit_line => lines_present("root");
 
-    "/root/.bash_profile"
+    "/root/.profile"
       create => "true",
       acl => readable,
       comment => "make root sessions timeout",
