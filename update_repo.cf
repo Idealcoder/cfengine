@@ -1,7 +1,7 @@
 bundle agent update_repo {
   commands:
     "/usr/bin/git"
-      args => "pull --quiet --ff-only --verify-commits origin master",
+      args => "pull --quiet --ff-only --verify-signatures origin master",
       contain => inputs_contain;
 
   packages:
