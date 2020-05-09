@@ -22,3 +22,6 @@ net.ipv6.conf.default.accept_source_route = 0
 # reboot machine after kernel panic
 kernel.panic=60
 
+# reduce buffer bloat
+net.core.default_qdisc=fq_codel
+

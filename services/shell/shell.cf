@@ -14,11 +14,14 @@ bundle agent shell {
 		    , "git"
 		    , "ssh"
 		    , "molly-guard"
+		    , "safe-rm"
 		    , "mosh"
 		    , "etckeeper"
 		    , "ncdu"
 		    , "tree"
+		    , "lsof"
 		    , "htop"
+		    , "iotop"
 		    , "rsync"
 		    , "curl"
 		    , "mtr-tiny"
@@ -26,12 +29,17 @@ bundle agent shell {
 		    , "moreutils"
 		    , "e2fsprogs"
 		    , "irqbalance"
+		    , "netcat-openbsd"
+		    , "command-not-found"
+		    , "nocache"
+		    , "apt-file"
 		    };
 
     "workstation_pkgs" slist => { 
 		    # extra utilities, too large to install everywhere
 		      "wbritish-huge"
 		    , "mr"
+		    , "ranger"
 		    };
   packages:
     any::

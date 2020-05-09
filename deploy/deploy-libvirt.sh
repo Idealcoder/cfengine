@@ -104,7 +104,7 @@ main() {
 
     ip_address=$(get_value "ip_address" "$output")
 
-    "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
+    time "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
 
     echo "connect to debian@${ip_address}" | blue
 }
