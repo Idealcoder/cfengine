@@ -1,0 +1,3 @@
+# apt install apticron unattended-upgrades deborphan debfoster apt-listchanges reboot-notifier popularity-contest needrestart debian-security-support distro-info
+
+# and update-notifier?
