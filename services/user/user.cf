@@ -11,5 +11,5 @@ bundle agent user {
     !sshuser_exists::
       "/usr/sbin/addgroup sshuser --quiet";
     sshuser_exists.!sshuser_set::
-      "/usr/sbin/adduser debian sshuser --quiet";
+      "/usr/sbin/adduser --quiet debian sshuser";
 }
