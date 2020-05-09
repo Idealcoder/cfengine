@@ -23,5 +23,8 @@ bundle agent locale {
       "regenerated locales";
 
     any::
+      "hello??";
+
+    any::
       "/usr/sbin/update-locale LANG='$(locale_value)'";
 }
