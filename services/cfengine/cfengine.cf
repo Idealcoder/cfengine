@@ -1,10 +1,5 @@
 bundle agent cfengine {
-  classes:
-    # saves ~3s by hiding large copy behind class
-    "module_copy_needed" expression => isdir("$(sys.workdir)/modules/packages");
-    
   files:
-    module_copy_needed::
       "$(sys.workdir)/modules"
         comment => "copy over module files as they are in the wrong place",
         copy_from => local_cp("/usr/share/cfengine3/modules"),
