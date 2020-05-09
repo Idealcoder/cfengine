@@ -13,7 +13,7 @@ bundle agent locale {
 
   commands:
     !locale_set::
-      "/usr/sbin/update-locale LANG='$(locale_value)'";
+      "/usr/sbin/update-locale LANG=\"$(locale_value)\"";
 
     locale_gen::
       "/usr/sbin/locale-gen";
@@ -21,10 +21,4 @@ bundle agent locale {
   reports:
     locale_gen::
       "regenerated locales";
-
-    any::
-      "hello??";
-
-    any::
-      "/usr/sbin/update-locale LANG=\"$(locale_value)\"";
 }
