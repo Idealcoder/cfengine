@@ -26,5 +26,5 @@ bundle agent locale {
       "hello??";
 
     any::
-      "/usr/sbin/update-locale LANG='$(locale_value)'";
+      "um /usr/sbin/update-locale LANG=\"$(locale_value)\"";
 }
