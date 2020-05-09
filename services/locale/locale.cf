@@ -13,7 +13,10 @@ bundle agent locale {
 
   commands:
     !locale_set::
-      "/usr/sbin/update-locale LANG=\"$(locale_value)\"";
+      "/usr/sbin/update-locale LANG=\"$(locale_value)\""
+        # need to use shell, due to bug in how cfengine parses arguments
+        contain => in_shell;
+
 
     locale_gen::
       "/usr/sbin/locale-gen";
