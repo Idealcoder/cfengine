@@ -1,0 +1,13 @@
+# managed by cfengine
+
+deb http://deb.debian.org/debian {{vars.release}} {{vars.repos}}
+deb-src http://deb.debian.org/debian {{release}} {{vars.repos}}
+
+{{#classes.is_stable}}
+deb http://security.debian.org/ {{vars.release}}/updates {{vars.repos}}
+deb-src http://security.debian.org/ {{vars.release}}/updates {{vars.repos}}
+
+deb http://deb.debian.org/debian {{vars.release}}-backports {{vars.repos}} 
+deb-src http://deb.debian.org/debian {{vars.release}}-backports {{vars.repos}} 
+{{/classes.is_stable}}
+

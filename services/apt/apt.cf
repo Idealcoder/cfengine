@@ -1,10 +1,25 @@
-bundle agent apt {
+bundle agent apt(release) {
+  vars:
+    "repos" string => "main";
+
+  classes:
+    "testing" expression => strcmp("$(release)","testing");
+    "unstable" expression => strcmp("$(release)","unstable");
+    "experimental" expression => strcmp("$(release)","experimental");
+    "is_stable" expression => "!(testing|unstable|experimental)";
+
   files:
     "/etc/apt/apt.conf"
       create => "true",
       acl => readable,
       edit_template => "$(this.promise_dirname)/apt.conf.tmpl",
       classes => if_repaired("clear_apt_lists");
+
+    "/etc/apt/sources.list"
+      create => "true",
+      acl => readable,
+      edit_template => "$(this.promise_dirname)/apt.conf.tmpl",
+      template_method => "mustache";
 
   commands:
     clear_apt_lists::

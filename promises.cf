@@ -16,7 +16,7 @@ body common control {
 
   bundlesequence => { cfengine
                     , update_repo
-                    , apt
+                    , apt("buster")
 		    , hosts
 		    , user
 		    , ssh
@@ -59,7 +59,3 @@ body acl readable {
 # - run cf-agent at defined intervals, with proper logging.
 # - git signed commits
 # - CI/CD
-
-
-
-
