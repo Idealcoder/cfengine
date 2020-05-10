@@ -18,7 +18,7 @@ bundle agent apt(release) {
     "/etc/apt/sources.list"
       create => "true",
       acl => readable,
-      edit_template => "$(this.promise_dirname)/apt.conf.tmpl",
+      edit_template => "$(this.promise_dirname)/sources.list.tmpl",
       template_method => "mustache";
 
   commands:
