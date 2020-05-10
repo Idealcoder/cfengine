@@ -35,8 +35,13 @@ main() {
         git gpg gpg-agent dirmngr cfengine3
 
     echo "add trusted gpg key" | blue
+    gpg_key="CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF"
     wrapped_output gpg --keyserver  keys.gnupg.net \
-        --recv-keys CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF
+        --recv-keys "$gpg_key"
+    # TODO - import subkeys
+
+    # hack to non-interactively trust gpg key
+    echo "$gpg_key:6:" | wrapped_output gpg --import-ownertrust
 
     echo "clone cfengine repo" | blue
     cd "/var/lib/cfengine3/inputs"
