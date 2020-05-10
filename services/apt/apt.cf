@@ -19,7 +19,12 @@ bundle agent apt(release) {
       create => "true",
       acl => readable,
       edit_template => "$(this.promise_dirname)/sources.list.tmpl",
-      template_method => "mustache";
+      template_method => "mustache",
+      template_data => '{
+        "release": "$(release)",
+	"repos": "$(repos)",
+	"is_stable": $(is_stable)
+      }';
 
   commands:
     clear_apt_lists::
