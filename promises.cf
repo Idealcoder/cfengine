@@ -12,7 +12,8 @@ body common control {
 		    , "services/locale/locale.cf"
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
-		    , "services/shell/shell.cf" };
+		    , "services/shell/shell.cf" 
+		    , "services/journald/journald.cf"};
 
   bundlesequence => { cfengine
                     , update_repo
@@ -25,8 +26,9 @@ body common control {
 		    , hardening
 		    , locale
 		    , motd
+		    , shell
 		    , debloat
-		    , shell };
+		    , journald };
 
   package_module => "apt_get";
 }

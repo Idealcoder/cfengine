@@ -1,0 +1,6 @@
+bundle agent journald {
+  files:
+    "/etc/systemd/journald.conf"
+      comment => "limit max size of journal",
+      edit_line => replace_or_add(".*SystemMaxUse.*", "SystemMaxUse=50M");
+}
