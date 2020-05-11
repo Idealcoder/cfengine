@@ -17,7 +17,7 @@ body common control {
 
   bundlesequence => { cfengine
                     , update_repo
-                    , apt("buster")
+                    , apt("unstable")
 		    , hosts
 		    , user
 		    , ssh
