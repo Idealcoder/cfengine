@@ -2,11 +2,17 @@ bundle agent apt(release) {
   vars:
     "repos" string => "main";
 
+    is_stable_flag::
+      "is_stable" string => "true";
+
+    !is_stable_flag::
+      "is_stable" string => "false";
+
   classes:
     "testing" expression => strcmp("$(release)","testing");
     "unstable" expression => strcmp("$(release)","unstable");
     "experimental" expression => strcmp("$(release)","experimental");
-    "is_stable" expression => "!(testing|unstable|experimental)";
+    "is_stable_flag" expression => "!(testing|unstable|experimental)";
 
   files:
     "/etc/apt/apt.conf"
@@ -29,4 +35,7 @@ bundle agent apt(release) {
   commands:
     clear_apt_lists::
       "/usr/bin/rm -rf /var/lib/apt/lists";
+
+  reports:
+    "is_stable? $(is_stable)";
 }
