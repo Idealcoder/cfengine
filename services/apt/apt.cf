@@ -32,7 +32,7 @@ bundle agent apt(release) {
 	"is_stable": $(is_stable)
       }';
 
-    "/etc/apt/sources.list.d/backports"
+    "/etc/apt/sources.list.d/backports.list"
       delete => tidy;
 
   commands:
