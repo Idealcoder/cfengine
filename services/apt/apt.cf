@@ -38,7 +38,4 @@ bundle agent apt(release) {
   commands:
     clear_apt_lists::
       "/usr/bin/rm -rf /var/lib/apt/lists";
-
-  reports:
-    "is_stable? $(is_stable)";
 }
