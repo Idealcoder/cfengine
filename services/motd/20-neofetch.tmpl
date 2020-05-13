@@ -5,14 +5,13 @@
 export TERM=xterm-256color
 tput sgr0
 
-echo    "-------------------------------------"
+echo "--------------------------------------"
 
-neofetch --off --config /usr/local/etc/neofetch.conf \ 
---color_blocks off \
---memory_percent on --disk_percent on --cpu_temp C \
-| grep -v 'red hat' \
+neofetch --config "/usr/local/etc/neofetch.conf" \
+--off --memory_percent on --disk_percent on --cpu_temp C \
+| grep -v 'Red Hat' \
 | awk 'NF {print $0}' \
 | grep --fixed-strings -v '7h' # remove blank lines
 
 tput sgr0
-echo -n "-------------------------------------"
+echo "--------------------------------------"
