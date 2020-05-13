@@ -4,7 +4,7 @@ bundle agent motd {
       create => "true",
       edit_template => "$(this.promise_dirname)/20-neofetch.tmpl",
       acl => executable;
-    "/usr/local/etc/netfetch.conf"
+    "/usr/local/etc/neofetch.conf"
       create => "true",
       edit_template => "$(this.promise_dirname)/neofetch_config.conf.tmpl",
       acl => readable;
