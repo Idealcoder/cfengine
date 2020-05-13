@@ -17,7 +17,7 @@ body common control {
 
   bundlesequence => { cfengine
                     , update_repo
-                    , apt("unstable")
+                    , apt("buster")
 		    , hosts
 		    , user
 		    , ssh
@@ -55,9 +55,7 @@ body acl readable {
 # - debconf level, preseed??
 # - ssh
 # - unattended upgrades
-# - apt sources
 # - users
 # - auditd?
 # - run cf-agent at defined intervals, with proper logging.
-# - git signed commits
 # - CI/CD

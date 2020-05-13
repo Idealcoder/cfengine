@@ -2,13 +2,18 @@ bundle agent motd {
   files:
     "/etc/update-motd.d/20-cfengine"
       create => "true",
-      edit_template => "$(this.promise_dirname)/20-cfengine.tmpl",
+      edit_template => "$(this.promise_dirname)/20-neofetch.tmpl",
       acl => executable;
+    "/usr/local/etc/netfetch.conf"
+      create => "true",
+      edit_template => "$(this.promise_dirname)/neofetch_config.conf.tmpl",
+      acl => readable;
     "/etc/motd"
       create => "true",
       edit_template => "$(sys.inputdir)/templates/emptyfile";
     "/etc/update-motd.d/10-uname"
       delete => tidy;
+
 
   packages:
     "neofetch"
