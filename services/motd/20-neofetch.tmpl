@@ -8,6 +8,7 @@ tput sgr0
 echo    "-------------------------------------"
 
 neofetch --off --config /usr/local/etc/neofetch.conf \ 
+--colour_blocks off \
 --memory_percent on --disk_percent on --cpu_temp C \
 | grep -v 'red hat' \
 | awk 'NF {print $0}' \
