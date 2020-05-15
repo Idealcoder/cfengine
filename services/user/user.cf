@@ -24,6 +24,7 @@ bundle agent user_present(my_user, my_groups) {
 	        , "--shell /bin/zsh"
 		, "--add_extra_groups"
 		, "--disabled-password"
+		, "--gecos ''"
 		, "$(my_user)"};
       "/usr/sbin/addgroup"
         arglist => { "--quiet"
