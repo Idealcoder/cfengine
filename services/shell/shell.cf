@@ -25,6 +25,7 @@ bundle agent shell {
 		    , "rsync"
 		    , "curl"
 		    , "mtr-tiny"
+		    , "silversearcher-ag"
 		    , "ldnsutils"
 		    , "moreutils"
 		    , "e2fsprogs"
@@ -33,6 +34,7 @@ bundle agent shell {
 		    , "command-not-found"
 		    , "nocache"
 		    , "apt-file"
+		    , "debian-goodies"
 		    };
 
     "workstation_pkgs" slist => { 
