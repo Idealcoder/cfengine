@@ -5,9 +5,9 @@ bundle agent user {
 
   methods: 
     "groups"
-      usebundle => group_present(group);
+      usebundle => group_present("$(groups)");
     "users"
-      usebundle => user_present(user,"sudo sshuser");
+      usebundle => user_present("$(users)","sudo sshuser");
 }
 
 bundle agent group_present(my_group) {
@@ -25,7 +25,7 @@ bundle agent user_present(my_user, my_groups) {
 
   commands:
     !user_exists::
-      "/usr/bin/adduser"
+      "/usr/sbin/adduser"
         arglist => { "--quiet"
 	        , "--shell /bin/zsh"
 		, "--add_extra_groups"
