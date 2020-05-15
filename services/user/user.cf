@@ -10,13 +10,13 @@ bundle agent user {
       usebundle => user_present("$(user)","sudo sshuser");
 }
 
-bundle agent group_present(group) {
+bundle agent group_present(me) {
   classes:
-   "group_exists" expression => groupexists("$(group)");
+   "group_exists" expression => groupexists("$(me)");
 
   commands:
     !group_exists::
-      "/usr/sbin/addgroup --quiet $(group)";
+      "/usr/sbin/addgroup --quiet $(me)";
 }
 
 bundle agent user_present(user, groups) {
