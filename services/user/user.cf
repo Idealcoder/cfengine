@@ -10,18 +10,18 @@ bundle agent user {
       usebundle => user_present("$(user)","sudo sshuser");
 }
 
-bundle agent group_present(me) {
+bundle agent group_present(my_group) {
   classes:
-   "group_exists" expression => groupexists("$(me)");
+   "group_exists" expression => groupexists("$(my_group)");
 
   commands:
     !group_exists::
-      "/usr/sbin/addgroup --quiet $(me)";
+      "/usr/sbin/addgroup --quiet $(my_group)";
 }
 
-bundle agent user_present(user, groups) {
+bundle agent user_present(my_user, my_groups) {
   classes:
-    "user_exists" expression => userexists("$(user)");
+    "user_exists" expression => userexists("$(my_user)");
 
   commands:
     !user_exists::
@@ -29,9 +29,10 @@ bundle agent user_present(user, groups) {
         arglist => { "--quiet"
 	        , "--shell /bin/zsh"
 		, "--add_extra_groups"
-		, "--disabled-password"};
+		, "--disabled-password"
+		, "$(my_user)"};
       "/usr/bin/addgroup"
         arglist => { "--quiet"
-	        , "$(user)"
-		, "$(groups)"};
+	        , "$(my_user)"
+		, "$(my_groups)"};
 }
