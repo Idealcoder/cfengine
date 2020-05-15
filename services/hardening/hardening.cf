@@ -8,6 +8,9 @@ bundle agent hardening {
 		    , "apparmor"
 		    , "apparmor-profiles"
 		    , "apparmor-profiles-extra"
+
+		    # check covered by security updates
+		    , "debian-security-support"
 		    };
   packages:
     "$(pkgs)"
