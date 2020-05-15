@@ -1,27 +1,21 @@
 bundle agent user {
   vars:
     "users"  slist => {"idealcoder"};
-    "groups" slist => {"sshuser"};
+    "groups" slist => {"sudo", "sshuser"};
 
   methods: 
-    "groups"
-      usebundle => group_present("$(groups)");
     "users"
-      usebundle => user_present("$(users)","sudo sshuser");
-}
-
-bundle agent group_present(my_group) {
-  classes:
-   "group_exists" expression => groupexists("$(my_group)");
-
-  commands:
-    !group_exists::
-      "/usr/sbin/addgroup --quiet $(my_group)";
+      usebundle => user_present("$(users)",@(groups));
 }
 
 bundle agent user_present(my_user, my_groups) {
   classes:
     "user_exists" expression => userexists("$(my_user)");
+
+  methods:
+    "groups_present"
+      usebundle => group_present("$(my_groups)"),
+      handle => "groups_present";
 
   commands:
     !user_exists::
@@ -31,8 +25,18 @@ bundle agent user_present(my_user, my_groups) {
 		, "--add_extra_groups"
 		, "--disabled-password"
 		, "$(my_user)"};
-      "/usr/bin/addgroup"
+      "/usr/sbin/addgroup"
         arglist => { "--quiet"
 	        , "$(my_user)"
-		, "$(my_groups)"};
+		, join(" ", my_groups)},
+	depends_on => "groups_present";
+}
+
+bundle agent group_present(my_group) {
+  classes:
+   "group_exists" expression => groupexists("$(my_group)");
+
+  commands:
+    !group_exists::
+      "/usr/sbin/addgroup --quiet $(my_group)";
 }
