@@ -5,9 +5,9 @@ bundle agent user {
 
   methods: 
     "groups"
-      usebundle => group_present("$(group)");
+      usebundle => group_present(group);
     "users"
-      usebundle => user_present("$(user)","sudo sshuser");
+      usebundle => user_present(user,"sudo sshuser");
 }
 
 bundle agent group_present(my_group) {
