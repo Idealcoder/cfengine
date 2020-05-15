@@ -5,10 +5,10 @@ bundle agent user {
 
   methods: 
     "users"
-      usebundle => user_present("$(users)",@(groups));
+      usebundle => user_present("$(users)",@(groups), "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDKu7k5izwBCa8YNqrzmtCNwWyFlY0GLQu9lRgDqE5INzXed0AKodeS4y");
 }
 
-bundle agent user_present(my_user, my_groups) {
+bundle agent user_present(my_user, my_groups, key) {
   classes:
     "user_exists" expression => userexists("$(my_user)");
 
@@ -25,12 +25,20 @@ bundle agent user_present(my_user, my_groups) {
 		, "--add_extra_groups"
 		, "--disabled-password"
 		, "--gecos ''"
-		, "$(my_user)"};
+		, "$(my_user)"},
+	classes => if_ok("user_exists");
+
       "/usr/sbin/addgroup"
+	depends_on => {"groups_present"},
         arglist => { "--quiet"
 	        , "$(my_user)"
-		, "$(my_groups)"},
-	depends_on => {"groups_present"};
+		, "$(my_groups)"};
+
+  files:
+    user_exists::
+      # assumes home directory place
+      "/home/$(my_user)/.ssh/authorized_keys"
+        edit_line => lines_present(key);
 }
 
 bundle agent group_present(my_group) {
