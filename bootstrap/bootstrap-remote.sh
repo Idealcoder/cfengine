@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copyright (c) 2020, Loïc Deraed
 
-# Bootstrap cfengine to a new remote machine
+# Bootstrap cfengine onto remote machine
 #
 # Usage: bootstrap-remote user@ip_address
 
@@ -10,6 +10,7 @@ readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS="$@"
 
 set -e
+set -o pipefail
 
 # coloured output
 green() { IFS= ; while read -r line; do echo -e '\e[32m'$line'\e[0m'; done; }
