@@ -48,7 +48,8 @@ main() {
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
 
     echo "running cf-agent" | blue
-    wrapped_output cf-agent
+    #wrapped_output cf-agent
+    cf-agent
 
     echo "finished." | blue
 }
