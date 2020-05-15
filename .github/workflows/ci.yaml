@@ -1,0 +1,14 @@
+name: ci 
+on: [push]
+
+jobs:
+  build:
+    name: test-local-vm
+    runs-on: debian-latest
+    steps:
+       - name: Checkout
+         uses: actions/checkout@v1`
+
+       - name: bootstrap-local
+         run: ./bootstrap/bootstrap-local
+
