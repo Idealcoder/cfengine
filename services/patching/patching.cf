@@ -22,7 +22,6 @@ bundle agent patching(enable) {
         policy => "present";
 }
 
-
 # apt install apt-listchanges reboot-notifier popularity-contest needrestart  distro-info
 
 # and update-notifier?
