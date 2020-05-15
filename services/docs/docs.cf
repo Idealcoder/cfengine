@@ -1,0 +1,21 @@
+bundle agent docs {
+  vars:
+    # packages containing documentation
+    "pkgs" slist => { 
+        "debian-faq"
+      , "debian-history"
+      , "debian-kernel-handbook"
+      , "debian-policy"
+      , "debian-refcard"
+      , "debian-reference-en"
+      , "installation-guide"
+      , "aptitude-doc"
+      , "apt-doc"
+      , "java-common"
+      , "harden-doc"
+      , "debian-handbook"};
+
+  packages:
+    "$(pkgs)"
+      policy => "present";
+}
