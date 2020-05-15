@@ -10,6 +10,7 @@ readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS="$@"
 
 set -e
+set -o pipefail
 
 # coloured output
 green() { IFS= ; while read -r line; do echo -e '\e[32m'$line'\e[0m'; done; }
