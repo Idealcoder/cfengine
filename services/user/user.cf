@@ -1,15 +1,37 @@
 bundle agent user {
   vars:
-    "all_groups" string => readfile("/etc/group");
-    "debian_groups" string => execresult("/usr/bin/groups debian","noshell");
+    "users"  slist => {"idealcoder"};
+    "groups" slist => {"sshuser"};
 
+  methods: 
+    "groups"
+      usebundle => group_present("$(group)");
+    "users"
+      usebundle => user_present("$(user)","sudo sshuser");
+}
+
+bundle agent group_present(group) {
   classes:
-    "sshuser_exists" expression => regcmp(".*sshuser.*", "$(all_groups)");
-    "sshuser_set" expression => regcmp(".*sshuser.*", "$(debian_groups)");
+   "group_exists" expression => groupexists("$(group)");
 
   commands:
-    !sshuser_exists::
-      "/usr/sbin/addgroup sshuser --quiet";
-    sshuser_exists.!sshuser_set::
-      "/usr/sbin/adduser --quiet debian sshuser";
+    !group_exists::
+      "/usr/sbin/addgroup --quiet $(group)";
+}
+
+bundle agent user_present(user, groups) {
+  classes:
+    "user_exists" expression => userexists("$(user)");
+
+  commands:
+    !user_exists::
+      "/usr/bin/adduser"
+        arglist => { "--quiet"
+	        , "--shell /bin/zsh"
+		, "--add_extra_groups"
+		, "--disabled-password"};
+      "/usr/bin/addgroup"
+        arglist => { "--quiet"
+	        , "$(user)"
+		, "$(groups)"};
 }
