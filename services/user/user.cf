@@ -38,6 +38,7 @@ bundle agent user_present(my_user, my_groups, key) {
     user_exists::
       # assumes home directory place
       "/home/$(my_user)/.ssh/authorized_keys"
+        create => "true",
         edit_line => lines_present(key);
 }
 
