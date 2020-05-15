@@ -7,9 +7,11 @@ body common control {
 	            , "services/user/user.cf"
 	            , "services/ssh/ssh.cf"
 		    , "services/ufw/ufw.cf"
+		    , "services/patching/patching.cf"
 		    , "services/sysctl/sysctl.cf"
 		    , "services/hardening/hardening.cf"
 		    , "services/locale/locale.cf"
+
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
 		    , "services/shell/shell.cf" 
@@ -22,9 +24,11 @@ body common control {
 		    , user
 		    , ssh
 		    , ufw
+		    , patching("true")
 		    , sysctl
 		    , hardening
 		    , locale
+
 		    , motd
 		    , shell
 		    , debloat
@@ -54,7 +58,6 @@ body acl readable {
 #
 # - debconf level, preseed??
 # - ssh
-# - unattended upgrades
 # - users
 # - auditd?
 # - run cf-agent at defined intervals, with proper logging.

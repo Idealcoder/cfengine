@@ -1,3 +1,28 @@
-# apt install apticron unattended-upgrades deborphan debfoster apt-listchanges reboot-notifier popularity-contest needrestart debian-security-support distro-info
+bundle agent patching(enable) {
+  classes:
+    "is_enabled" expression => strcmp("$(enable)","true");
+
+  files:
+    is_enabled::
+      "/etc/apt/apt.conf.d/90patching"
+        create => "true",
+        acl => readable,
+        edit_template => "$(this.promise_dirname)/90patching.tmpl";
+
+  packages:
+    is_enabled::
+      "unattended-upgrades"
+        policy => "present";
+    !is_enabled::
+      "unattended-upgrades"
+        policy => "absent";
+      "apticron"
+        policy => "present";
+      "reboot-notifier"
+        policy => "present";
+}
+
+
+# apt install apt-listchanges reboot-notifier popularity-contest needrestart  distro-info
 
 # and update-notifier?
