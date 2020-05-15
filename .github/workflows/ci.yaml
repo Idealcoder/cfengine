@@ -5,6 +5,7 @@ jobs:
   build:
     name: test-local-vm
     runs-on: ubuntu-latest
+    container: stretch
     steps:
        - uses: actions/checkout@v2
 
