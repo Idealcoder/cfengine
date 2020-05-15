@@ -51,7 +51,7 @@ main() {
     #wrapped_output cf-agent
     cf-agent
 
-    echo ?$
+    echo $?
 
     echo "finished." | blue
 }
