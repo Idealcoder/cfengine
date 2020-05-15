@@ -29,7 +29,7 @@ bundle agent user_present(my_user, my_groups) {
       "/usr/sbin/addgroup"
         arglist => { "--quiet"
 	        , "$(my_user)"
-		, join(" ", my_groups)},
+		, "$(my_groups)"},
 	depends_on => {"groups_present"};
 }
 
