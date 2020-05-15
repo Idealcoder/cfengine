@@ -36,9 +36,8 @@ main() {
 
     echo "add trusted gpg key" | blue
     gpg_key="CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF"
-    wrapped_output gpg --keyserver  keys.gnupg.net \
+    wrapped_output gpg --keyserver keys.openpgp.org \
         --recv-keys "$gpg_key"
-    # TODO - import subkeys
 
     # hack to non-interactively trust gpg key
     echo "$gpg_key:6:" | wrapped_output gpg --import-ownertrust
