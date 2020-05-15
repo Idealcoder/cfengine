@@ -8,5 +8,5 @@ jobs:
     steps:
        - uses: actions/checkout@v2
 
-       - run: ./bootstrap/bootstrap-local
+       - run: ./bootstrap/bootstrap-local.sh
 
