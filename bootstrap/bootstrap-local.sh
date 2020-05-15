@@ -59,7 +59,7 @@ main() {
     echo "finished." | blue
 
     # check for failure as cf-agent does not set exit code
-    [echo "$output" | grep "error:" ] || exit 1
+    echo "$output" | grep "error:" && exit 1
 }
 
 main
