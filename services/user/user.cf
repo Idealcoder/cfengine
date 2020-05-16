@@ -1,6 +1,6 @@
 bundle agent user {
   methods: 
-    "users"
+    "idealcoder"
       usebundle => user_present('{
         "user": "idealcoder",
         "groups": ["sudo", "sshuser"],
