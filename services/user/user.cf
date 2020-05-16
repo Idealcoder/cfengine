@@ -34,7 +34,7 @@ bundle agent user_present(data) {
   methods:
     user_exists::
       "user_has_group"
-        usebundle => user_has_group("$(user)","$(group)");
+        usebundle => user_has_group("$(user)","$(groups)");
       "user_has_sshkeys"
         usebundle => user_has_sshkeys("$(user)","$(sshkeys)");
 }
@@ -58,7 +58,7 @@ bundle agent user_has_group(user, group) {
 	depends_on => {"group_present"},
         arglist => { "--quiet"
 	        , "$(user)"
-		, "$(groups)"};
+		, "$(group)"};
 }
 
 bundle agent user_has_sshkeys(user, sshkeys) {
@@ -70,11 +70,11 @@ bundle agent user_has_sshkeys(user, sshkeys) {
         edit_line => lines_present(@(sshkeys));
 }
 
-bundle agent group_present(my_group) {
+bundle agent group_present(group) {
   classes:
-   "group_exists" expression => groupexists("$(my_group)");
+   "group_exists" expression => groupexists("$(group)");
 
   commands:
     !group_exists::
-      "/usr/sbin/addgroup --quiet $(my_group)";
+      "/usr/sbin/addgroup --quiet $(group)";
 }
