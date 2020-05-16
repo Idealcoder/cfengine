@@ -36,7 +36,7 @@ bundle agent user_present(data) {
       "user_has_group"
         usebundle => user_has_group("$(user)","$(groups)");
       "user_has_sshkeys"
-        usebundle => user_has_sshkeys("$(user)","$(sshkeys)");
+        usebundle => user_has_sshkey("$(user)","$(sshkeys)");
 }
 
 bundle agent user_has_group(user, group) {
@@ -61,13 +61,13 @@ bundle agent user_has_group(user, group) {
 		, "$(group)"};
 }
 
-bundle agent user_has_sshkeys(user, sshkeys) {
+bundle agent user_has_sshkey(user, sshkey) {
   files:
       # assumes home directory location
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
 	acl => private("$(user)"),
-        edit_line => lines_present(@(sshkeys));
+        edit_line => lines_present("$(sshkey)");
 }
 
 bundle agent group_present(group) {
