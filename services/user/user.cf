@@ -50,13 +50,18 @@ bundle agent user_present(data) {
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
         edit_line => lines_present("$(ssh_keys)");
+
+  reports:
+    "user $(user)";
+    "groups $(groups)";
+    "ssh_keys $(ssh_keys)";
 }
 
-bundle agent group_present(my_group) {
+bundle agent group_present(group) {
   classes:
-   "group_exists" expression => groupexists("$(my_group)");
+   "group_exists" expression => groupexists("$(group)");
 
   commands:
     !group_exists::
-      "/usr/sbin/addgroup --quiet $(my_group)";
+      "/usr/sbin/addgroup --quiet $(group)";
 }
