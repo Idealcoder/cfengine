@@ -10,16 +10,21 @@ bundle agent user {
 
   methods: 
     "users"
-      usebundle => user_present("$(@users[user])","$(@users[groups])", "$(@users[ssh_keys])");
+      usebundle => user_present("$(users)");
 }
 
-bundle agent user_present(my_user, my_groups, my_ssh_keys) {
+bundle agent user_present(data) {
+  vars:
+    "user"     string => "$(data[user])";
+    "groups"   slist  => getvalues("data[groups]");
+    "ssh_keys" slist  => getvalues("data[ssh_keys]");
+
   classes:
-    "user_exists" expression => userexists("$(my_user)");
+    "user_exists" expression => userexists("$(user)");
 
   methods:
     "groups_present"
-      usebundle => group_present("$(my_groups)"),
+      usebundle => group_present("$(groups)"),
       handle => "groups_present";
 
   commands:
@@ -30,24 +35,21 @@ bundle agent user_present(my_user, my_groups, my_ssh_keys) {
 		, "--add_extra_groups"
 		, "--disabled-password"
 		, "--gecos ''"
-		, "$(my_user)"},
+		, "$(user)"},
 	classes => if_ok("user_exists");
 
       "/usr/sbin/addgroup"
 	depends_on => {"groups_present"},
         arglist => { "--quiet"
-	        , "$(my_user)"
-		, "$(my_groups)"};
+	        , "$(user)"
+		, "$(groups)"};
 
   files:
     user_exists::
-      # assumes home directory place
-      "/home/$(my_user)/.ssh/authorized_keys"
+      # assumes home directory location
+      "/home/$(user)/.ssh/authorized_keys"
         create => "true",
-        edit_line => lines_present("$(my_ssh_keys)");
-
-  reports:
-   "username $(my_user), groups $(my_groups), ssh_keys $(ssh_keys)";
+        edit_line => lines_present("$(ssh_keys)");
 }
 
 bundle agent group_present(my_group) {
