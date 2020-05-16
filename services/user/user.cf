@@ -36,7 +36,7 @@ bundle agent user_present(data) {
 		, "$(user)"},
 	classes => if_ok("user_exists");
 
-      "/usr/sbin/addgroup"
+      "/usr/sbin/adduser"
 	depends_on => {"groups_present"},
         arglist => { "--quiet"
 	        , "$(user)"
