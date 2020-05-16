@@ -51,7 +51,7 @@ bundle agent user_present(data) {
       # assumes home directory location
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
-	acl => private(user),
+	acl => private("$(user)"),
         edit_line => lines_present(@(ssh_keys));
 
   reports:
@@ -72,5 +72,3 @@ bundle agent group_present(group) {
     !group_exists::
       "/usr/sbin/addgroup --quiet $(group)";
 }
-
-
