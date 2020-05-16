@@ -13,20 +13,12 @@ bundle agent user {
 
 bundle agent user_present(data) {
   vars:
-    "user"     string => "$(data[user])";
-    "ssh_keys" slist  => getvalues("data[ssh_keys]");
-
-    "groups_want" slist => getvalues("data[groups]");
-    "groups_curr" slist => splitstring(execresult("/usr/bin/groups $(user)", "noshell"), " ", 999);
-    "groups_todo" slist => difference(@(groups_want),@(groups_curr));
+    "user"    string => "$(data[user])";
+    "groups"  slist => getvalues("data[groups]");
+    "sshkeys" slist  => getvalues("data[ssh_keys]");
 
   classes:
     "user_exists" expression => userexists("$(user)");
-
-  methods:
-    "groups_present"
-      usebundle => group_present("$(groups_want)"),
-      handle => "groups_present";
 
   commands:
     !user_exists::
@@ -39,29 +31,43 @@ bundle agent user_present(data) {
 		, "$(user)"},
 	classes => if_ok("user_exists");
 
-    any::
+  methods:
+    user_exists::
+      "user_has_group"
+        usebundle => user_has_group("$(user)","$(group)");
+      "user_has_sshkeys"
+        usebundle => user_has_sshkeys("$(user)","$(sshkeys)");
+}
+
+bundle agent user_has_group(user, group) {
+  vars:
+    "groups_list" string => execresult("/usr/bin/groups $(user)", "noshell");
+
+  classes:
+    "group_todo" expression => regcmp("$(group)","$(groups_list)");
+
+  methods:
+    "group_present"
+      # create groups on demand
+      usebundle => group_present("$(group)"),
+      handle => "group_present";
+
+  commands:
+    !group_todo::
       "/usr/sbin/adduser"
-	depends_on => {"groups_present"},
+	depends_on => {"group_present"},
         arglist => { "--quiet"
 	        , "$(user)"
-		, "$(groups_todo)"};
+		, "$(groups)"};
+}
 
+bundle agent user_has_sshkeys(user, sshkeys) {
   files:
-    user_exists::
       # assumes home directory location
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
 	acl => private("$(user)"),
-        edit_line => lines_present(@(ssh_keys));
-
-  reports:
-    "user $(user)";
-    "groups_want $(groups_want)";
-    "groups_curr $(groups_curr)";
-    "groups_todo $(groups_todo)";
-    "ssh_keys $(ssh_keys)";
-    user_exists::
-      "USER EXISTS!";
+        edit_line => lines_present(@(sshkeys));
 }
 
 bundle agent group_present(group) {
