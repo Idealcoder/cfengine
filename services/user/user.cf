@@ -47,7 +47,7 @@ bundle agent user_present(data) {
       # assumes home directory location
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
-        edit_line => lines_present("$(ssh_keys)");
+        edit_line => lines_present(@(ssh_keys));
 
   reports:
     "user $(user)";
