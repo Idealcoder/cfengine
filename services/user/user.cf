@@ -10,7 +10,7 @@ bundle agent user {
 
   methods: 
     "users"
-      usebundle => user_present("$(users[user])","$(users[groups])", "$(users[ssh_keys])");
+      usebundle => user_present("$(@users[user])","$(@users[groups])", "$(@users[ssh_keys])");
 }
 
 bundle agent user_present(my_user, my_groups, my_ssh_keys) {
