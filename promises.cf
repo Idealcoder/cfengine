@@ -54,6 +54,12 @@ body acl readable {
 	   "all:+r"};
 }
 
+body acl private(user) {
+  aces => {"user:$(user):+r",
+           "group:$(user):",
+	   "all:"};
+}
+
 # todo
 #
 # - debconf level, preseed??
