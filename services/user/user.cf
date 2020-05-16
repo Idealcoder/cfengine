@@ -3,7 +3,7 @@ bundle agent user {
     "idealcoder" data => '{
         "user": "idealcoder",
         "groups": ["sudo", "sshuser"],
-        "ssh_keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDKu7k5izwBCa8YNqrzmtCNwWyFlY0GLQu9lRgDqE5INzXed0AKodeS4ihBvbO+hwKNLnGhBxKlqEJB8M9I+ElC4qQeCQBtrcGzFG02QGyJVriPXSiLCybLZFQISauBEzReHb0+UC1KZSdVh1dnVw4OHmhpM3L4fIOF3b4WUHSHyp/uHLtcYcfpZesi1EKFXzFRWfjUrqu2ie4OhX0PAs0i4ZZOuIdbK6pw4JmRyei57afpVKCbUxPQ6vxnXXXitL8I7D8nNsXIVYhfQlvBLSc8EN9V4lVWiloPBnmn0pYuZKsUPn3C4Vhgk1bgOEvHXiOvokzXINcVgTfzxPbzIKKHDDkzaz2f4dKxe4FL2FkjU3xPpf6Ns2ygiqbiIrcBw/aveK2BZMP23Ei+AxLlBrtx138LjQpnytoVOii5ImsGilyrIiMnJS103MclzBaNQEcW2h8v/bkSoy9pDMxgN9GR6igaLIy+R5dzD1u8b7XSGcNhYMV+XvN6Sgf48ew5T/WKbCUvQx0Kzt9bXC3UJ6jS4LuvKyxQMN9eZ/DwVOrY0VpZP5LD7zRSSnn1APKIP0rmDQq7g/wkOhgYJqr9UcEJt+jzuNqpj9Qkv0FoYI+F/nJpzhc1wq4T+Wu8uM91IxmgRWF7WNZ4ldXN2XVPhPMR6tUPc0pkfkK/bSMkPm+B/w== idealcoder@redguppy"]
+        "sshkeys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDKu7k5izwBCa8YNqrzmtCNwWyFlY0GLQu9lRgDqE5INzXed0AKodeS4ihBvbO+hwKNLnGhBxKlqEJB8M9I+ElC4qQeCQBtrcGzFG02QGyJVriPXSiLCybLZFQISauBEzReHb0+UC1KZSdVh1dnVw4OHmhpM3L4fIOF3b4WUHSHyp/uHLtcYcfpZesi1EKFXzFRWfjUrqu2ie4OhX0PAs0i4ZZOuIdbK6pw4JmRyei57afpVKCbUxPQ6vxnXXXitL8I7D8nNsXIVYhfQlvBLSc8EN9V4lVWiloPBnmn0pYuZKsUPn3C4Vhgk1bgOEvHXiOvokzXINcVgTfzxPbzIKKHDDkzaz2f4dKxe4FL2FkjU3xPpf6Ns2ygiqbiIrcBw/aveK2BZMP23Ei+AxLlBrtx138LjQpnytoVOii5ImsGilyrIiMnJS103MclzBaNQEcW2h8v/bkSoy9pDMxgN9GR6igaLIy+R5dzD1u8b7XSGcNhYMV+XvN6Sgf48ew5T/WKbCUvQx0Kzt9bXC3UJ6jS4LuvKyxQMN9eZ/DwVOrY0VpZP5LD7zRSSnn1APKIP0rmDQq7g/wkOhgYJqr9UcEJt+jzuNqpj9Qkv0FoYI+F/nJpzhc1wq4T+Wu8uM91IxmgRWF7WNZ4ldXN2XVPhPMR6tUPc0pkfkK/bSMkPm+B/w== idealcoder@redguppy"]
       }';
 
   methods: 
@@ -15,7 +15,7 @@ bundle agent user_present(data) {
   vars:
     "user"    string => "$(data[user])";
     "groups"  slist => getvalues("data[groups]");
-    "sshkeys" slist  => getvalues("data[ssh_keys]");
+    "sshkeys" slist  => getvalues("data[sshkeys]");
 
   classes:
     "user_exists" expression => userexists("$(user)");
@@ -70,11 +70,11 @@ bundle agent user_has_sshkeys(user, sshkeys) {
         edit_line => lines_present(@(sshkeys));
 }
 
-bundle agent group_present(group) {
+bundle agent group_present(my_group) {
   classes:
-   "group_exists" expression => groupexists("$(group)");
+   "group_exists" expression => groupexists("$(my_group)");
 
   commands:
     !group_exists::
-      "/usr/sbin/addgroup --quiet $(group)";
+      "/usr/sbin/addgroup --quiet $(my_group)";
 }
