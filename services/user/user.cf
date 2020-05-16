@@ -10,7 +10,7 @@ bundle agent user {
 
 bundle agent user_present(data) {
   vars:
-    "user"     string => "$(data[user])";
+    "user"     string => $(data[user]);
     "groups"   slist  => getvalues("data[groups]");
     "ssh_keys" slist  => getvalues("data[ssh_keys]");
 
