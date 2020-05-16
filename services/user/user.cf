@@ -13,7 +13,7 @@ bundle agent user {
       usebundle => user_present("$(users[user])","$(users[groups])", "$(users[ssh_keys])");
 }
 
-bundle agent user_present(my_user, my_groups, ssh_keys) {
+bundle agent user_present(my_user, my_groups, my_ssh_keys) {
   classes:
     "user_exists" expression => userexists("$(my_user)");
 
@@ -44,7 +44,10 @@ bundle agent user_present(my_user, my_groups, ssh_keys) {
       # assumes home directory place
       "/home/$(my_user)/.ssh/authorized_keys"
         create => "true",
-        edit_line => lines_present("$(ssh_keys)");
+        edit_line => lines_present("$(my_ssh_keys)");
+
+  reports:
+   "username $(my_user), groups $(my_groups), ssh_keys $(ssh_keys)";
 }
 
 bundle agent group_present(my_group) {
