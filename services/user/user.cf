@@ -1,6 +1,6 @@
 bundle agent user {
   vars:
-    "users"  slist => {"idealcoder"};
+    "users"  slist => {"idealcoder", "debian"};
     "groups" slist => {"sudo", "sshuser"};
 
   methods: 
