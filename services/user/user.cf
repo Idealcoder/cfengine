@@ -14,15 +14,18 @@ bundle agent user {
 bundle agent user_present(data) {
   vars:
     "user"     string => "$(data[user])";
-    "groups"   slist  => getvalues("data[groups]");
     "ssh_keys" slist  => getvalues("data[ssh_keys]");
+
+    "groups_want" slist => getvalues("data[groups]");
+    "groups_curr" slist => splitstring(execresult("/usr/bin/groups $(user)", "noshell"), " ", 999);
+    "groups_todo" slist => difference(@(groups_want),@(groups_curr));
 
   classes:
     "user_exists" expression => userexists("$(user)");
 
   methods:
     "groups_present"
-      usebundle => group_present("$(groups)"),
+      usebundle => group_present("$(groups_want)"),
       handle => "groups_present";
 
   commands:
@@ -36,11 +39,12 @@ bundle agent user_present(data) {
 		, "$(user)"},
 	classes => if_ok("user_exists");
 
+    any::
       "/usr/sbin/adduser"
 	depends_on => {"groups_present"},
         arglist => { "--quiet"
 	        , "$(user)"
-		, "$(groups)"};
+		, "$(groups_todo)"};
 
   files:
     user_exists::
@@ -51,7 +55,9 @@ bundle agent user_present(data) {
 
   reports:
     "user $(user)";
-    "groups $(groups)";
+    "groups_want $(groups_want)";
+    "groups_curr $(groups_curr)";
+    "groups_todo $(groups_todo)";
     "ssh_keys $(ssh_keys)";
     user_exists::
       "USER EXISTS!";
