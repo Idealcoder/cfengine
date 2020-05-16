@@ -43,7 +43,8 @@ main() {
 
     echo "add trusted gpg key" | blue
     gpg_key="CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF"
-    wrapped_output gpg --keyserver keys.openpgp.org \
+    wrapped_output gpg --batch \
+        --keyserver keys.openpgp.org \
         --recv-keys "$gpg_key"
 
     # hack to non-interactively trust gpg key
