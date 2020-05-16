@@ -1,25 +1,40 @@
 bundle agent locale {
   vars:
-    "locale_value"   string => "en_GB.UTF-8 UTF-8";
-    "locale_single"  string => "en_GB.UTF-8";
-    "locale_current" string => readfile("/etc/default/locale");
+    "locale"   string => "en_GB.UTF-8 UTF-8";
 
-  classes:
-    "locale_set" expression => strcmp("$(locale_value)", "$(locale_current)");
+  methods:
+    "gen_locale"
+      usebundle => gen_locale("$(locale)");
+    "set_locale"
+      usebundle => set_locale("$(locale)");
+}
 
+bundle agent gen_locale(locale) {
   files:
     "/etc/locale.gen"
-      edit_line => replace_or_add(".*$(locale_value).*","$(locale_value)"),
+      edit_line => replace_or_add(".*$(locale).*","$(locale)"),
       classes => if_repaired("locale_gen");
 
   commands:
-    !locale_set::
-      "/usr/sbin/update-locale LANG=$(locale_single)";
-
     locale_gen::
       "/usr/sbin/locale-gen";
 
   reports:
     locale_gen::
       "regenerated locales";
+}
+
+bundle agent set_locale(locale) {
+  vars:
+    "locale_single" string => nth(split_string("$(locale)"," ",99), 0);
+    "locales_list" string => execresult("/usr/bin/locale -a","noshell");
+    "locale_current" string => readfile("/etc/default/locale");
+
+  classes:
+    "locale_set"       expression => strcmp("$(locale_single)", "$(locale_current)");
+    "locale_available" expression => regcmp("$(locale_single)", "$(locales_list)");
+
+  commands:
+    locale_available&!locale_set::
+      "/usr/sbin/update-locale LANG=$(locale_single)";
 }
