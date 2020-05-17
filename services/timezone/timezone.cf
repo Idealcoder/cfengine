@@ -4,8 +4,9 @@ bundle agent timezone {
 
   files:
     "/etc/localtime"
-      link_from     => ln_s("/usr/share/zoneinfo/$(timezone)"),
-      classes       => if_repaired("timezone_updated");
+      link_from         => ln_s("/usr/share/zoneinfo/$(timezone)"),
+      move_obstructions => "true",
+      classes           => if_repaired("timezone_updated");
 
   commands:
     timzone_updated::
