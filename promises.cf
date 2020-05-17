@@ -57,7 +57,6 @@ body acl readable {
 }
 
 body acl private(user) {
-  acl_method => "overwrite";
   aces => {"user:$(user):r",
            "group:$(user):",
 	   "all:"};
@@ -67,7 +66,6 @@ body acl private(user) {
 #
 # - debconf level, preseed??
 # - ssh
-# - users
 # - auditd?
 # - run cf-agent at defined intervals, with proper logging.
 # - CI/CD
