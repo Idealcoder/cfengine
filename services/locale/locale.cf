@@ -27,12 +27,13 @@ bundle agent gen_locale(locale) {
 bundle agent set_locale(locale) {
   vars:
     "locale_single" string => nth(string_split("$(locale)"," ",99), 0);
+    "locale_stub"   string => nth(string_split("$(locale_single)",":",99),0);
     "locales_list" string => execresult("/usr/bin/locale -a","noshell");
     "locale_current" string => readfile("/etc/default/locale");
 
   classes:
     "locale_set"       expression => regcmp(".*$(locale_single).*", "$(locale_current)");
-    "locale_available" expression => regcmp(".*$(locale_single).*", "$(locales_list)");
+    "locale_available" expression => regcmp(".*$(locale_stub).*", "$(locales_list)");
 
   commands:
     locale_available&!locale_set::
