@@ -75,6 +75,7 @@ bundle agent user_has_sshkey(user, sshkey) {
 bundle agent user_has_pwdless_sudo(user) {
   files:
     "/etc/sudoers.d/90-cfengine"
+      create => "true",
       acl => private("root"),
       edit_line => lines_present("# managed by cfengine"),
       edit_line => lines_present("$(user) ALL=(ALL) NOPASSWD:ALL");
