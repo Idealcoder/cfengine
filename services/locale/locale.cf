@@ -31,8 +31,8 @@ bundle agent set_locale(locale) {
     "locale_current" string => readfile("/etc/default/locale");
 
   classes:
-    "locale_set"       expression => strcmp("$(locale_single)", "$(locale_current)");
-    "locale_available" expression => regcmp("$(locale_single)", "$(locales_list)");
+    "locale_set"       expression => regcmp(".*$(locale_single).*", "$(locale_current)");
+    "locale_available" expression => regcmp(".*$(locale_single).*", "$(locales_list)");
 
   commands:
     locale_available&!locale_set::
