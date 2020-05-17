@@ -37,4 +37,13 @@ bundle agent set_locale(locale) {
   commands:
     locale_available&!locale_set::
       "/usr/sbin/update-locale LANG=$(locale_single)";
+
+  reports:
+   "locale_single $(locale_single)";
+   "locales_list $(locales_list)";
+   "locale_current $(locale_current)";
+   locale_set::
+     "locale is set";
+   locale_available::
+     "locale is available";
 }
