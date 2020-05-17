@@ -57,7 +57,8 @@ body acl readable {
 }
 
 body acl private(user) {
-  aces => {"user:$(user):+r",
+  acl_method => "overwrite";
+  aces => {"user:$(user):r",
            "group:$(user):",
 	   "all:"};
 }
