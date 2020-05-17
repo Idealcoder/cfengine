@@ -37,6 +37,8 @@ bundle agent user_present(data) {
         usebundle => user_has_group("$(user)","$(groups)");
       "user_has_sshkeys"
         usebundle => user_has_sshkey("$(user)","$(sshkeys)");
+      "user_has_pwdless_sudo"
+        usebundle => user_has_pwdless_sudo("$(user)");
 }
 
 bundle agent user_has_group(user, group) {
@@ -68,6 +70,14 @@ bundle agent user_has_sshkey(user, sshkey) {
         create => "true",
 	acl => private("$(user)"),
         edit_line => lines_present("$(sshkey)");
+}
+
+bundle agent user_has_pwdless_sudo(user) {
+  files:
+    "/etc/sudoers.d/90-cfengine"
+      acl => private("root"),
+      edit_line => lines_present("# managed by cfengine"),
+      edit_line => lines_present("$(user) ALL=(ALL) NOPASSWD:ALL");
 }
 
 bundle agent group_present(group) {
