@@ -11,6 +11,7 @@ body common control {
 		    , "services/sysctl/sysctl.cf"
 		    , "services/hardening/hardening.cf"
 		    , "services/locale/locale.cf"
+		    , "services/timezone/timezone.cf"
 
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
@@ -22,12 +23,13 @@ body common control {
                     , apt("buster")
 		    , hosts
 		    , user
-		    #, ssh
+		    , ssh
 		    , ufw
 		    , patching("true")
 		    , sysctl
 		    , hardening
 		    , locale
+		    , timezone
 
 		    , motd
 		    , shell

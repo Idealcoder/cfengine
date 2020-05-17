@@ -1,0 +1,13 @@
+bundle agent timezone {
+  vars:
+    "timezone" string => "Europe/London";
+
+  files:
+    "/etc/localtime"
+      link_from     => ln_s("/usr/share/zoneinfo/$(timezone)"),
+      classes       => if_repaired("timezone_updated");
+
+  commands:
+    timzone_updated::
+      "/usr/sbin/dpkg-reconfigure --frontend=none tzdata";
+}
