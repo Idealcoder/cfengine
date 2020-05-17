@@ -26,7 +26,7 @@ bundle agent user_present(data) {
         arglist => { "--quiet"
 	        , "--shell /bin/zsh"
 		, "--add_extra_groups"
-		, "--disabled-password"
+		, "--disabled-login"
 		, "--gecos ''"
 		, "$(user)"},
 	classes => if_ok("user_exists");
