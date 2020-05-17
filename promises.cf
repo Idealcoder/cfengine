@@ -23,7 +23,7 @@ body common control {
                     , apt("buster")
 		    , hosts
 		    , user
-		    , ssh
+		    #, ssh
 		    , ufw
 		    , patching("true")
 		    , sysctl
