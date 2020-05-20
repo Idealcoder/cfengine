@@ -21,12 +21,6 @@ wrapped_output() {
     "$@" 2>&1 | green | sed "s/^/$prefix /"
 }
 
-capture_output() {
-    tty=$(tty)
-    output=$("$@" | tee ${tty})
-    echo "$output"
-}
-
 main() {
     # try sudo if not root
     [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
@@ -55,12 +49,9 @@ main() {
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
 
     echo "running cf-agent" | blue
-    output=$(capture_output wrapped_output cf-agent)
+    wrapped_output cf-agent
 
     echo "finished." | blue
-
-    # check for failure as cf-agent does not set exit code
-    echo "$output" | grep "error:" && exit 1
 }
 
 main
