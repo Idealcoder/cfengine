@@ -21,12 +21,12 @@ bundle agent user_absent(user) {
     user_exists::
       "/usr/sbin/deluser"
       arglist => { "--quiet"
-                 , "--remove-all-files"
 		 , "$(user)"},
       classes => if_ok("user_deleted");
 
   reports:
-    "deleted user $(user)";
+    user_deleted::
+      "deleted user $(user)";
 }
 
 bundle agent user_present(data) {
