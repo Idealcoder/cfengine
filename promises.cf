@@ -47,13 +47,13 @@ body agent control {
 body perms readable(user) {
   owners => { "$(user)" };
   groups => { "$(user)" };
-  mode   => "0622";
+  mode   => "0644";
 }
 
 body perms executable(user) {
   owners => { "$(user)" };
   groups => { "$(user)" };
-  mode   => "0733";
+  mode   => "0755";
 }
 
 body perms private(user) {
