@@ -63,6 +63,7 @@ body perms private(user) {
 }
 
 # TODO
+# - monit
 # - debconf level, preseed??
 # - ssh
 # - auditd?

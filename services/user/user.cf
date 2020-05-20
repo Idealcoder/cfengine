@@ -7,8 +7,26 @@ bundle agent user {
       }';
 
   methods: 
-    "idealcoder"
-      usebundle => user_present(@(idealcoder));
+    "idealcoder" usebundle => user_present(@(idealcoder));
+
+    "debian" usebundle => user_absent("debian");
+    "ubuntu" usebundle => user_absent("ubuntu");
+}
+
+bundle agent user_absent(user) {
+  classes:
+    "user_exists" expression => userexists("$(user)");
+
+  commands:
+    user_exists::
+      "/usr/sbin/deluser"
+      arglist => { "--quiet"
+                 , "--remove-all-files"
+		 , "$(user)"},
+      classes => if_ok("user_deleted");
+
+  reports:
+    "deleted user $(user)";
 }
 
 bundle agent user_present(data) {
