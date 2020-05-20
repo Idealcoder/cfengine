@@ -1,27 +1,56 @@
 # managed by cfengine
 
+# append the PID to the core filename
+kernel.core_uses_pid = 1
+
 # hide kernel pointers and messages from unprivileged processes
 kernel.dmesg_restrict = 1
 kernel.kptr_restrict = 1
 
-# harden tcp stack
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.all.rp_filter=1
-net.ipv4.conf.all.send_redirects = 0
-net.ipv4.conf.default.accept_redirects = 0
-net.ipv4.conf.default.accept_source_route = 0
-net.ipv4.conf.default.rp_filter = 1
-net.ipv4.conf.default.send_redirects = 0
-net.ipv4.tcp_syncookies=1
-net.ipv6.conf.all.accept_redirects = 0
-net.ipv6.conf.all.accept_source_route = 0
-net.ipv6.conf.default.accept_redirects = 0
-net.ipv6.conf.default.accept_source_route = 0
-
 # reboot machine after kernel panic
 kernel.panic=60
 
+# enable hard and soft link protection
+fs.protected_hardlinks = 1
+fs.protected_symlinks = 1
+
+# do not send icmp redirects (not a router)
+net.ipv4.conf.all.send_redirects = 0
+net.ipv6.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv6.conf.default.send_redirects = 0
+
+# source route verification
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.rp_filter=1
+
+# disable icmp redirects
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv6.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv6.conf.default.accept_redirects = 0
+
+# do not accept source routing (not a router)
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv6.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv6.conf.default.accept_source_route = 0
+
+# enable tcp syn cookies
+net.ipv4.tcp_syncookies=1
+
+# log martian packets
+net.ipv4.conf.all.log_martians = 1
+
 # reduce buffer bloat
+# https://www.coverfire.com/articles/queueing-in-the-linux-network-stack/
 net.core.default_qdisc=fq_codel
 
+# improve HTTP/2 prioritisation performance
+# dynamically resizes tcp send buffers
+# see https://blog.cloudflare.com/http-2-prioritization-with-nginx/
+net.ipv4.tcp_notsent_lowat = 16384
+
+# promote secondary addresses when the primary address is removed
+net.ipv4.conf.default.promote_secondaries = 1
+net.ipv4.conf.all.promote_secondaries = 1
