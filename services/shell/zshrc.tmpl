@@ -1,0 +1,108 @@
+# basedir defaults {{{
+
+# http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html
+[[ -z $XDG_DATA_HOME ]]   && export XDG_DATA_HOME=$HOME/.local/share
+[[ -z $XDG_CONFIG_HOME ]] && export XDG_CONFIG_HOME=$HOME/.config
+[[ -z $XDG_CACHE_HOME ]]  && export XDG_CACHE_HOME=$HOME/.cache
+[[ -z $XDG_DATA_DIRS ]]   && export XDG_DATA_DIRS=/usr/local/share:/usr/share
+[[ -z $XDG_CONFIG_DIRS ]] && export XDG_CONFIG_DIRS=/etc/xdg
+# }}}
+
+# variables {{{
+export EDITOR=vim
+export USE_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+export MANPAGER="nvim -c 'set ft=man' -"
+# }}}
+
+# history {{{
+setopt histignorealldups sharehistory
+
+[[ -d "$XDG_DATA_HOME/zsh" ]] || mkdir "$XDG_DATA_HOME/zsh"
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$XDG_DATA_HOME"/zsh/histfile
+# }}}
+
+# completion system {{{
+autoload -Uz compinit
+compinit
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|='
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+setopt completealiases
+# }}}
+
+# prompt {{{
+autoload -Uz promptinit
+promptinit
+
+prompt walters
+
+# show hostname if connected over ssh
+if [ -n "$SSH_CLIENT" ]; then
+	PROMPT='%F{cyan}%n%F{yellow}@%m%F{blue}$%f '
+else 
+	PROMPT='%F{cyan}%n%F{blue}$%f '
+fi
+
+# show current directory on right
+export RPROMPT='%F{${1:-green}}%~%f'
+
+# enable prompt function expansion
+setopt promptsubst
+# }}}
+
+# colours {{{
+alias ls="ls --color=auto"
+#}}}
+
+# tweaks {{{
+bindkey -v # use vim keybindings
+
+# disable terminal beeping
+unsetopt autocd beep
+
+# automatically resets terminal state
+ttyctl -f 
+
+# say how long a command took, if it took more than 30 seconds
+export REPORTTIME=30
+
+# calculator
+autoload zcalc
+
+# background processes aren't killed on exit of shell
+setopt AUTO_CONTINUE
+
+# edit a long command using text editor
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+# history up/down arrows
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # up
+bindkey "^[[B" down-line-or-beginning-search # down
+# }}}
+
+# vim: set fdm=marker fmr={{{,}}} fdl=0 syntax=zsh :

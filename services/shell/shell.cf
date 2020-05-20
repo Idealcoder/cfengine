@@ -54,4 +54,10 @@ bundle agent shell {
     workstation::
       "$(workstation_pkgs)"
         policy => "present";
+
+  files:
+    "/etc/zsh/zshenv"
+      create => "true",
+      perms => readable("root"),
+      edit_template => "$(sys.inputdir)/templates/emptyfile";
 }
