@@ -22,12 +22,12 @@ body common control {
                     , update_repo
                     , apt("buster")
 		    , hosts
-		    , user
-		    #, ssh
+		    , ssh
 		    , ufw
 		    , patching("true")
 		    , sysctl
 		    , hardening
+		    , user
 		    , locale
 		    , timezone
 
