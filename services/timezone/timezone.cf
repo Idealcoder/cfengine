@@ -9,6 +9,6 @@ bundle agent timezone {
       classes           => if_repaired("timezone_updated");
 
   commands:
-    timzone_updated::
-      "/usr/sbin/dpkg-reconfigure --frontend=none tzdata";
+    timezone_updated::
+      "/usr/sbin/dpkg-reconfigure --frontend=noninteractive tzdata";
 }

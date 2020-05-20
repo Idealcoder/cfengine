@@ -21,6 +21,8 @@ bundle agent shell {
 		    , "ncdu"
 		    , "tree"
 		    , "lsof"
+		    , "acl"
+		    , "ethtool"
 		    , "htop"
 		    , "iotop"
 		    , "rsync"

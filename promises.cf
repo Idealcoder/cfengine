@@ -44,26 +44,25 @@ body agent control {
   default_repository => "$(sys.workdir)/backups";
 }
 
-body acl executable {
-  aces => {"user:*:+rx",
-           "group:*:+rx",
-	   "all:+rx"};
+body perms readable(user) {
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0622";
 }
 
-body acl readable {
-  aces => {"user:*:+r",
-           "group:*:+r",
-	   "all:+r"};
+body perms executable(user) {
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0733";
 }
 
-body acl private(user) {
-  aces => {"user:$(user):r",
-           "group:$(user):",
-	   "all:"};
+body perms private(user) {
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0700";
 }
 
-# todo
-#
+# TODO
 # - debconf level, preseed??
 # - ssh
 # - auditd?

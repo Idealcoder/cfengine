@@ -20,7 +20,7 @@ bundle agent debloat {
   files:
     "/etc/dpkg/dpkg.cfg.d/excludes"
       create => "true",
-      acl => readable,
+      perms => readable("root"),
       edit_template => "$(this.promise_dirname)/dpkg-excludes.tmpl";
 
     # hack as there is no way to delete directories.

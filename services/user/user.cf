@@ -68,7 +68,7 @@ bundle agent user_has_sshkey(user, sshkey) {
       # assumes home directory location
       "/home/$(user)/.ssh/authorized_keys"
         create => "true",
-	acl => private("$(user)"),
+	perms => private("$(user)"),
         edit_line => lines_present("$(sshkey)");
 }
 
@@ -76,8 +76,7 @@ bundle agent user_has_pwdless_sudo(user) {
   files:
     "/etc/sudoers.d/90-cfengine"
       create => "true",
-      acl => private("root"),
-      edit_line => lines_present("# managed by cfengine"),
+      perms => private("root"),
       edit_line => lines_present("$(user) ALL=(ALL) NOPASSWD:ALL");
 }
 

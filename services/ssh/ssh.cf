@@ -6,7 +6,7 @@ bundle agent ssh {
   files:
     "/etc/ssh/sshd_config"
       edit_template => "$(this.promise_dirname)/sshd_config.tmpl",
-      acl => readable,
+      perms => readable("root"),
       classes => if_repaired("restart_sshd");
 
   services:

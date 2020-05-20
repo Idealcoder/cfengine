@@ -27,13 +27,13 @@ bundle agent hardening {
 
     "/etc/cron.allow"
       create => "true",
-      acl => readable,
+      perms => readable("root"),
       comment => "restrict cron to root user",
       edit_line => lines_present("root");
 
     "/root/.profile"
       create => "true",
-      acl => readable,
+      perms => readable("root"),
       comment => "make root sessions timeout",
       edit_line => lines_present("TMOUT=600");
 }
