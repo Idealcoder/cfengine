@@ -71,9 +71,9 @@ fi
 # show current directory on right
 if [[ $UID == 0 || $EUID == 0 ]]; then
         # show red when root
-	export RPROMPT='%f{${1:-yellow}}%~%f'
+	export RPROMPT='%F{${1:-yellow}}%~%f'
 else
-	export RPROMPT='%f{${1:-red}}%~%f'
+	export RPROMPT='%F{${1:-red}}%~%f'
 fi
 
 # enable prompt function expansion
