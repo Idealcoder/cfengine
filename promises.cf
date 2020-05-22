@@ -12,6 +12,7 @@ body common control {
 		    , "services/hardening/hardening.cf"
 		    , "services/locale/locale.cf"
 		    , "services/timezone/timezone.cf"
+		    , "services/mail/mail.cf"
 
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
@@ -30,6 +31,7 @@ body common control {
 		    , user
 		    , locale
 		    , timezone
+		    , mail
 
 		    , motd
 		    , shell
