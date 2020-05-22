@@ -55,14 +55,14 @@ prompt walters
 if [[ -n "$SSH_CLIENT" ]]; then
         # show red if root
         if [[ $UID == 0 || $EUID == 0 ]]; then
-		PROMPT='%F{red}%n%B%F{yellow}@%m%b%F{red}#%f '
+		PROMPT='%F{red}%n%B%F{yellow}@%m%b%# '
 	else
-		PROMPT='%F{cyan}%n%B%F{yellow}@%m%b%f%$ '
+		PROMPT='%F{cyan}%n%B%F{yellow}@%m%b%f$ '
 	fi
 else 
         # show red if root
         if [[ $UID == 0 || $EUID == 0 ]]; then
-		PROMPT='%F{red}%n%F{red}#%f '
+		PROMPT='%F{red}%n%f# '
 	else
 		PROMPT='%F{cyan}%n%f$ '
 	fi
