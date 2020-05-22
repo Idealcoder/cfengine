@@ -40,6 +40,7 @@ bundle agent mail {
         create => "true",
         perms => readable("root"),
         edit_template => "$(this.promise_dirname)/main.cf.tmpl",
+        template_method => "mustache",
         template_data => '{
           "hostname": "$(hostname)"
         }',
@@ -49,6 +50,7 @@ bundle agent mail {
         create => "true",
 	perms => private("root"),
         edit_template => "$(this.promise_dirname)/sasl_passwd.tmpl",
+        template_method => "mustache",
         template_data => '{
           "password": "???"
         }',
