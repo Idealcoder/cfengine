@@ -6,6 +6,7 @@ bundle agent keys {
   commands:
    !shared_keys_imported::
      "/usr/bin/gpg --import $(sys.inputdir)/keys/shared/*"
+       contain => in_shell,
        classes => if_repaired("shared_keys_done");
 
   files:
