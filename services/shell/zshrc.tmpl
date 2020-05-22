@@ -52,10 +52,20 @@ promptinit
 prompt walters
 
 # show hostname if connected over ssh
-if [ -n "$SSH_CLIENT" ]; then
-	PROMPT='%F{cyan}%n%F{blue}@%m%F{blue}$%f '
+if [[ -n "$SSH_CLIENT" ]]; then
+        # show red if root
+        if [[ $(id -u) = 0]]; then
+		PROMPT='%F{red}%n%B%F{yellow}@%m%b%F{red}#%f '
+	else
+		PROMPT='%F{cyan}%n%B%F{yellow}@%m%b%$ '
+	fi
 else 
-	PROMPT='%F{cyan}%n%F{blue}$%f '
+        # show red if root
+        if [[ $(id -u) = 0]]; then
+		PROMPT='%F{red}%n%F{blue}#%f '
+	else
+		PROMPT='%F{cyan}%n$ '
+	fi
 fi
 
 # show current directory on right
