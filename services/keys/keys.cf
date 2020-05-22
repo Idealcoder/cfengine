@@ -1,0 +1,28 @@
+bundle agent keys {
+  classes:
+    "shared_keys_imported" expression => 
+    	fileexists("$(sys.inputdir)/keys/shared/imported");
+
+  commands:
+   !shared_keys_imported::
+     "/usr/bin/gpg --import $(sys.inputdir)/keys/shared/*"
+       classes => if_repaired("shared_keys_done");
+
+  files:
+    shared_keys_done::
+      "$(sys.policy_entry_dirname)/keys/shared/imported"
+        create => "true",
+	edit_template => "$(sys.inputdir)/templates/emptyfile";
+
+  packages:
+    "gpg"
+      policy => "present";
+    "gpg-agent"
+      policy => "present";
+    "dirmngr"
+      policy => "present";
+
+  reports:
+    shared_keys_done::
+      "import shared keys";
+}
