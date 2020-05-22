@@ -25,5 +25,5 @@ bundle agent keys {
 
   reports:
     shared_keys_done::
-      "import shared keys";
+      "imported shared keys";
 }
