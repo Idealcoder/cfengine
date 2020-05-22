@@ -1,6 +1,7 @@
 body common control {
   inputs =>         { "lib/stdlib.cf"
 	            , "services/cfengine/cfengine.cf"
+		    , "services/keys/keys.cf"
                     , "update_repo.cf"
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
@@ -20,6 +21,7 @@ body common control {
 		    , "services/journald/journald.cf"};
 
   bundlesequence => { cfengine
+                    , keys
                     , update_repo
                     , apt("buster")
 		    , hosts

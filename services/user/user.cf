@@ -19,9 +19,11 @@ bundle agent user_absent(user) {
 
   commands:
     user_exists::
-      "/usr/bin/killall -TERM -u $(user)";
+      "/usr/bin/killall -TERM -u $(user)"
+        comment => "kill processes so user can be deleted";
+
       "/usr/sbin/deluser --quiet $(user)"
-      classes => if_ok("user_deleted");
+        classes => if_repaired("user_deleted");
 
   reports:
     user_deleted::
