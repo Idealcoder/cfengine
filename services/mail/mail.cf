@@ -28,7 +28,7 @@ bundle agent mail {
         create => "true",
         perms  =>  readable("root"),
         edit_template => "$(this.promise_dirname)/aliases.tmpl",
-	classes => if_repaired("restart_postfix");
+	classes => if_repaired("regen_aliases");
 
       "/etc/cron.daily/checkmail"
         create => "true",
@@ -56,9 +56,15 @@ bundle agent mail {
         }',
 	classes => if_repaired("regen_postmap");
 
+      "/etc/postfix/sasl/sasl_passwd"
+        perms => private("root");
+
   commands:
     regen_postmap::
       "/usr/sbin/postmap /etc/postfix/sasl/sasl_passwd";
+
+    regen_aliases::
+      "/usr/bin/newaliases";
 
   services:
     restart_postfix::
