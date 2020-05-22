@@ -11,7 +11,7 @@ bundle agent shell {
 
                     # minimal useful utilities
 		    , "zsh"
-		    , "vim"
+		    , "nvim"
 		    , "git"
 		    , "ssh"
 		    , "molly-guard"
