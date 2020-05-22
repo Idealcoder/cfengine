@@ -53,15 +53,15 @@ prompt walters
 
 # show hostname if connected over ssh
 if [[ -n "$SSH_CLIENT" ]]; then
-        # show red if root
         if [[ $UID == 0 || $EUID == 0 ]]; then
+        	# show red when root
 		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
 	else
 		PROMPT='%F{yellow}%n%B%F{green}@%m%b%f$ '
 	fi
 else 
-        # show red if root
         if [[ $UID == 0 || $EUID == 0 ]]; then
+        	# show red when root
 		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
 	else
 		PROMPT='%F{cyan}%n%f$ '
@@ -69,7 +69,12 @@ else
 fi
 
 # show current directory on right
-export RPROMPT='%F{${1:-yellow}}%~%f'
+if [[ $UID == 0 || $EUID == 0 ]]; then
+        # show red when root
+	export rprompt='%f{${1:-yellow}}%~%f'
+else
+	export rprompt='%f{${1:-red}}%~%f'
+fi
 
 # enable prompt function expansion
 setopt promptsubst
