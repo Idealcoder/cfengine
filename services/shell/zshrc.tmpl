@@ -57,7 +57,7 @@ if [[ -n "$SSH_CLIENT" ]]; then
         if [[ $UID == 0 || $EUID == 0 ]]; then
 		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
 	else
-		PROMPT='%F{cyan}%n%B%F{green}@%m%b%f$ '
+		PROMPT='%F{blue}%n%B%F{green}@%m%b%f$ '
 	fi
 else 
         # show red if root
