@@ -57,7 +57,7 @@ if [[ -n "$SSH_CLIENT" ]]; then
         if [[ $UID == 0 || $EUID == 0 ]]; then
 		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
 	else
-		PROMPT='%F{blue}%n%B%F{green}@%m%b%f$ '
+		PROMPT='%F{yellow}%n%B%F{green}@%m%b%f$ '
 	fi
 else 
         # show red if root
@@ -69,7 +69,7 @@ else
 fi
 
 # show current directory on right
-export RPROMPT='%F{${1:-blue}}%~%f'
+export RPROMPT='%F{${1:-yellow}}%~%f'
 
 # enable prompt function expansion
 setopt promptsubst
