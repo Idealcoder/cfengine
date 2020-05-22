@@ -1,0 +1,69 @@
+bundle agent mail {
+  vars:
+    "absent_pkgs" slist => { 
+                    # remove exim4
+                      "exim4-base"
+		    , "exim4-daemon-light"
+                    , "exim4-config" 
+		    };
+
+    "present_pkgs" slist => { 
+                    # use postfix
+                      "postfix"
+		    , "libsasl2-modules"
+		    };
+  packages:
+    "$(absent_pkgs)"
+      policy => "absent";
+    "$(present_pkgs)"
+      policy => "present",
+      classes => if_ok("pkgs_installed");
+
+  vars:
+    "hostname" string => execresult("/usr/bin/hostname","noshell");
+
+  files:
+    pkgs_installed::
+      "/etc/aliases"
+        create => "true",
+        perms  =>  readable("root"),
+        edit_template => "$(this.promise_dirname)/aliases.tmpl",
+	classes => if_repaired("restart_postfix");
+
+      "/etc/cron.daily/checkmail"
+        create => "true",
+        perms => executable("root"),
+        edit_template => "$(this.promise_dirname)/checkmail.tmpl",
+	classes => if_repaired("restart_postfix");
+
+      "/etc/postfix/main.cf"
+        create => "true",
+        perms => readable("root"),
+        edit_template => "$(this.promise_dirname)/main.cf.tmpl",
+        template_data => '{
+          "hostname": "$(hostname)"
+        }',
+	classes => if_repaired("restart_postfix");
+
+      "/etc/postfix/sasl/sasl_passwd"
+        create => "true",
+	perms => private("root"),
+        edit_template => "$(this.promise_dirname)/sasl_passwd.tmpl",
+        template_data => '{
+          "password": "???"
+        }',
+	classes => if_repaired("regen_postmap");
+
+  commands:
+    regen_postmap::
+      "/usr/sbin/postmap /etc/postfix/sasl/sasl_passwd";
+
+  services:
+    restart_postfix::
+      "postfix"
+        service_policy => "restart";
+
+  reports:
+    restart_sshd::
+      "postfix restarted";
+}
