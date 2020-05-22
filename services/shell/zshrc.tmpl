@@ -18,7 +18,7 @@ export MANPAGER="nvim -c 'set ft=man' -"
 # history {{{
 setopt histignorealldups sharehistory
 
-[[ -d "$XDG_DATA_HOME/zsh" ]] || mkdir "$XDG_DATA_HOME/zsh"
+[[ -d "$XDG_DATA_HOME/zsh" ]] || mkdir -p "$XDG_DATA_HOME/zsh"
 
 HISTSIZE=10000
 SAVEHIST=10000
@@ -29,18 +29,13 @@ HISTFILE="$XDG_DATA_HOME"/zsh/histfile
 autoload -Uz compinit
 compinit
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
 eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|='
 zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 
@@ -58,7 +53,7 @@ prompt walters
 
 # show hostname if connected over ssh
 if [ -n "$SSH_CLIENT" ]; then
-	PROMPT='%F{cyan}%n%F{yellow}@%m%F{blue}$%f '
+	PROMPT='%F{cyan}%n%F{blue}@%m%F{blue}$%f '
 else 
 	PROMPT='%F{cyan}%n%F{blue}$%f '
 fi
