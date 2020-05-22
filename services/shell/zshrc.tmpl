@@ -54,17 +54,17 @@ prompt walters
 # show hostname if connected over ssh
 if [[ -n "$SSH_CLIENT" ]]; then
         # show red if root
-        if [[ $(id -u) = 0]]; then
+        if [[ $UID == 0 || $EUID == 0 ]]; then
 		PROMPT='%F{red}%n%B%F{yellow}@%m%b%F{red}#%f '
 	else
-		PROMPT='%F{cyan}%n%B%F{yellow}@%m%b%$ '
+		PROMPT='%F{cyan}%n%B%F{yellow}@%m%b%f%$ '
 	fi
 else 
         # show red if root
-        if [[ $(id -u) = 0]]; then
-		PROMPT='%F{red}%n%F{blue}#%f '
+        if [[ $UID == 0 || $EUID == 0 ]]; then
+		PROMPT='%F{red}%n%F{red}#%f '
 	else
-		PROMPT='%F{cyan}%n$ '
+		PROMPT='%F{cyan}%n%f$ '
 	fi
 fi
 
