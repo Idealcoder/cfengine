@@ -28,6 +28,6 @@ check filesystem rootfs with path /
 	then alert
 
 check network eth0 with interface eth0
-	if failed link then alert
+	if failed link then unmonitor
 	if changed link then alert
 	if saturation > 90% then alert
