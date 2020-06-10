@@ -4,7 +4,7 @@ set httpd unixsocket /var/run/monit.sock
 	allow monit:{{password}}
 
 set mailserver localhost
-set alert root@localhost with reminder on 1440 cycles
+set alert root@localhost but not on {instance} with reminder on 1440 cycles
 
 set mail-format {
 from: monit
