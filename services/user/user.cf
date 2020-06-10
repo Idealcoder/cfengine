@@ -16,7 +16,7 @@ bundle agent user {
 bundle agent user_absent(user) {
   classes:
     "user_exists" expression => userexists("$(user)");
-    "user_has_processes" expression => returnszero("pgrep -u $(user)","noshell");
+    "user_has_processes" expression => returnszero("/usr/bin/pgrep -u $(user)","noshell");
 
   commands:
     user_exists&!user_has_processes::
