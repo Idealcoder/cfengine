@@ -3,26 +3,28 @@ body common control {
 	            , "services/cfengine/cfengine.cf"
 		    , "services/keys/keys.cf"
                     , "update_repo.cf"
+
 		    , "services/apt/apt.cf"
 	            , "services/hosts/hosts.cf"
-	            , "services/user/user.cf"
 	            , "services/ssh/ssh.cf"
 		    , "services/ufw/ufw.cf"
 		    , "services/patching/patching.cf"
 		    , "services/sysctl/sysctl.cf"
 		    , "services/hardening/hardening.cf"
+		    , "services/shell/shell.cf" 
+	            , "services/user/user.cf"
 		    , "services/locale/locale.cf"
 		    , "services/timezone/timezone.cf"
 		    , "services/mail/mail.cf"
 
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
-		    , "services/shell/shell.cf" 
 		    , "services/journald/journald.cf"};
 
   bundlesequence => { cfengine
                     , keys
                     , update_repo
+
                     , apt("buster")
 		    , hosts
 		    , ssh
@@ -30,13 +32,13 @@ body common control {
 		    , patching("true")
 		    , sysctl
 		    , hardening
+		    , shell
 		    , user
 		    , locale
 		    , timezone
 		    , mail
 
 		    , motd
-		    , shell
 		    , debloat
 		    , journald };
 
