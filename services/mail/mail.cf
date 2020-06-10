@@ -52,7 +52,7 @@ bundle agent mail {
         edit_template => "$(this.promise_dirname)/sasl_passwd.tmpl",
         template_method => "mustache",
         template_data => '{
-          "password": "$(password_postfix_machine@idealcoder.co.uk)"
+          "password": "$(secrets.shared[password_postfix_machine@idealcoder.co.uk])"
         }',
 	classes => if_repaired("regen_postmap");
 
