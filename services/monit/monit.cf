@@ -1,6 +1,6 @@
 bundle agent monit {
   packages:
-    "git"
+    "monit"
       policy => "present",
       classes => if_ok("monit_present");
 
