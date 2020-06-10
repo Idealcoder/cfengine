@@ -1,13 +1,20 @@
+# managed by cfengine
+
 set httpd unixsocket /var/run/monit.sock
 	allow monit:{{password}}
 
-set alert root@localhost with reminder on 1440 cycles
 set mailserver localhost
+set alert root@localhost with reminder on 1440 cycles
 
 set mail-format {
 from: monit
-subject: $SERVICE $EVENT at $DATE
-message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION
+subject: $HOST: $ACTION - $EVENT
+message: 
+$SERVICE: $DESCRIPTION
+
+Host: $HOST
+Date: $DATE
+Action: $ACTION
 
 Yours faithfully,
 Monit
