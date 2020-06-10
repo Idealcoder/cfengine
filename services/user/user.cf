@@ -16,18 +16,19 @@ bundle agent user {
 bundle agent user_absent(user) {
   classes:
     "user_exists" expression => userexists("$(user)");
+    "user_has_processes" expression => returnszero("pgrep -u $(user)","noshell");
 
   commands:
-    user_exists::
-      "/usr/bin/killall -TERM -u $(user)"
-        comment => "kill processes so user can be deleted";
-
+    user_exists&!user_has_processes::
       "/usr/sbin/deluser --quiet $(user)"
         classes => if_repaired("user_deleted");
 
   reports:
     user_deleted::
       "deleted user $(user)";
+
+    user_has_processes::
+      "skipped deleting user $(user) due to running processes";
 }
 
 bundle agent user_present(data) {
