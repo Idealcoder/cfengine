@@ -5,11 +5,12 @@ set alert root@localhost with reminder on 1440 cycles
 set mailserver localhost
 
 set mail-format {
-	from: Monit <monit@idealcoder.co.uk>
-	subject: $SERVICE $EVENT at $DATE
-	message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION
-	Yours faithfully,
-	Monit
+from: Monit <monit@artic.idealcoder.co.uk>
+subject: $SERVICE $EVENT at $DATE
+message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION
+
+Yours faithfully,
+Monit
 }
 
 # monit runs cycle every 2 minutes
