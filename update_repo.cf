@@ -10,5 +10,5 @@ bundle agent update_repo {
 }
 
 body contain inputs_contain {
-  chdir => "/var/lib/cfengine3/inputs";
+  chdir => "$(sys.inputdir)";
 }
