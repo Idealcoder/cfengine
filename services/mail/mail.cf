@@ -74,4 +74,7 @@ bundle agent mail {
   reports:
     restart_sshd::
       "postfix restarted";
+
+  reports:
+    "secret password is $(secrets.shared)";
 }
