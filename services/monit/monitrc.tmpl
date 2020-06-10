@@ -1,0 +1,29 @@
+set httpd unixsocket /var/run/monit.sock
+	allow monit:{{password}}
+
+set alert root with reminder on 1440 cycles
+
+set mail-format {
+	from: Monit <monit@idealcoder.co.uk>
+	subject: $SERVICE $EVENT at $DATE
+	message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION
+	Yours faithfully,
+	Monit
+}
+
+check system $HOST
+	if total memory usage > 90% for 5 cycles then alert
+	if cpu > 90% for 10 cyles then alert
+
+check filesystem rootfs with path /
+	if changed fsflags then alert
+	if space free < 2GB then alert
+	if inode usage > 80% then alert
+	if service time > 300 milliseconds 
+		for 3 times within 5 cycles 
+	then alert
+
+check network eth0 with interface eth0
+	if failed link then alert
+	if changed link then alert
+	if saturation > 90% then alert

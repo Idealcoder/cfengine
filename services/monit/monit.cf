@@ -1,0 +1,32 @@
+bundle agent monit {
+  packages:
+    "git"
+      policy => "present",
+      classes => if_ok("monit_present");
+
+  files:
+    monit_present::
+      "/etc/monit/monitrc"
+        create => "true",
+        perms  =>  private("root"),
+        edit_template => "$(this.promise_dirname)/monitrc.tmpl",
+        template_method => "mustache",
+        template_data => '{
+          "password": "$(secrets.shared[password_monit])"
+        }',
+        classes => if_repaired("restart_monit");
+
+      "/etc/apt/apt.conf.d/50monit"
+        create => "true",
+	perms => readable("root"),
+	edit_template => "$(this.promise_dirname)/50monit.tmpl";
+
+  services:
+    restart_monit::
+      "monit"
+        service_policy => "restart";
+
+  reports:
+    restart_monit::
+      "monit restarted";
+}

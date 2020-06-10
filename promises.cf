@@ -17,6 +17,7 @@ body common control {
 		    , "services/locale/locale.cf"
 		    , "services/timezone/timezone.cf"
 		    , "services/mail/mail.cf"
+                    , "services/monit/monit.cf"
 
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
@@ -39,6 +40,7 @@ body common control {
 		    , locale
 		    , timezone
 		    , mail
+		    , monit
 
 		    , motd
 		    , debloat
