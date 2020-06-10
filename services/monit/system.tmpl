@@ -18,6 +18,7 @@ Monit
 check system $HOST
 	if memory usage > 90% for 5 cycles then alert
 	if cpu > 90% for 10 cycles then alert
+	if swap usage > 25% then alert
 
 check filesystem rootfs with path /
 	if changed fsflags then alert

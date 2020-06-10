@@ -6,10 +6,10 @@ bundle agent monit {
 
   files:
     monit_present::
-      "/etc/monit/monitrc"
+      "/etc/monit/conf.d/system"
         create => "true",
         perms  =>  private("root"),
-        edit_template => "$(this.promise_dirname)/monitrc.tmpl",
+        edit_template => "$(this.promise_dirname)/system.tmpl",
         template_method => "mustache",
         template_data => '{
           "password": "$(secrets.shared[password_monit])"
