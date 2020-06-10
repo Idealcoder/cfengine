@@ -36,6 +36,12 @@ main() {
         sleep 5
     done
 
+    echo "copying private keys" | blue
+    ssh -o "StrictHostKeyChecking no" \
+        "$remote_machine" "mkdir -p ~/keys/shared && chmod 700 ~/keys"
+    scp -o "StrictHostKeyChecking no" -q \
+        -r keys/shared "$remote_machine:~/keys/"
+
     # copy bootstrap-local script to the remote machine, and execute it.
     scp -o "StrictHostKeyChecking no" -q \
         "${PROGDIR}/bootstrap-local.sh" "$remote_machine:~"
