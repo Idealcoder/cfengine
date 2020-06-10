@@ -1,2 +1,2 @@
-DPkg::Pre-Invoke { "[-x /usr/bin/monit] && systemctl stop monit"}
+DPkg::Pre-Invoke  { "[ -x /usr/bin/monit ] && systemctl stop monit"}
 DPkg::Post-Invoke { "[ -x /usr/bin/monit ] && systemctl start monit"}
