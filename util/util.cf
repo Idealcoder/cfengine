@@ -1,4 +1,5 @@
 body file control
 {
-      inputs => { "util/gen_password.cf" };
+      inputs => { "util/gen_password.cf" 
+                , "util/files.cf" };
 }

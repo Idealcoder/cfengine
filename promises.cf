@@ -56,24 +56,6 @@ body agent control {
   default_repository => "$(sys.workdir)/backups";
 }
 
-body perms readable(user) {
-  owners => { "$(user)" };
-  groups => { "$(user)" };
-  mode   => "0644";
-}
-
-body perms executable(user) {
-  owners => { "$(user)" };
-  groups => { "$(user)" };
-  mode   => "0755";
-}
-
-body perms private(user) {
-  owners => { "$(user)" };
-  groups => { "$(user)" };
-  mode   => "0700";
-}
-
 # TODO
 # - debconf level, preseed??
 # - ssh

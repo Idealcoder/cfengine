@@ -1,0 +1,23 @@
+body perms readable(user) {
+# @brief Make file world readable and owned by user
+# @param user The username of the file owner
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0644";
+}
+
+body perms executable(user) {
+# @brief Make file world executable and owned by user
+# @param user The username of the file owner
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0755";
+}
+
+body perms private(user) {
+# @brief Make file private and owned by user
+# @param user The username of the file owner
+  owners => { "$(user)" };
+  groups => { "$(user)" };
+  mode   => "0700";
+}
