@@ -1,0 +1,4 @@
+body file control
+{
+      inputs => { "util/gen_password.cf" };
+}

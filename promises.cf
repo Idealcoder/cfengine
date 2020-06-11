@@ -1,5 +1,7 @@
 body common control {
   inputs =>         { "lib/stdlib.cf"
+                    , "util/util.cf"
+
 	            , "services/cfengine/cfengine.cf"
 		    , "services/keys/keys.cf"
                     , "update_repo.cf"
@@ -73,7 +75,6 @@ body perms private(user) {
 }
 
 # TODO
-# - monit
 # - debconf level, preseed??
 # - ssh
 # - auditd?
