@@ -1,0 +1,10 @@
+[Unit]
+Description=Hourly cf-agent run
+
+[Timer]
+OnCalendar=*-*-* *:00:00
+RandomizedDelaySec=300
+Persistent=false
+
+[Install]
+WantedBy=timers.target

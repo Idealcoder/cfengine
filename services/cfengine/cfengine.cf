@@ -1,7 +1,17 @@
 bundle agent cfengine {
   files:
-      "$(sys.workdir)/modules"
-        comment => "copy over module files as they are in the wrong place",
-        copy_from => local_cp("/usr/share/cfengine3/modules"),
-        depth_search => recurse("inf");
+    "$(sys.workdir)/modules"
+      comment => "copy over module files as they are in the wrong place",
+      copy_from => local_cp("/usr/share/cfengine3/modules"),
+      depth_search => recurse("inf");
+
+    "/etc/systemd/system/cf-agent-hourly.service"
+      create => "true",
+      perms => readable("root"),
+      edit_template => "$(this.promise_dirname)/cf-agent-hourly.service.tmpl";
+
+    "/etc/systemd/system/cf-agent-hourly.timer"
+      create => "true",
+      perms => readable("root"),
+      edit_template => "$(this.promise_dirname)/cf-agent-hourly.timer.tmpl";
 }
