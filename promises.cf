@@ -30,7 +30,7 @@ body common control {
                     , update_repo
 		    , secrets
 
-                    , apt("buster")
+                    #, apt("buster")
 		    , hosts
 		    , ssh
 		    , ufw
@@ -57,8 +57,8 @@ body agent control {
 }
 
 # TODO
-# - debconf level, preseed??
 # - ssh
 # - auditd?
-# - run cf-agent at defined intervals, with proper logging.
+# - logging
+# - vim, and other dotfiles?
 # - CI/CD
