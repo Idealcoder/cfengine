@@ -72,6 +72,6 @@ bundle agent mail {
         service_policy => "restart";
 
   reports:
-    restart_sshd::
+    restart_postfix::
       "postfix restarted";
 }
