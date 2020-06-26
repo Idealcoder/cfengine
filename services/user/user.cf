@@ -69,7 +69,7 @@ bundle agent user_has_group(user, group) {
     "groups_list" string => execresult("/usr/bin/groups $(user)", "noshell");
 
   classes:
-    "group_todo" expression => regcmp("(\.*)$(group)(\.*)","$(groups_list)");
+    "group_todo" expression => regcmp("(.*)$(group)(.*)","$(groups_list)");
 
   methods:
     "group_present"
