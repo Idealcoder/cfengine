@@ -19,10 +19,9 @@ bundle agent user_absent(user) {
     "user_has_ssh" expression => returnszero("/usr/bin/pgrep -u $(user) ssh","noshell");
 
   commands:
-    user_exists&!user_has_ssh::
+    user_exists&(!user_has_ssh)::
       "/usr/bin/killall -TERM -u $(user)"
-          comment => "kill processes so user can be deleted";
-
+        comment => "kill processes so user can be deleted";
       "/usr/sbin/deluser --quiet $(user)"
         classes => if_repaired("user_deleted");
 
