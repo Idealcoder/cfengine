@@ -3,7 +3,6 @@ body common control {
                     , "util/util.cf"
 
 	            , "services/cfengine/cfengine.cf"
-		    , "services/keys/keys.cf"
                     , "update_repo.cf"
 		    , "services/secrets/secrets.cf"
 
@@ -26,11 +25,10 @@ body common control {
 		    , "services/journald/journald.cf"};
 
   bundlesequence => { cfengine
-                    , keys
                     , update_repo
 		    , secrets
 
-                    #, apt("buster")
+                    , apt("buster")
 		    , hosts
 		    , ssh
 		    , ufw

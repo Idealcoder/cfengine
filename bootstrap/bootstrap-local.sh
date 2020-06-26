@@ -35,7 +35,7 @@ main() {
     wrapped_output apt-get install --quiet --no-install-recommends --yes \
         git gpg gpg-agent dirmngr cfengine3
 
-    echo "add sysadmin public key" | blue
+    echo "import admin public key" | blue
     gpg_key="CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF"
     wrapped_output gpg --batch \
         --keyserver keys.openpgp.org \
@@ -44,14 +44,12 @@ main() {
     # hack to non-interactively trust gpg key
     echo "$gpg_key:6:" | wrapped_output gpg --import-ownertrust
 
+    echo "import shared secret keys" | blue
+    wrapped_output gpg --import ${PROGDIR}/keys/shared/*
+
     echo "clone cfengine repo" | blue
     cd "/var/lib/cfengine3/inputs"
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
-
-    echo "moving private keys" | blue
-    mkdir -p "/var/lib/cfengine3/inputs/keys/shared"
-    chmod 700 "/var/lib/cfengine3/inputs/keys"
-    mv "${PROGDIR}/keys/shared" "/var/lib/cfengine3/inputs/keys/"
 
     echo "running cf-agent" | blue
     wrapped_output cf-agent
