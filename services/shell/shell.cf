@@ -65,3 +65,7 @@ bundle agent shell {
       perms => readable("root"),
       edit_template => "$(this.promise_dirname)/zshrc-stub.tmpl";
 }
+
+# TODO cloud vm packaged
+# - zerofree
+# - lxd-agent-loader
