@@ -19,7 +19,6 @@ body common control {
 		    , "services/timezone/timezone.cf"
 		    , "services/mail/mail.cf"
                     , "services/monit/monit.cf"
-                    , "services/logwatch/logwatch.cf"
 
                     , "services/motd/motd.cf"
 		    , "services/debloat/debloat.cf"
@@ -42,7 +41,6 @@ body common control {
 		    , timezone
 		    , mail
 		    , monit
-		    , logwatch
 
 		    , motd
 		    , debloat

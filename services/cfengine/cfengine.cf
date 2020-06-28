@@ -17,6 +17,11 @@ bundle agent cfengine {
       edit_template => "$(this.promise_dirname)/cf-agent-hourly.timer.tmpl",
       classes => if_repaired("daemon_reload");
 
+    "/usr/local/bin/cf-mailresult"
+      create => "true",
+      perms => executable("root"),
+      edit_template => "$(this.promise_dirname)/cf-mailresult.tmpl";
+
   commands:
     daemon_reload::
       "/usr/bin/systemctl daemon-reload";

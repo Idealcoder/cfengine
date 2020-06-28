@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Copyright (c) 2020, Loïc Deraed
+
+# Sign and encrypt emails before sending
+# Assumes low throughput.
+#
+# Usage: sendmail.encrypt <arguments mirror sendmail>
+
+# Ensure the user is root, so we have the gpg key.
+if [ "$EUID" -ne 0 ]    
+  then echo "error: please run as root"      
+  exit 1
+fi    
+
+# Emulate sendmail input
+input=$(awk '$0=="." {exit}1')
+
+# Whitelist unencrypted headers to avoid leaking information
+body=$(echo "$input" | formail -f -I "") 
+to=$(echo "$input" | formail -f -x To)
+from=$(echo "$input" | formail -f -x From)
+subject=$(echo "$input" | formail -f -x Subject)
+
+# Encrypt and sign (TODO) body of email
+ciphertext=$(echo "$body" \
+           | gpg --encrypt --armor --recipient "loic@idealcoder.co.uk" 2>&1) 
+
+# Pass the encrypted email to sendmail
+(cat <<-END
+To:$to
+From:$from
+Subject:$subject
+
+$ciphertext
+END
+) | sendmail "$@"
+
+# vim: filetype=sh

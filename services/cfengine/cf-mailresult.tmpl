@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Copyright (c) 2020, Loïc Deraed
+
+# Mail the result of the last cf-agent invocation
+#
+# Usage: cf-agent
+
+invocation_id=$(systemctl show -p InvocationID --value cf-agent-hourly.service)
+result=$(journalctl -q _SYSTEMD_INVOCATION_ID="$invocation_id")
+
+# Don't send an empty email
+if [ -z "$result" ]; then
+  exit 0
+fi
+
+(cat <<-END
+To: root
+From: TODO
+Subject: cf-agent result
+
+$result
+END
+) | sendmail.encrypt root
+
+# vim: filetype=sh
