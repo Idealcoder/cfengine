@@ -6,7 +6,7 @@ bundle agent tor {
 
   files:
     tor_present::
-      "/tor/torrc"
+      "/etc/tor/torrc"
         create => "true",
         perms => readable("root"),
         edit_template => "$(this.promise_dirname)/torrc.tmpl",
