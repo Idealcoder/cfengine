@@ -20,7 +20,8 @@ bundle agent cfengine {
     "/usr/local/bin/cf-mailresult"
       create => "true",
       perms => executable("root"),
-      edit_template => "$(this.promise_dirname)/cf-mailresult.tmpl";
+      edit_template => "$(this.promise_dirname)/cf-mailresult.tmpl",
+      template_method => "mustache";
 
   commands:
     daemon_reload::
