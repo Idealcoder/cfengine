@@ -1,0 +1,23 @@
+bundle agent tor {
+  packages:
+    "tor"
+      policy => "present",
+      classes => if_ok("tor_present");
+
+  files:
+    tor_present::
+      "/tor/torrc"
+        create => "true",
+        perms => readable("root"),
+        edit_template => "$(this.promise_dirname)/torrc.tmpl",
+        classes => if_repaired("restart_tor");
+
+  services:
+    restart_tor::
+      "tor"
+        service_policy => "restart";
+
+  reports:
+    restart_tor::
+      "tor server restarted";
+}
