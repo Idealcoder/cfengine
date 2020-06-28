@@ -1,0 +1,6 @@
+bundle agent logwatch {
+  packages:
+    "logwatch"
+      policy => "present",
+      classes => if_ok("logwatch_present");
+}
