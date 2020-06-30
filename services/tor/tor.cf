@@ -21,3 +21,5 @@ bundle agent tor {
     restart_tor::
       "tor server restarted";
 }
+
+# TODO Send an email with the address in /var/lib/tor/ssh/hostname

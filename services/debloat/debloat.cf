@@ -4,11 +4,14 @@ bundle agent debloat {
                     # remove bloat from important priority packages
                       "nano"
 		    , "vim-tiny"
+		    , "vim"
                     , "debconf-i18n" 
 		    # remove bloat from standard priority packages
                     , "bind9-host" 
                     , "wamerican" 
 		    # remove bloat from certain cloud images
+		    , "cloud-init"
+		    , "cloud-initramfs-growroot"
 		    , "euca2ools"
 		    , "joe"
 		    , "locales-all"

@@ -18,6 +18,7 @@ bundle agent user_absent(user) {
     "$(user)_exists" expression => userexists("$(user)");
     "$(user)_has_ssh" expression => returnszero("/usr/bin/pgrep -u $(user) ssh","noshell");
 
+# TODO replace killall with pkill, as killall not part of minbase
   commands:
     "$(user)_exists&(!$(user)_has_ssh)"::
       "/usr/bin/killall -TERM -u $(user)"
