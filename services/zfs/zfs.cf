@@ -2,6 +2,20 @@ bundle agent zfs {
   vars:
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
 
+    "pkgs" slist => { 
+        "debian-faq"
+      , "debian-history"
+      , "debian-kernel-handbook"
+      , "debian-policy"
+      , "debian-refcard"
+      , "debian-reference-en"
+      , "installation-guide"
+      , "aptitude-doc"
+      , "apt-doc"
+      , "java-common"
+      , "harden-doc"
+      , "debian-handbook"};
+
   files:
     "/etc/apt/preferences.d/zfs_backports"
       create => "true",
@@ -10,5 +24,11 @@ bundle agent zfs {
       template_method => "mustache",
       template_data => '{
         "debian_release": "$(debian_release)",
-      }';
+      }',
+      classes => if_ok('backports_set');
+
+  packages:
+    backports_set::
+      "$(pkgs)"
+        policy => "present";
 }
