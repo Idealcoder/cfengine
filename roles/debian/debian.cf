@@ -20,8 +20,6 @@ bundle agent debian {
     "debloat" usebundle =>              debloat;
     "journald" usebundle =>             journald;
 
-  reports:
-    "Debian role was executed";
 
 }
 

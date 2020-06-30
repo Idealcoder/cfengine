@@ -4,6 +4,4 @@ bundle agent remote {
   methods:
     "tor" usebundle => tor;
 
-  reports:
-    "Remote role was executed";
 }
