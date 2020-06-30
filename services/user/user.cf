@@ -122,7 +122,7 @@ bundle agent user_has_shell(user, shell) {
 
   reports:
     "!$(user)_shell_ok"::
-      "shell updated for user $(user) from $(curr_shell) to $(shell)";
+      "shell updated for user $(user) from '$(curr_shell)' to '$(shell)'";
 }
 
 bundle agent group_present(group) {
