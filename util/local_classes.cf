@@ -2,7 +2,7 @@ bundle common local_classes {
   vars:
     "class_file" string => "/usr/local/etc/cfengine/classes.txt";
     "class_strs"  slist  => readstringlist("$(class_file)"
-                                         , "#.*$"
+                                         , "#[^\n]*$"
 					 , "\n"
 					 , inf
 					 , inf);
