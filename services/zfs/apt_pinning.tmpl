@@ -1,6 +1,17 @@
-{{#pinned_packages}}
-Package: {{name}}
+# managed by cfengine
+
+Package: dkms
 Pin: release a={{debian_release}}-backports
 Pin-Priority: 900
 
-{{/pinned_packages}}
+Package: spl-dkms
+Pin: release a={{debian_release}}-backports
+Pin-Priority: 900
+
+Package: zfs-dkms
+Pin: release a={{debian_release}}-backports
+Pin-Priority: 900
+
+Package: zfsutils-linux
+Pin: release a={{debian_release}}-backports
+Pin-Priority: 900
