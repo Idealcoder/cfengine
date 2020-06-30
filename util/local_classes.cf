@@ -9,13 +9,14 @@ bundle agent local_classes {
 					   , inf);
 
   classes:
+    "class_dir_exists" expression => isdir("/usr/local/etc/cfengine/");
     "class_file_exists" expression => fileexists("$(class_file)");
     "$(class_strs)" 
       expression => "any",
       scope => "namespace";
 
   files:
-    directory_exists::
+    class_dir_exists::
     "/usr/local/etc/cfengine/classes.txt"
       create => "true",
       perms => private("root");
