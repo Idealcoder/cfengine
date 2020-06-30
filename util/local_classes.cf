@@ -1,6 +1,4 @@
 bundle common local_classes {
-
-
   vars:
     "class_file" string => "/usr/local/etc/cfengine/classes.txt";
     "class_strs"  slist  => readstringlist("$(class_file)"
@@ -15,6 +13,6 @@ bundle common local_classes {
 
 bundle agent local_classes {
   files:
-    "/usr/local/etc/cfengine/classes"
+    "/usr/local/etc/cfengine/classes.txt"
       perms => private("root");
 }
