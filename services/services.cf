@@ -14,7 +14,7 @@ body file control {
 	    , "services/mail/mail.cf"
             , "services/monit/monit.cf"
             , "services/tor/tor.cf"
-            , "services/zsh/zsh.cf"
+            , "services/zfs/zfs.cf"
 
             , "services/motd/motd.cf"
 	    , "services/debloat/debloat.cf"

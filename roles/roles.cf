@@ -2,7 +2,7 @@ body file control {
 
   inputs => { "roles/debian/debian.cf"
 	    , "roles/remote/remote.cf"
-	    , "roles/lxd/lxd.cf"};
+	    , "roles/lxdhost/lxdhost.cf"};
 }
 
 bundle agent roles {
@@ -14,5 +14,5 @@ bundle agent roles {
       "remote" usebundle => remote;
 
     role_lxd::
-      "lxd" usebundle => lxd;
+      "lxdhost" usebundle => lxdhost;
 }
