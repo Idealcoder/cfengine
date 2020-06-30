@@ -1,6 +1,6 @@
 bundle agent apt(release) {
   vars:
-    "repos" string => "main";
+    "repos" string => "main contrib";
 
     is_stable_flag::
       "is_stable" string => "true";
