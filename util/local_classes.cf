@@ -9,4 +9,7 @@ bundle common local_classes {
 
   classes:
     "$(class_strs)" expression => "any";
+
+  reports:
+    "class set: $(class_strs)";
 }
