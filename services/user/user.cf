@@ -114,7 +114,7 @@ bundle agent user_has_shell(user, shell) {
                 , "noshell");
 
   classes:
-    "$(user)_shell_ok" expression => strcmp("curr_shell", shell);
+    "$(user)_shell_ok" expression => strcmp(curr_shell, shell);
 
   commands:
     "!$(user)_shell_ok"::
