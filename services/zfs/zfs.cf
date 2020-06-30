@@ -3,18 +3,10 @@ bundle agent zfs {
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
 
     "pkgs" slist => { 
-        "debian-faq"
-      , "debian-history"
-      , "debian-kernel-handbook"
-      , "debian-policy"
-      , "debian-refcard"
-      , "debian-reference-en"
-      , "installation-guide"
-      , "aptitude-doc"
-      , "apt-doc"
-      , "java-common"
-      , "harden-doc"
-      , "debian-handbook"};
+        "dkms"
+      , "spl-dkms"
+      , "zfs-dkms"
+      , "zfsutils-linux"};
 
   files:
     "/etc/apt/preferences.d/zfs_backports"
