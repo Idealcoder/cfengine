@@ -3,12 +3,14 @@ bundle agent zfs {
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
 
     # packages pinned to use backports
-    "pinned_packages" data => '{data: [
-      {"name": "dkms"},
-      {"name": "spl-dkms"},
-      {"name": "zfs-dkms"},
-      {"name": "zfsutils-linux"}
-    ]}';
+    "pinned_packages" data => '{ 
+      "data": [
+        {"name": "dkms"},
+        {"name": "spl-dkms"},
+        {"name": "zfs-dkms"},
+        {"name": "zfsutils-linux"}
+      ]
+    }';
 
   files:
     "/etc/apt/preferences.d/zfs_backports"
