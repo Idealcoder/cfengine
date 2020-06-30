@@ -18,6 +18,6 @@ bundle agent zfs {
       template_method => "mustache",
       template_data => '{
         "debian_release": "$(debian_release)",
-	"pinned_packages": "@(pinnded_packages)"
+	"pinned_packages": "@(pinned_packages)"
       }';
 }
