@@ -1,14 +1,15 @@
 bundle common local_classes {
-
   vars:
-    "class_file" string => "/usr/local/etc/cfengine/classes.txt";
-    "class_strs"  slist  => readstringlist("$(class_file)"
-                                         , "#[^\n]*$"
-					 , "\n"
-					 , inf
-					 , inf);
+    class_file_exists::
+      "class_file" string => "/usr/local/etc/cfengine/classes.txt";
+      "class_strs"  slist  => readstringlist("$(class_file)"
+                                           , "#[^\n]*$"
+  					   , "\n"
+					   , inf
+					   , inf);
 
   classes:
+    "class_file_exists" expression => fileexists("$(class_file)");
     "$(class_strs)" expression => "any";
 }
 
@@ -18,7 +19,7 @@ bundle agent local_classes {
 
   commands:
     !directory_exists::
-      "/usr/bin/mkdir -p /usr/local/etc/cfengine/passwords"
+      "/usr/bin/mkdir -p /usr/local/etc/cfengine/"
 	classes => if_ok("directory_exists");
 
   files:
