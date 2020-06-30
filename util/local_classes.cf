@@ -1,4 +1,4 @@
-bundle common local_classes_common {
+bundle agent local_classes {
   vars:
     class_file_exists::
       "class_file" string => "/usr/local/etc/cfengine/classes.txt";
@@ -10,20 +10,9 @@ bundle common local_classes_common {
 
   classes:
     "class_file_exists" expression => fileexists("$(class_file)");
-    "$(class_strs)" expression => "any";
-}
-
-bundle agent local_classes {
-  methods:
-    "local_classes_common" usebundle => local_classes_common;
-
-  classes:
-    "directory_exists" expression => isdir("/usr/local/etc/cfengine/");
-
-  commands:
-    !directory_exists::
-      "/usr/bin/mkdir -p /usr/local/etc/cfengine/"
-	classes => if_ok("directory_exists");
+    "$(class_strs)" 
+      expression => "any",
+      scope => "namespace";
 
   files:
     directory_exists::
