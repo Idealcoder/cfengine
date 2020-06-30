@@ -1,4 +1,4 @@
-bundle common local_classes {
+bundle common local_classes_common {
   vars:
     class_file_exists::
       "class_file" string => "/usr/local/etc/cfengine/classes.txt";
@@ -14,8 +14,11 @@ bundle common local_classes {
 }
 
 bundle agent local_classes {
+  methods:
+    "local_classes_common" usebundle => local_classes_common;
+
   classes:
-    "directory_exists" expression => isdir("/usr/local/etc/cfengine/passwords");
+    "directory_exists" expression => isdir("/usr/local/etc/cfengine/");
 
   commands:
     !directory_exists::
