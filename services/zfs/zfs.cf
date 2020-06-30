@@ -1,9 +1,11 @@
 bundle agent zfs {
   vars:
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
+    "debian_architecture" string => execresult("/usr/bin/dpkg --print-architecture");
 
     "pkgs" slist => { 
-        "dkms"
+        "linux-headers-$(debian_architecture)"
+      , "dkms"
       , "spl-dkms"
       , "zfs-dkms"
       , "zfsutils-linux"};
