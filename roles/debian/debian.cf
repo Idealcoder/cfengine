@@ -1,0 +1,27 @@
+# Base configuration for debian machines
+bundle agent debian {
+  
+  methods:
+    "apt" usebundle => 			apt("buster");
+    "hosts" usebundle => 		hosts;
+    "ssh" usebundle =>			ssh;
+    "ufw" usebundle =>			ufw;
+    "patching" usebundle =>		patching("true");
+    "sysctl" usebundle =>		sysctl;
+    "hardening" usebundle =>		hardening;
+    "shell" usebundle =>                shell;
+    "user" usebundle =>                 user;
+    "locale" usebundle =>               locale;
+    "timezone" usebundle =>             timezone;
+    "mail" usebundle =>			mail;
+    "monit" usebundle =>		monit;
+
+    "motd" usebundle =>			motd;
+    "debloat" usebundle =>              debloat;
+    "journald" usebundle =>             journald;
+
+  reports:
+    "Debian role was executed";
+
+}
+

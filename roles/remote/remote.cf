@@ -1,0 +1,9 @@
+# Configure remote access to machine behind a firewall
+bundle agent remote {
+
+  methods:
+    "tor" usebundle => tor;
+
+  reports:
+    "Remote role was executed";
+}

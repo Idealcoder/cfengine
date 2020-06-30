@@ -1,0 +1,14 @@
+body file control {
+
+  inputs => { "roles/debian/debian.cf"
+	    , "roles/remote/remote.cf"};
+}
+
+bundle agent roles {
+  methods:
+    role_debian||debian::
+     "debian" usebundle => debian;
+
+    role_remote::
+      "remote" usebundle => remote;
+}
