@@ -19,7 +19,5 @@ bundle agent debian {
     "motd" usebundle =>			motd;
     "debloat" usebundle =>              debloat;
     "journald" usebundle =>             journald;
-
-
 }
 
