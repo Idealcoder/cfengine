@@ -6,7 +6,7 @@ bundle agent zfs {
     "/etc/apt/preferences.d/zfs_backports"
       create => "true",
       perms => readable("root"),
-      edit_template => "$(this.promise_dirname)/apt_pinning.tmpl",
+      edit_template => "$(this.promise_dirname)/zfs_backports.tmpl",
       template_method => "mustache",
       template_data => '{
         "debian_release": "$(debian_release)",
