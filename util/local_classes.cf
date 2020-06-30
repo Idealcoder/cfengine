@@ -1,7 +1,8 @@
 bundle agent local_classes {
   vars:
-    class_file_exists::
+    any::
       "class_file" string => "/usr/local/etc/cfengine/classes.txt";
+    class_file_exists::
       "class_strs"  slist  => readstringlist("$(class_file)"
                                            , "#[^\n]*$"
   					   , "\n"
