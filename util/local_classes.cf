@@ -1,4 +1,5 @@
 bundle common local_classes {
+
   vars:
     "class_file" string => "/usr/local/etc/cfengine/classes.txt";
     "class_strs"  slist  => readstringlist("$(class_file)"
@@ -12,7 +13,17 @@ bundle common local_classes {
 }
 
 bundle agent local_classes {
+  classes:
+    "directory_exists" expression => isdir("/usr/local/etc/cfengine/passwords");
+
+  commands:
+    !directory_exists::
+      "/usr/bin/mkdir -p /usr/local/etc/cfengine/passwords"
+	classes => if_ok("directory_exists");
+
   files:
+    directory_exists::
     "/usr/local/etc/cfengine/classes.txt"
+      create => "true",
       perms => private("root");
 }
