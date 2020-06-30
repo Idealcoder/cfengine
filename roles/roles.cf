@@ -13,6 +13,6 @@ bundle agent roles {
     role_remote::
       "remote" usebundle => remote;
 
-    role_lxd::
+    role_lxdhost::
       "lxdhost" usebundle => lxdhost;
 }
