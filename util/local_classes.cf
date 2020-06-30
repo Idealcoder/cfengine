@@ -12,4 +12,6 @@ bundle common local_classes {
 
   reports:
     "class set: $(class_strs)";
+
+    "hello!!";
 }
