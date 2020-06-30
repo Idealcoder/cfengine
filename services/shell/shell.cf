@@ -64,6 +64,10 @@ bundle agent shell {
       create => "true",
       perms => readable("root"),
       edit_template => "$(this.promise_dirname)/zshrc-stub.tmpl";
+    "/root/.zshrc"
+      create => "true",
+      perms => readable("root"),
+      edit_line => insert_file("$(this.promise_dirname/zshrc-stub.tmpl)");
 }
 
 # TODO cloud vm packaged

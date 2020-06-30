@@ -11,6 +11,8 @@ bundle agent user {
 
     "debian" usebundle => user_absent("debian");
     "ubuntu" usebundle => user_absent("ubuntu");
+
+    "root_shell" usebundle => user_has_shell("root","/bin/zsh");
 }
 
 bundle agent user_absent(user) {
@@ -62,6 +64,8 @@ bundle agent user_present(data) {
         usebundle => user_has_sshkey("$(user)","$(sshkeys)");
       "user_has_pwdless_sudo"
         usebundle => user_has_pwdless_sudo("$(user)");
+      "user_has_shell"
+        usebundle => user_has_shell("$(user)","/bin/zsh");
 }
 
 bundle agent user_has_group(user, group) {
@@ -69,7 +73,7 @@ bundle agent user_has_group(user, group) {
     "groups_list" string => execresult("/usr/bin/groups $(user)", "noshell");
 
   classes:
-    "group_todo" expression => regcmp("(.*)$(group)(.*)","$(groups_list)");
+    "groups_ok" expression => regcmp("(.*)$(group)(.*)","$(groups_list)");
 
   methods:
     "group_present"
@@ -78,7 +82,7 @@ bundle agent user_has_group(user, group) {
       handle => "group_present";
 
   commands:
-    !group_todo::
+    !groups_ok::
       "/usr/sbin/adduser"
 	depends_on => {"group_present"},
         arglist => { "--quiet"
@@ -101,6 +105,22 @@ bundle agent user_has_pwdless_sudo(user) {
       create => "true",
       perms => private("root"),
       edit_line => lines_present("$(user) ALL=(ALL) NOPASSWD:ALL");
+}
+
+bundle agent user_has_shell(user, shell) {
+  vars:
+    "$(user)_shell" string => execresult("/usr/bin/awk -F: '$1==\"$(user)\" {print $NF}' /etc/passwd", "noshell");
+
+  classes:
+    "$(user)_shell_ok" expression => strcmp("$(user)_shell", shell);
+
+  commands:
+    "!$(user)_shell_ok"::
+      "/bin/chsh -s $(shell) $(user)";
+
+  reports:
+    "!$(user)_shell_ok"::
+      "shell updated for user $(user)";
 }
 
 bundle agent group_present(group) {
