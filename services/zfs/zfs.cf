@@ -1,7 +1,9 @@
 bundle agent zfs {
   vars:
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
-    "debian_architecture" string => execresult("/usr/bin/dpkg --print-architecture");
+    "debian_architecture" string => execresult(
+                                "/usr/bin/dpkg --print-architecture"
+			      , "noshell");
 
     "pkgs" slist => { 
         "linux-headers-$(debian_architecture)"
