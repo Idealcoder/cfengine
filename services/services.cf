@@ -1,0 +1,21 @@
+body file control {
+
+  inputs => { "services/apt/apt.cf"
+	    , "services/hosts/hosts.cf"
+	    , "services/ssh/ssh.cf"
+	    , "services/ufw/ufw.cf"
+	    , "services/patching/patching.cf"
+	    , "services/sysctl/sysctl.cf"
+	    , "services/hardening/hardening.cf"
+	    , "services/shell/shell.cf" 
+            , "services/user/user.cf"
+	    , "services/locale/locale.cf"
+	    , "services/timezone/timezone.cf"
+	    , "services/mail/mail.cf"
+            , "services/monit/monit.cf"
+            , "services/tor/tor.cf"
+
+            , "services/motd/motd.cf"
+	    , "services/debloat/debloat.cf"
+	    , "services/journald/journald.cf"};
+}
