@@ -20,5 +20,21 @@ bundle agent lxd {
       "/usr/bin/snap install core";
 
     snapd_present&!snap_core_missing&snap_lxd_missing::
-      "/usr/bin/snap install lxd";
+      "/usr/bin/snap install lxd"
+        classes => if_ok("lxd_present");
+
+    lxd_init::
+      "cat /usr/local/etc/lxd/preseed.yaml | /snap/bin/lxd init --preseed";
+
+  files:
+    lxd_present::
+      "/usr/local/etc/lxd/preseed.yaml"
+        create => "true",
+        perms => readable("root"),
+        edit_template => "$(this.promise_dirname)/preseed.yaml",
+        classes => if_repaired("lxd_init");
+
+  reports:
+    lxd_init::
+      "lxd updated with new preseed file";
 }
