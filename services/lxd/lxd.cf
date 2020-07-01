@@ -4,16 +4,14 @@ bundle agent lxd {
       policy => "present",
       classes => if_ok("snapd_present");
 
+  vars:
+    snapd_present::
+      "snaps_installed" string => execresult("/usr/bin/snap list");
+
   classes:
     snapd_present::
-      "snap_core_missing" not => returnszero(
-                                    "/usr/bin/snap list | grep core"
-				  , "useshell");
-
-    snapd_present::
-      "snap_lxd_missing" not => returnszero(
-                                    "/usr/bin/snap list | grep lxd"
-				  , "useshell");
+      "snap_core_missing" not => regcmp("(.*)core(.*)","$(snaps_installed)");
+      "snap_lxd_missing"  not => regcmp("(.*)lxd(.*)","$(snaps_installed)");
 
   commands:
     # install core snap before lxd to avoid a bug in snapd, complaining about
