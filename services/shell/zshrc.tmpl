@@ -115,4 +115,14 @@ bindkey "^[[A" up-line-or-beginning-search # up
 bindkey "^[[B" down-line-or-beginning-search # down
 # }}}
 
+# fixes {{{
+
+# Fix for /snap/bin missing from $PATH, due to zsh not sourcing files in
+# /etc/profile.d.
+if [ -f "/etc/profile.d/apps-bin-path.sh" ]; then
+  source /etc/profile.d/apps-bin-path.sh
+fi
+
+# }}}
+
 # vim: set fdm=marker fmr={{{,}}} fdl=0 syntax=zsh :
