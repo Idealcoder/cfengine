@@ -1,12 +1,16 @@
 bundle agent zfs {
   vars:
+    "current_kernel" string => execresult("/usr/bin/uname -r", "noshell");
     "debian_release" string => execresult("/usr/bin/lsb_release -cs", "noshell");
     "debian_architecture" string => execresult(
                                 "/usr/bin/dpkg --print-architecture"
 			      , "noshell");
 
+    # current kernel may be behind recommended kernel, so need to get
+    # headers for both.
     "pkgs" slist => { 
         "linux-headers-$(debian_architecture)"
+      , "linux-headers-$(current_kernel)"
       , "dkms"
       , "spl-dkms"
       , "zfs-dkms"
