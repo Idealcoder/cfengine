@@ -6,7 +6,7 @@ bundle agent lxd {
 
   vars:
     snapd_present::
-      "snaps_installed" string => execresult("/usr/bin/snap list");
+      "snaps_installed" string => execresult("/usr/bin/snap list", "noshell");
 
   classes:
     snapd_present::
