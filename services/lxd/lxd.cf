@@ -25,7 +25,8 @@ bundle agent lxd {
         classes => if_ok("lxd_present");
 
     lxd_init_preseed::
-      "cat /usr/local/etc/lxd/preseed.yaml | /snap/bin/lxd init --preseed";
+      "cat /usr/local/etc/lxd/preseed.yaml | /snap/bin/lxd init --preseed"
+        contain => in_shell;
 
   files:
     lxd_present::
