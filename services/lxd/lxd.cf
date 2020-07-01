@@ -28,6 +28,10 @@ bundle agent lxd {
 
   files:
     lxd_present::
+      "/usr/local/etc/lxd/"
+        create => "true",
+	perms => readable("root");
+
       "/usr/local/etc/lxd/preseed.yaml"
         create => "true",
         perms => readable("root"),
