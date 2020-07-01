@@ -12,6 +12,7 @@ bundle agent lxd {
     snapd_present::
       "snap_core_missing" not => regcmp("(.*)core(.*)","$(snaps_installed)");
       "snap_lxd_missing"  not => regcmp("(.*)lxd(.*)","$(snaps_installed)");
+      "lxd_present" expression => "!snap_core_missing&!snap_lxd_missing";
 
   commands:
     # install core snap before lxd to avoid a bug in snapd, complaining about
@@ -23,7 +24,7 @@ bundle agent lxd {
       "/usr/bin/snap install lxd"
         classes => if_ok("lxd_present");
 
-    lxd_init::
+    lxd_init_preseed::
       "cat /usr/local/etc/lxd/preseed.yaml | /snap/bin/lxd init --preseed";
 
   files:
@@ -36,9 +37,9 @@ bundle agent lxd {
         create => "true",
         perms => readable("root"),
         edit_template => "$(this.promise_dirname)/preseed.yaml",
-        classes => if_repaired("lxd_init");
+        classes => if_repaired("lxd_init_preseed");
 
   reports:
-    lxd_init::
+    lxd_init_preseed::
       "lxd updated with new preseed file";
 }
