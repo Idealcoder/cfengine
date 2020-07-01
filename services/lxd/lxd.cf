@@ -6,21 +6,21 @@ bundle agent lxd {
 
   classes:
     snapd_present::
-      "snap_core_present" expression => returnszero(
+      "snap_core_missing" not => returnszero(
                                     "/usr/bin/snap list | grep core"
 				  , "useshell");
 
     snapd_present::
-      "snap_lxd_present" expression => returnszero(
+      "snap_lxd_missing" not => returnszero(
                                     "/usr/bin/snap list | grep lxd"
 				  , "useshell");
 
   commands:
     # install core snap before lxd to avoid a bug in snapd, complaining about
     # the version of snapd being too old for lxd.
-    snapd_present&!snap_core_present::
+    snapd_present&snap_core_missing::
       "/usr/bin/snap install core";
 
-    snapd_present&snap_core_present&!snap_lxd_present::
+    snapd_present&!snap_core_missing&snap_lxd_missing::
       "/usr/bin/snap install lxd";
 }
