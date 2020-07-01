@@ -1,0 +1,26 @@
+bundle agent lxd {
+  packages:
+    "snapd"
+      policy => "present",
+      classes => if_ok("snapd_present");
+
+  classes:
+    snapd_present::
+      "snap_core_present" expression => returnszero(
+                                    "/usr/bin/snap list | grep core"
+				  , "useshell");
+
+    snapd_present::
+      "snap_lxd_present" expression => returnszero(
+                                    "/usr/bin/snap list | grep lxd"
+				  , "useshell");
+
+  commands:
+    # install core snap before lxd to avoid a bug in snapd, complaining about
+    # the version of snapd being too old for lxd.
+    snapd_present&!snap_core_present::
+      "/usr/bin/snap install core";
+
+    snapd_present&snap_core_present&!snap_lxd_present::
+      "/usr/bin/snap install lxd";
+}

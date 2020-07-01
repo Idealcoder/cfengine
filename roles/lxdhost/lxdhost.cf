@@ -3,6 +3,5 @@ bundle agent lxdhost {
 
   methods:
     "zfs" usebundle => zfs;
-    #"lxd" usebundle => lxd;
-
+    "lxd" usebundle => lxd;
 }

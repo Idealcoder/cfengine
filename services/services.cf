@@ -15,6 +15,7 @@ body file control {
             , "services/monit/monit.cf"
             , "services/tor/tor.cf"
             , "services/zfs/zfs.cf"
+            , "services/lxd/lxd.cf"
 
             , "services/motd/motd.cf"
 	    , "services/debloat/debloat.cf"
