@@ -25,7 +25,7 @@ bundle agent cfengine {
 
   commands:
     daemon_reload::
-      "/usr/bin/systemctl daemon-reload";
+      "/bin/systemctl daemon-reload";
 
   services:
     "cf-agent-hourly.timer"
