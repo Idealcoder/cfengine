@@ -1,0 +1,10 @@
+bundle agent usrmerge {
+  packages:
+    "usrmerge"
+      policy => "present",
+      classes => if_repaired("usrmerge_installed");
+
+  reports:
+    usrmerge_installed::
+      "usrmerge applied";
+}
