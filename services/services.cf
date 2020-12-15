@@ -1,7 +1,6 @@
 body file control {
 
   inputs => { "services/apt/apt.cf"
-            , "services/usrmerge/usrmerge.cf"
 	    , "services/hosts/hosts.cf"
 	    , "services/ssh/ssh.cf"
 	    , "services/ufw/ufw.cf"

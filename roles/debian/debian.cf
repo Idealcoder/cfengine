@@ -3,7 +3,6 @@ bundle agent debian {
   
   methods:
     "apt" usebundle => 			apt("buster");
-    "usrmerge" usebundle => 		usrmerge;
     "hosts" usebundle => 		hosts;
     "ssh" usebundle =>			ssh;
     "ufw" usebundle =>			ufw;
