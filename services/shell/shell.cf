@@ -8,6 +8,9 @@ bundle agent shell {
 		    , "man-db"
 		    , "ca-certificates"
 		    , "bzip2"
+
+		    # important packages
+		    , "usrmerge"
 		    , "apt-utils"
 
                     # minimal useful utilities
