@@ -18,7 +18,9 @@ blue()  { IFS= ; while read -r line; do echo -e '\e[34m'$line'\e[0m'; done; }
 
 wrapped_output() {
     prefix="-->"
-    "$@" 2>&1 | green | sed "s/^/$prefix /"
+    "$@" 2>&1 \
+      | green \
+      | stdbuf -oL -eL sed "s/^/$prefix /"
 }
 
 main() {
@@ -31,9 +33,9 @@ main() {
 
     echo "install dependencies..." | blue
     export DEBIAN_FRONTEND="noninteractive"
-    wrapped_output apt-get update --quiet
-    wrapped_output apt-get install --quiet --no-install-recommends --yes \
-        git gpg gpg-agent dirmngr cfengine3
+    wrapped_output apt-get --quiet update
+    wrapped_output apt-get --quiet install --no-install-recommends --yes \
+        git gpg gpg-agent dirmngr cfengine3 usrmerge apt-utils
 
     echo "import admin public key" | blue
     gpg_key="CFCBB3696FE1AB6787806FEE4EEE428DE1354DCF"
@@ -52,7 +54,7 @@ main() {
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
 
     echo "running cf-agent" | blue
-    wrapped_output cf-agent
+    wrapped_output cf-agent --verbose
 
     echo "finished." | blue
 }

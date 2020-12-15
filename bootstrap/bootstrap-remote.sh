@@ -18,7 +18,9 @@ blue()  { IFS= ; while read -r line; do echo -e '\e[34m'$line'\e[0m'; done; }
 
 wrapped_output() {
     prefix="-->"
-    "$@" 2>&1 | green | sed "s/^/$prefix /"
+    "$@" 2>&1 \
+      | green \
+      | stdbuf -oL -eL sed "s/^/$prefix /"
 }
 
 tryssh() {
@@ -40,7 +42,7 @@ main() {
     ssh -o "StrictHostKeyChecking no" \
         "$remote_machine" "mkdir -p ~/keys/shared && chmod 700 ~/keys"
     scp -o "StrictHostKeyChecking no" -q \
-        -r keys/shared "$remote_machine:~/keys/"
+        -r ${PROGDIR}/../keys/shared "$remote_machine:~/keys/"
 
     # copy bootstrap-local script to the remote machine, and execute it.
     scp -o "StrictHostKeyChecking no" -q \
