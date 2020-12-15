@@ -6,5 +6,5 @@ bundle agent usrmerge {
 
   reports:
     usrmerge_installed::
-      "usrmerge applied";
+      "usrmerge installed";
 }
