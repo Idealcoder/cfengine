@@ -38,8 +38,7 @@ bundle agent apt(release) {
 
   commands:
     clear_apt_lists::
-      # need to use /bin as bundle runs before usrmerge is installed
-      "/bin/rm -rf /var/lib/apt/lists";
+      "/usr/bin/rm -rf /var/lib/apt/lists";
       "/usr/bin/apt-get update --quiet";
 
   packages:
