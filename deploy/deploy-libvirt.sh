@@ -12,7 +12,7 @@ set -e
 usage() {
 cat <<- EOF
 Usage: 
-  $PROGNAME [-h] [machine_name]
+  $PROGNAME [-h] disk_name [ssh_user] [machine_name]
 
 Options:
   -h --help                show this help
@@ -21,8 +21,14 @@ Create libvirt virtual machine and deploy cfengine onto it.
 Depends on 'create-vm' and 'create-config-drive' scripts on PATH
 
 See 'create-config-drive' for libvirt virtual machine details
-  - A machine_name is optional, if blank then randomly picked from 
-    'hostnames/candidate_hostnames.txt'.
+
+Disk name is managed with symlinks to keep track of easily.
+
+An ssh_user is optional, if blank then disk name is picked, which at
+least holds true for debian and ubuntu.
+
+A machine_name is optional, if blank then randomly picked from 
+'hostnames/candidate_hostnames.txt'.
 EOF
 }
 
@@ -46,7 +52,7 @@ cmdline() {
 check_root() {
     if [ "$EUID" -ne 0 ]
         then echo "Error: Please run as root"
-        exit
+        exit 1
     fi
 }
 
@@ -78,10 +84,15 @@ main() {
     iso_dir="$DATA/vms/iso"
     disk_dir="$DATA/vms/disk"
 
+    disk_name=${ARGS[0]}
+    ssh_user=${ARGS[1]}
+    machine_name=${ARGS[2]}
+
     cmdline $ARGS
     check_root
 
-    machine_name=${ARGS[0]}
+    # if an ssh_user is not specified, use disk_name as fallback
+    ssh_user=${ssh_user:-$disk_name}
 
     # if machine_name not specified, use a random hostname from 
     # 'candidate_hostnames.txt' as fallback.
@@ -92,7 +103,7 @@ main() {
 
     echo "creating disk image" | blue
 
-    cp "${disk_dir}/debian-10-generic-amd64-daily-20191205-98.qcow2" \
+    cp "${disk_dir}/${disk_name}.qcow2" \
         "${disk_dir}/${machine_name}.qcow2"
 
     echo "expanding disk" | blue
@@ -104,7 +115,7 @@ main() {
 
     ip_address=$(get_value "ip_address" "$output")
 
-    time "$PROGDIR/../bootstrap/bootstrap-remote.sh" "debian@${ip_address}"
+    # time "$PROGDIR/../bootstrap/bootstrap-remote.sh" "${ssh_user}@${ip_address}"
 
     echo "connect to ${ip_address}" | blue
 }
