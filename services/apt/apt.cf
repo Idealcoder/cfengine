@@ -31,6 +31,7 @@ bundle agent apt(release) {
 	"repos": "$(repos)",
 	"is_stable": $(is_stable)
       }';
+      # TODO - run apt update when sources change.
 
     "/etc/apt/sources.list.d/backports.list"
       delete => tidy;

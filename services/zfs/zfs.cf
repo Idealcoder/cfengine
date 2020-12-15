@@ -32,3 +32,9 @@ bundle agent zfs {
       "$(pkgs)"
         policy => "present";
 }
+
+# TODO
+# set this in /etc/modprobe.d/zfs.conf
+# otherwise defaults to using 50% of memory
+# options zfs zfs_arc_max=68157440
+# configurable variable??

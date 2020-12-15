@@ -30,7 +30,7 @@ bundle agent lxd {
 
   files:
     lxd_present::
-      "/usr/local/etc/lxd/"
+      "/usr/local/etc/lxd/."
         create => "true",
 	perms => readable("root");
 
@@ -44,3 +44,23 @@ bundle agent lxd {
     lxd_init_preseed::
       "lxd updated with new preseed file";
 }
+
+# TODO - add admin user to lxd group
+
+# TODO - make everything install in a single pass
+
+# TODO - configure firewall to allow dhcp & dns.
+# sudo ufw allow in on lxdbr0 to any port 67 proto udp
+# sudo ufw allow in on lxdbr0 to any port 53
+# ufw route allow in on lxdbr0 out on wlan0
+# and NAT, see https://ubuntu.com/server/docs/security-firewall
+
+# don't let lxd touch iptables
+# lxc network set lxdbr0 ipv4.nat false
+# lxc network set lxdbr0 ipv6.nat false
+# lxc network set lxdbr0 ipv6.firewall false
+# lxc network set lxdbr0 ipv4.firewall false
+
+
+# MAAS port forward
+# https://discuss.linuxcontainers.org/t/forward-port-80-and-443-from-wan-to-container/2042

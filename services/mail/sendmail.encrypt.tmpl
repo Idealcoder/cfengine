@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # Copyright (c) 2020, Loïc Deraed
 
-# Sign and encrypt emails before sending
-# Assumes low throughput.
+# Sign and encrypt emails before sending.
 #
-# Usage: sendmail.encrypt <arguments mirror sendmail>
+# Usage: sendmail.encrypt <arguments for sendmail>
 
 # Ensure the user is root, so we have the gpg key.
 if [ "$EUID" -ne 0 ]    
