@@ -8,6 +8,7 @@ bundle agent shell {
 		    , "man-db"
 		    , "ca-certificates"
 		    , "bzip2"
+		    , "apt-utils"
 
                     # minimal useful utilities
 		    , "zsh"
