@@ -30,16 +30,19 @@ bundle agent apt(release) {
         "release": "$(release)",
 	"repos": "$(repos)",
 	"is_stable": $(is_stable)
-      }';
-      # TODO - run apt update when sources change.
+      }',
+      classes => if_repaired("apt_update");
 
     "/etc/apt/sources.list.d/backports.list"
       delete => tidy;
 
   commands:
     clear_apt_lists::
-      "/usr/bin/rm -rf /var/lib/apt/lists";
-      "/usr/bin/apt-get update --quiet";
+      "/usr/bin/rm -rf /var/lib/apt/lists"
+        classes => if_ok("apt_update");
+
+    apt_update::
+      "/usr/bin/apt-get update -qq";
 
   packages:
     "apt-listchanges"
