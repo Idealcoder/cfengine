@@ -6,18 +6,20 @@ bundle agent shell {
 		    , "bash-completion"
 		    , "less"
 		    , "man-db"
-		    , "ca-certificates"
 		    , "bzip2"
-
-		    # important packages
-		    , "usrmerge"
 		    , "apt-utils"
+
+		    # ensure consistent baseline
+		    , "usrmerge"
+		    , "ssh"
+		    , "sudo"
+		    , "irqbalance"
+		    , "ca-certificates"
 
                     # minimal useful utilities
 		    , "zsh"
 		    , "neovim"
 		    , "git"
-		    , "ssh"
 		    , "molly-guard"
 		    , "safe-rm"
 		    , "mosh"
@@ -36,7 +38,6 @@ bundle agent shell {
 		    , "ldnsutils"
 		    , "moreutils"
 		    , "e2fsprogs"
-		    , "irqbalance"
 		    , "netcat-openbsd"
 		    , "command-not-found"
 		    , "nocache"
