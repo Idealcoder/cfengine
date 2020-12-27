@@ -29,6 +29,7 @@ ciphertext=$(echo "$body" \
 To:$to
 From:$from
 Subject:$subject
+Content-Type: application/pgp; format=text; x-action=encrypt
 
 $ciphertext
 END
