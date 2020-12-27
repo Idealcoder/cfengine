@@ -11,6 +11,7 @@ bundle agent mail {
                     # use postfix
                       "postfix"
 		    , "libsasl2-modules"
+		    , "procmail"
 		    };
   packages:
     "$(absent_pkgs)"
