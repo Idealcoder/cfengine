@@ -3,13 +3,22 @@
 
 # Mail the result of the last cf-agent invocation
 #
-# Usage: cf-agent
+# Usage: cf-mailresult
 
-invocation_id=$(systemctl show -p InvocationID --value cf-agent-hourly.service)
-result=$(journalctl -q _SYSTEMD_INVOCATION_ID="$invocation_id")
+# get last invocation id for cf-agent-hourly.service
+INVOCATION_ID=$(systemctl show -p InvocationID --value cf-agent-hourly.service)
 
-# Don't send an empty email
-if [ -z "$result" ]; then
+# get logs for invoaction id
+RESULT=$(journalctl -q _SYSTEMD_INVOCATION_ID="$INVOCATION_ID")
+
+# filter logspam
+RESULT=$(echo "$RESULT" \
+         | grep -v "session closed for user debian-security-support" \
+         | grep -v "session opened for user debian-security-support" \
+        )
+
+# don't send an empty email
+if [ -z "$RESULT" ]; then
   exit 0
 fi
 
@@ -18,7 +27,7 @@ To: root
 From: TODO
 Subject: cf-agent result
 
-$result
+$RESULT
 END
 ) | sendmail.encrypt root
 
