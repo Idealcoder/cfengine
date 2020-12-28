@@ -61,7 +61,7 @@ bundle agent build(name, url) {
 }
 
 body contain contain_nobody {
-  useshell => "noshell";
+  useshell => "useshell";
   exec_owner => "nobody";
   exec_group => "nobody";
 }
