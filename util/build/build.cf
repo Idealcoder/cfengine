@@ -1,7 +1,7 @@
 # @brief Build and install a program from git
 #
 # Using the latest tag from a git url, this makes a deb package in 
-# /usr/share/debs/$(name)-$(version).deb using 'build.sh', and installs it. 
+# /usr/local/share/debs/$(name)-$(version).deb using 'build.sh', and installs it. 
 #
 # Package is automatically rebuilt and upgraded when a new git tag is released. 
 # Binaries are protected by 'unpriv.sh' from being accidentally run by a 
@@ -38,11 +38,15 @@ bundle agent build(name, url) {
 
   commands:
     new_version&build_installed&checkinstall_installed::
-      "/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb";
+      "/usr/local/bin/build-from-git $(url) /usr/local/share/deb/$(name)-$(latest_version).deb";
 
-      "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest_version).deb";
+      "/usr/bin/apt-get install /usr/local/share/deb/$(name)-$(latest_version).deb";
 
   files:
+      "/usr/local/share/deb/."
+        create => "true",
+        perms => readable("root");
+
       "/usr/local/bin/build-from-git"
         create => "true",
         perms => executable("root"),
