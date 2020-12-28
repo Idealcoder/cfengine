@@ -1,7 +1,11 @@
 # @brief Build and install a program from git
 #
-# Builds a deb package in /usr/share/debs/$PROGRAM.deb and installs it.
-# Package is automatically rebuilt and upgraded when a new git tag is released.
+# Using the latest tag from a git url, this makes a deb package in 
+# /usr/share/debs/$(name)-$(version).deb using 'build.sh', and installs it. 
+#
+# Package is automatically rebuilt and upgraded when a new git tag is released. 
+# Binaries are protected by 'unpriv.sh' from being accidentally run by a 
+# privileged user.
 
 # @param name	name of the program
 # @param url	git url of the program
@@ -25,10 +29,17 @@ bundle agent build(name, url) {
 
   commands:
     new_version::
-      "$(this.promise_dirname)/build.sh $(url) /usr/share/deb/$(name)-$(latest-version).deb";
+      "$(this.promise_dirname)/build.sh $(url) /usr/share/deb/$(name)-$(latest-version).deb"
+        contain => contain_nobody;
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest-version).deb";
 
   reports:
     "latest_version: $(latest_version),  current_version: $(current_version)";
+}
+
+body contain contain_nobody {
+  useshell => "noshell";
+  exec_owner => "nobody";
+  exec_group => "nobody";
 }
