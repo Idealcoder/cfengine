@@ -2,7 +2,8 @@ body file control {
 
   inputs => { "roles/debian/debian.cf"
 	    , "roles/remote/remote.cf"
-	    , "roles/lxdhost/lxdhost.cf"};
+	    , "roles/lxdhost/lxdhost.cf"
+	    , "roles/minecraft/minecraft.cf"};
 }
 
 bundle agent roles {
@@ -15,4 +16,7 @@ bundle agent roles {
 
     role_lxdhost::
       "lxdhost" usebundle => lxdhost;
+
+    role_minecraft::
+      "minecraft" usebundle => minecraft;
 }

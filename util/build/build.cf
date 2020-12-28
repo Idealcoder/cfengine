@@ -1,0 +1,28 @@
+# @brief Build and install a program from git
+#
+# Builds a deb package in /usr/share/debs/$PROGRAM.deb and installs it.
+# Package is automatically rebuilt and upgraded when a new git tag is released.
+
+# @param name	name of the program
+# @param url	git url of the program
+#
+# **Example:**
+
+# ```cf3
+# methods:
+#  "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
+# ```
+bundle agent build(name, url) {
+  vars:
+    "latest_version" string => 
+      execresult("latest.sh $(url)", "noshell");
+
+    "current_version" string => 
+      execresult("dpkg -s $(name) | grep Version | awk '{print $2}'", "useshell");
+
+  classes:
+    "new_version" not => strcmp("$(latest_version)","$(current_version)");
+
+  reports:
+    "latest_version: $(latest_version),  current_version: $(current_version)";
+}

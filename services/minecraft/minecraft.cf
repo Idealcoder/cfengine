@@ -1,0 +1,44 @@
+bundle agent minecraft {
+  vars:
+    "user" string => "minecraft";
+
+  classes:
+    "user_exists" expression => userexists("$(user)");
+
+  packages:
+    "default-jre-headless"
+      policy => "present",
+      classes => if_ok("jre_installed");
+
+    "build-essential"
+      policy => "present",
+      classes => if_ok("build_installed");
+
+  methods:
+    build_installed::
+      "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
+
+  commands:
+    !user_exists::
+      "/usr/sbin/adduser"
+        arglist => { "--quiet"
+	        , "--shell /bin/zsh"
+		, "--add_extra_groups"
+		, "--disabled-login"
+		, "--gecos ''"
+		, "$(user)"},
+	classes => if_ok("user_exists");
+
+  files:
+    "/home/$(user)/backups/."
+      create => "true",
+      perms => readable($(user));
+
+    "/home/$(user)/tools/."
+      create => "true",
+      perms => readable($(user));
+
+    "/home/$(user)/server/."
+      create => "true",
+      perms => readable($(user));
+}
