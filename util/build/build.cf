@@ -19,7 +19,7 @@
 bundle agent build(name, url) {
   vars:
     "latest_version" string => 
-      execresult("$(this.promise_dirname)/latest.sh $(url)", "noshell");
+      execresult("/usr/local/bin/git-latest-tag $(url)", "noshell");
 
     "current_version" string => 
       execresult("dpkg -s $(name) | grep Version | awk '{print $2}'", "useshell");
@@ -29,10 +29,29 @@ bundle agent build(name, url) {
 
   commands:
     new_version::
-      "$(this.promise_dirname)/build.sh $(url) /usr/share/deb/$(name)-$(latest-version).deb"
+      "/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest-version).deb"
         contain => contain_nobody;
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest-version).deb";
+
+  files:
+      "/usr/local/bin/build-from-git"
+        create => "true",
+        perms => executable("root"),
+        edit_template => "$(this.promise_dirname)/build-from-git.tmpl",
+        template_method => "mustache";
+
+      "/usr/local/bin/git-latest-tag"
+        create => "true",
+        perms => executable("root"),
+        edit_template => "$(this.promise_dirname)/git-latest-tag.tmpl",
+        template_method => "mustache";
+
+      "/usr/local/bin/unpriv-protect"
+        create => "true",
+        perms => executable("root"),
+        edit_template => "$(this.promise_dirname)/unpriv-protect.tmpl",
+        template_method => "mustache";
 
   reports:
     "latest_version: $(latest_version),  current_version: $(current_version)";

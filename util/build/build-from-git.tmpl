@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Copyright (c) 2020, Loïc Deraed
+# Managed by cfengine
 
 # Build and package a program from git
 #
-# Usage: build git-url output-file
+# Usage: build-from-git url output-file
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
@@ -63,3 +64,5 @@ main() {
 }
 
 main
+
+# vim: filetype=sh

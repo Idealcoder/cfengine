@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # Copyright (c) 2020, Loïc Deraed
+# Managed by cfengine
 
-# Weakly enforce that a program is only run by unprivileged users, by 
+# Weakly enforce that a given program is only run by unprivileged users, by 
 # inserting a shell wrapper around it.
 #
-# This is trivial to bypass, its purpose is to prevent untrusted binaries
-# from accidentally being executed by privileged users.
-# 
-# Usage: unpriv program-path
+# This is to prevent accidentally running an untrusted binary by a privileged
+# user, it is trivial to bypass. Requires executable /tmp.
+#
+# Usage: unpriv-protect program-path
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
@@ -58,3 +59,5 @@ END
 }
 
 main
+
+# vim: filetype=sh
