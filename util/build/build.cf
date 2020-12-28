@@ -29,11 +29,7 @@ bundle agent build(name, url) {
 
   commands:
     new_version::
-      "/usr/bin/env"
-        contain => contain_nobody;
-
-      "/usr/bin/env -i /bin/sh -c '/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb'"
-        contain => contain_nobody;
+      "/usr/bin/su nobody -s '/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb'";
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest_version).deb";
 
@@ -58,10 +54,4 @@ bundle agent build(name, url) {
 
   reports:
     "latest_version: $(latest_version),  current_version: $(current_version)";
-}
-
-body contain contain_nobody {
-  useshell => "noshell";
-  exec_owner => "nobody";
-  exec_group => "nobody";
 }
