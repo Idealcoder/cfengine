@@ -26,7 +26,9 @@ main() {
     echo "building package for $URL"
 
     # work in a temporary folder
-    BUILDDIR=$(mktemp -d)
+    # set tmpdir as workaround for cf-agent inheriting the 
+    # environment variables from root user!
+    BUILDDIR=$(mktemp --directory --tmpdir=/tmp)
     cd $BUILDDIR
 
     # clone code
