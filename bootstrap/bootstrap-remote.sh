@@ -30,15 +30,15 @@ tryssh() {
 main() {
     remote_machine=${ARGS[0]}
 
-    echo "bootstrap-remote ${remote_machine}" | blue
+    echo "begin bootstrap-remote ${remote_machine}" | blue
 
     # wait for host to become available
     until tryssh; do
-        echo "waiting for network connectivity..." | blue
+        echo "wait for network connectivity..." | blue
         sleep 5
     done
 
-    echo "copying private keys" | blue
+    echo "copy private keys" | blue
     ssh -o "StrictHostKeyChecking no" \
         "$remote_machine" "mkdir -p ~/keys/shared && chmod 700 ~/keys"
     scp -o "StrictHostKeyChecking no" -q \

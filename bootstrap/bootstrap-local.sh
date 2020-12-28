@@ -53,7 +53,7 @@ main() {
     cd "/var/lib/cfengine3/inputs"
     wrapped_output git clone -v "https://github.com/Idealcoder/cfengine" .
 
-    echo "running cf-agent" | blue
+    echo "run cf-agent" | blue
     wrapped_output cf-agent
 
     echo "finished." | blue
