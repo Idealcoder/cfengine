@@ -23,6 +23,12 @@ bundle agent build(name, url) {
   classes:
     "new_version" not => strcmp("$(latest_version)","$(current_version)");
 
+  commands:
+    new_version::
+      "$(this.promise_dirname)/build.sh $(url) /usr/share/deb/$(name)-$(latest-version).deb";
+
+      "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest-version).deb";
+
   reports:
     "latest_version: $(latest_version),  current_version: $(current_version)";
 }
