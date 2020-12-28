@@ -17,30 +17,37 @@
 #  "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
 # ```
 bundle agent build(name, url) {
-  packages:
-    "build-essential"
-      policy => "present",
-      classes => if_ok("build_installed");
-
-    "checkinstall"
-      policy => "present",
-      classes => if_ok("checkinstall_installed");
-
+  methods:
+    "build_init" usebundle => build_init,
+                 classes => if_ok("init_done");
   vars:
-    "latest_version" string => 
-      execresult("/usr/local/bin/git-latest-tag $(url)", "noshell");
+    init_done::
+      "latest_version" string => 
+        execresult("/usr/local/bin/git-latest-tag $(url)", "noshell");
 
-    "current_version" string => 
-      execresult("dpkg -s $(name) | grep Version | awk '{print $2}'", "useshell");
+      "current_version" string => 
+        execresult("dpkg -s $(name) | grep Version | awk '{print $2}'", "useshell");
 
   classes:
     "new_version" not => strcmp("$(latest_version)","$(current_version)");
 
   commands:
-    new_version&build_installed&checkinstall_installed::
+    init_done&new_version::
       "/usr/local/bin/build-from-git $(url) /usr/local/share/deb/$(name)-$(latest_version).deb";
 
       "/usr/bin/apt-get install /usr/local/share/deb/$(name)-$(latest_version).deb";
+
+  reports:
+    "latest_version: $(latest_version),  current_version: $(current_version)";
+}
+
+bundle agent build_init {
+  packages:
+    "build-essential"
+      policy => "present";
+
+    "checkinstall"
+      policy => "present";
 
   files:
       "/usr/local/share/deb/."
@@ -64,7 +71,4 @@ bundle agent build(name, url) {
         perms => executable("root"),
         edit_template => "$(this.promise_dirname)/unpriv-only-protect.tmpl",
         template_method => "mustache";
-
-  reports:
-    "latest_version: $(latest_version),  current_version: $(current_version)";
 }
