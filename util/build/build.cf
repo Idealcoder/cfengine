@@ -17,6 +17,15 @@
 #  "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
 # ```
 bundle agent build(name, url) {
+  packages:
+    "build-essential"
+      policy => "present",
+      classes => if_ok("build_installed");
+
+    "checkinstall"
+      policy => "present",
+      classes => if_ok("checkinstall_installed");
+
   vars:
     "latest_version" string => 
       execresult("/usr/local/bin/git-latest-tag $(url)", "noshell");
@@ -28,7 +37,7 @@ bundle agent build(name, url) {
     "new_version" not => strcmp("$(latest_version)","$(current_version)");
 
   commands:
-    new_version::
+    new_version&build_installed&checkinstall_installed::
       "/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb";
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest_version).deb";
