@@ -1,0 +1,7 @@
+# Configure remote access to machine behind a firewall
+bundle agent minecrafthost {
+
+  methods:
+    "minecrafthost" usebundle => minecraft;
+
+}

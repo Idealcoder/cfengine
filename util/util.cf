@@ -2,5 +2,6 @@ body file control {
 
   inputs => { "util/gen_password.cf" 
             , "util/files.cf"
-	    , "util/local_classes.cf"};
+	    , "util/local_classes.cf"
+	    , "util/build/build.cf"};
 }
