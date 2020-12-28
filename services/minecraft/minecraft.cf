@@ -10,14 +10,6 @@ bundle agent minecraft {
       policy => "present",
       classes => if_ok("jre_installed");
 
-    "build-essential"
-      policy => "present",
-      classes => if_ok("build_installed");
-
-  methods:
-    build_installed::
-      "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
-
   commands:
     !user_exists::
       "/usr/sbin/adduser"
@@ -30,6 +22,14 @@ bundle agent minecraft {
 	classes => if_ok("user_exists");
 
   files:
+    # workaround, mcrcon needs directory to exist
+    # for 'make install' to run correctly
+    any::
+      "/usr/local/share/man/man1/."
+        create => "true",
+        perms => readable("root"),
+	classes => if_ok("build_ready");
+
     user_exists::
       "/home/$(user)/backups/."
         create => "true",
@@ -42,4 +42,8 @@ bundle agent minecraft {
       "/home/$(user)/server/."
         create => "true",
         perms => readable($(user));
+
+  methods:
+    build_ready::
+      "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
 }
