@@ -14,14 +14,28 @@ set -e
 set -o pipefail
 
 main() {
-    # check user is unprivileged
-    if [ "$UID" -eq 0 ] || id -nG "$USER" | grep -qw "sudo"; then
-        echo "error: must use unprivileged user for building"
-        exit 1
-    fi
-
     URL="${ARGS[0]}"
     OUTPUT="${ARGS[1]}"
+
+    # check if user is unprivileged
+    if [ "$UID" -eq 0 ] || id -nG "$USER" | grep -qw "sudo"; then
+
+        # make directory to build in
+        BUILDDIR=$(mktemp --directory)
+        chmod 777 "$BUILDDIR"
+
+        # drop to user nobody and re-run script
+        sudo -u nobody "$PROGDIR/$PROGNAME" "${ARGS[0]}" "$BUILDDIR/out.deb"
+
+        # copy to output file
+        echo "copy deb to $OUTPUT"
+         
+        cp "$BUILDDIR/out.deb" "$OUTPUT"
+
+        echo "done"
+
+        exit 0
+    fi
      
     echo "building package for $URL"
 
@@ -58,7 +72,7 @@ main() {
     # copy to output file
     echo "copy deb to $OUTPUT"
 
-    cp *.deb "${OUTPUT}"
+    cp *.deb "$OUTPUT"
 
     echo "done"
 }

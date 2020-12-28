@@ -6,12 +6,29 @@
 #
 # Usage: git-latest-tag url
 
+readonly PROGNAME=$(basename $0)
+readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS=("$@")
 
-git -c 'versionsort.suffix=-' \
-    ls-remote --exit-code --refs --sort='version:refname' --tags ${ARGS[0]} '*.*.*' \
-    | tail --lines=1 \
-    | cut --delimiter='/' --fields=3 \
-    | sed -e "s/v//g"
+set -e
+set -o pipefail
+
+main() {
+  # check if user is unprivileged
+  if [ "$UID" -eq 0 ] || id -nG "$USER" | grep -qw "sudo"; then
+    # drop to user nobody and re-run script
+    sudo -u nobody "$PROGDIR/$PROGNAME" "${ARGS[0]}"
+
+    exit 0
+  fi
+
+  git -c 'versionsort.suffix=-' \
+      ls-remote --exit-code --refs --sort='version:refname' --tags ${ARGS[0]} '*.*.*' \
+      | tail --lines=1 \
+      | cut --delimiter='/' --fields=3 \
+      | sed -e "s/v//g"
+}
+
+main
 
 # vim: filetype=sh
