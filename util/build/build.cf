@@ -50,10 +50,10 @@ bundle agent build(name, url) {
         edit_template => "$(this.promise_dirname)/git-latest-tag.tmpl",
         template_method => "mustache";
 
-      "/usr/local/bin/unpriv-protect"
+      "/usr/local/bin/unpriv-only-protect"
         create => "true",
         perms => executable("root"),
-        edit_template => "$(this.promise_dirname)/unpriv-protect.tmpl",
+        edit_template => "$(this.promise_dirname)/unpriv-only-protect.tmpl",
         template_method => "mustache";
 
   reports:
