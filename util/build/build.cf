@@ -29,7 +29,7 @@ bundle agent build(name, url) {
 
   commands:
     new_version::
-      "/usr/bin/su nobody -c '/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb'";
+      "/usr/bin/su nobody -s /bin/sh -c '/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb'";
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest_version).deb";
 
