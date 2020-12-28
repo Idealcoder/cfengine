@@ -8,7 +8,7 @@
 # This is to prevent accidentally running an untrusted binary by a privileged
 # user, it is trivial to bypass. Requires executable /tmp.
 #
-# Usage: unpriv-protect program-path
+# Usage: unpriv-only-protect program-path
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))

@@ -45,7 +45,7 @@ main() {
     make
 
     # add security stub around binaries
-    find -type f -executable -not -path '*/\.git/*' -execdir "${PROGDIR}/unpriv.sh" '{}' \;
+    find -type f -executable -not -path '*/\.git/*' -execdir "${PROGDIR}/unpriv-only-protect.sh" '{}' \;
 
     VERSION=$(echo "$VERSION" | sed -e "s/v//g")
 
