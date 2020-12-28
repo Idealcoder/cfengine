@@ -30,15 +30,16 @@ bundle agent minecraft {
 	classes => if_ok("user_exists");
 
   files:
-    "/home/$(user)/backups/."
-      create => "true",
-      perms => readable($(user));
+    user_exists::
+      "/home/$(user)/backups/."
+        create => "true",
+        perms => readable($(user));
 
-    "/home/$(user)/tools/."
-      create => "true",
-      perms => readable($(user));
+      "/home/$(user)/tools/."
+        create => "true",
+        perms => readable($(user));
 
-    "/home/$(user)/server/."
-      create => "true",
-      perms => readable($(user));
+      "/home/$(user)/server/."
+        create => "true",
+        perms => readable($(user));
 }

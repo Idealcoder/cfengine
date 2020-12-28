@@ -15,7 +15,7 @@
 bundle agent build(name, url) {
   vars:
     "latest_version" string => 
-      execresult("latest.sh $(url)", "noshell");
+      execresult("$(this.promise_dirname)/latest.sh $(url)", "noshell");
 
     "current_version" string => 
       execresult("dpkg -s $(name) | grep Version | awk '{print $2}'", "useshell");
