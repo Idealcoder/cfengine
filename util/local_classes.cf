@@ -1,7 +1,14 @@
 bundle agent local_classes {
+  classes:
+    "class_file_exists" expression => fileexists("$(class_file)");
+    "$(class_strs)" 
+      expression => "any",
+      scope => "namespace";
+
   vars:
     any::
       "class_file" string => "/usr/local/etc/cfengine/classes.txt";
+
     class_file_exists::
       "class_strs"  slist  => readstringlist("$(class_file)"
                                            , "#[^\n]*$"
@@ -9,15 +16,11 @@ bundle agent local_classes {
 					   , inf
 					   , inf);
 
-  classes:
-    "class_dir_exists" expression => isdir("/usr/local/etc/cfengine/");
-    "class_file_exists" expression => fileexists("$(class_file)");
-    "$(class_strs)" 
-      expression => "any",
-      scope => "namespace";
-
   files:
-    class_dir_exists::
+    "/usr/local/etc/cfengine/."
+      create => "true",
+      perms  => readable("root");
+
     "/usr/local/etc/cfengine/classes.txt"
       create => "true",
       perms => private("root");
