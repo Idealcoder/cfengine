@@ -21,7 +21,7 @@ main() {
     if [ "$UID" -eq 0 ] || id -nG "$USER" | grep -qw "sudo"; then
 
         # make directory to build in
-        BUILDDIR=$(mktemp --directory)
+        BUILDDIR=$(mktemp --directory --tmpdir=/tmp)
         chmod 777 "$BUILDDIR"
 
         # drop to user nobody and re-run script
