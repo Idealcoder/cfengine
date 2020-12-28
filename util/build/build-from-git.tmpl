@@ -26,9 +26,7 @@ main() {
     echo "building package for $URL"
 
     # work in a temporary folder
-    # set tmpdir as workaround for cf-agent inheriting the 
-    # environment variables from root user!
-    BUILDDIR=$(mktemp --directory --tmpdir=/tmp)
+    BUILDDIR=$(mktemp --directory)
     cd $BUILDDIR
 
     # clone code
@@ -47,7 +45,7 @@ main() {
     make
 
     # add security stub around binaries
-    find -type f -executable -not -path '*/\.git/*' -execdir "${PROGDIR}/unpriv-only-protect.sh" '{}' \;
+    find -type f -executable -not -path '*/\.git/*' -execdir "${PROGDIR}/unpriv-only-protect" '{}' \;
 
     VERSION=$(echo "$VERSION" | sed -e "s/v//g")
 

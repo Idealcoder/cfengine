@@ -32,7 +32,7 @@ bundle agent build(name, url) {
       "/usr/bin/env"
         contain => contain_nobody;
 
-      "/usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb"
+      "/usr/bin/env --ignore-environment /usr/local/bin/build-from-git $(url) /usr/share/deb/$(name)-$(latest_version).deb"
         contain => contain_nobody;
 
       "/usr/bin/apt-get install /usr/share/deb/$(name)-$(latest_version).deb";
