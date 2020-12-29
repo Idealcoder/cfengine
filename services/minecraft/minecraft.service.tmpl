@@ -1,0 +1,22 @@
+[Unit]
+Description=Minecraft Server
+After=network.target
+
+[Service]
+User={{user}}
+Nice=1
+KillMode=none
+SuccessExitStatus=0 1
+
+ProtectSystem=strict
+ReadWritePaths=/home/{{user}}
+PrivateTmp=true
+PrivateDevices=true
+NoNewPrivileges=true
+
+WorkingDirectory=/home/{{user}}/server
+ExecStart=/usr/bin/java -Xmx1024M -Xms512M -jar server.jar nogui
+ExecStop=/usr/local/bin/mcrcon -H 127.0.0.1 -P 25575 -p strong-password stop
+
+[Install]
+WantedBy=multi-user.target

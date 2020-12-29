@@ -1,0 +1,14 @@
+bundle agent minecraft_mcrcon {
+  files:
+    # workaround, mcrcon needs directory to exist
+    # for 'make install' to run correctly
+    "/usr/local/share/man/man1/."
+      create => "true",
+      perms => readable("root"),
+      classes => if_ok("build_ready");
+
+  methods:
+    build_ready::
+      "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
+
+}

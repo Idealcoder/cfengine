@@ -3,6 +3,10 @@ bundle agent minecraft {
     "user" string => "minecraft";
     "version" string => "1.16.4";
 
+  methods:
+      "minecraft_mcrcon" usebundle => minecraft_mcrcon;
+      "minecraft_systemd" usebundle => minecraft_systemd;
+
   classes:
     "user_exists" expression => userexists("$(user)");
     "jar_exists" expression =>  fileexists("/home/$(user)/server/server.jar");
@@ -16,25 +20,20 @@ bundle agent minecraft {
     !user_exists::
       "/usr/sbin/adduser"
         arglist => { "--quiet"
-	        , "--shell /bin/zsh"
-		, "--add_extra_groups"
-		, "--disabled-login"
-		, "--gecos ''"
-		, "$(user)"},
+	           , "--shell /bin/zsh"
+		   , "--add_extra_groups"
+		   , "--disabled-login"
+		   , "--gecos ''"
+		   , "$(user)"},
 	classes => if_ok("user_exists");
 
     !jar_exists::
-      "/usr/bin/wget -O /home/$(user)/server/server.jar https://papermc.io/api/v1/paper/$(version)/latest/download";
+      "/usr/bin/wget"
+        arglist => { "--quiet"
+	           , " --output-document /home/$(user)/server/server.jar"
+		   , "https://papermc.io/api/v1/paper/$(version)/latest/download"};
 
   files:
-    # workaround, mcrcon needs directory to exist
-    # for 'make install' to run correctly
-    any::
-      "/usr/local/share/man/man1/."
-        create => "true",
-        perms => readable("root"),
-	classes => if_ok("build_ready");
-
     user_exists::
       "/home/$(user)/backups/."
         create => "true",
@@ -58,7 +57,10 @@ bundle agent minecraft {
         perms => readable($(user)),
         edit_line => lines_present("eula=true");
 
-  methods:
-    build_ready::
-      "build" usebundle => build("mcrcon", "https://github.com/Tiiffi/mcrcon.git");
+
 }
+
+# TODO
+# - server.properties configure RCON
+# - firewall
+# - backups
