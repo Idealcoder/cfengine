@@ -38,7 +38,8 @@ bundle agent build(name, url) {
       "/usr/bin/apt-get -qq install /usr/local/share/deb/$(name)-$(latest_version).deb";
 
   reports:
-    "latest_version: $(latest_version),  current_version: $(current_version)";
+    new_version::
+      "package $(name), built and installed new version $(latest_version)";
 }
 
 bundle agent build_init {
