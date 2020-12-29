@@ -17,6 +17,7 @@ bundle agent shell {
 		    , "ca-certificates"
 
                     # minimal useful utilities
+		    , "wget"
 		    , "zsh"
 		    , "neovim"
 		    , "git"
