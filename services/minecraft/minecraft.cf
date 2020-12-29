@@ -1,9 +1,11 @@
 bundle agent minecraft {
   vars:
     "user" string => "minecraft";
+    "version" string => "1.16.4";
 
   classes:
     "user_exists" expression => userexists("$(user)");
+    "jar_exists" expression =>  fileexists("/home/$(user)/server/server.jar");
 
   packages:
     "default-jre-headless"
@@ -20,6 +22,9 @@ bundle agent minecraft {
 		, "--gecos ''"
 		, "$(user)"},
 	classes => if_ok("user_exists");
+
+    !jar_exists::
+      "wget -O /home/$(user)/server/server.jar https://papermc.io/api/v1/paper/$(version)/latest/download";
 
   files:
     # workaround, mcrcon needs directory to exist
@@ -42,6 +47,10 @@ bundle agent minecraft {
       "/home/$(user)/server/."
         create => "true",
         perms => readable($(user));
+
+      "/home/$(user)/server/server.jar"
+        create => "false",
+        perms => executable($(user));
 
   methods:
     build_ready::
