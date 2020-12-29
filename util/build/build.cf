@@ -62,7 +62,7 @@ bundle agent build_init {
       "/usr/local/bin/build-from-git"
         create => "true",
         perms => executable("root"),
-        edit_line => insert_file("$(this.promise_dirname)/built-from-git.tmpl");
+        edit_line => insert_file("$(this.promise_dirname)/build-from-git.tmpl");
 
       "/usr/local/bin/git-latest-tag"
         create => "true",
