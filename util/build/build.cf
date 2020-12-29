@@ -35,7 +35,7 @@ bundle agent build(name, url) {
     init_done&new_version::
       "/usr/bin/chronic /usr/local/bin/build-from-git $(url) /usr/local/share/deb/$(name)-$(latest_version).deb";
 
-      "/usr/bin/apt-get -qq install /usr/local/share/deb/$(name)-$(latest_version).deb";
+      "/usr/bin/apt-get install -qq /usr/local/share/deb/$(name)-$(latest_version).deb";
 
   reports:
     new_version::
