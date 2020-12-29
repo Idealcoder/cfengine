@@ -32,6 +32,9 @@ main() {
          
         cp "$BUILDDIR/out.deb" "$OUTPUT"
 
+        # cleanup
+        rm -rf "$BUILDDIR"
+
         echo "done"
 
         exit 0
@@ -73,6 +76,9 @@ main() {
     echo "copy deb to $OUTPUT"
 
     cp *.deb "$OUTPUT"
+
+    # cleanup
+    rm -rf "$BUILDDIR"
 
     echo "done"
 }

@@ -48,7 +48,10 @@ cat "\$PROGDIR/\$PROGNAME" \
 # make binary executable
 chmod +x "\$TMP"
 
-"\$TMP"
+"\$TMP" "\$@"
+
+# cleanup
+rm -rf "\$TMP"
 
 exit 0
 ${BINARY_B64}
