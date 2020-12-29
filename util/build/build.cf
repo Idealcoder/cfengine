@@ -62,15 +62,15 @@ bundle agent build_init {
       "/usr/local/bin/build-from-git"
         create => "true",
         perms => executable("root"),
-        edit_line => insert_file("$(this.promise_dirname)/build-from-git.tmpl");
+        edit_template => "$(this.promise_dirname)/build-from-git.tmpl";
 
       "/usr/local/bin/git-latest-tag"
         create => "true",
         perms => executable("root"),
-        edit_line => insert_file("$(this.promise_dirname)/git-latest-tag.tmpl");
+        edit_template => "$(this.promise_dirname)/git-latest-tag.tmpl";
 
       "/usr/local/bin/unpriv-only-protect"
         create => "true",
         perms => executable("root"),
-        edit_line => insert_file("$(this.promise_dirname)/unpriv-only-protect.tmpl");
+        edit_template => "$(this.promise_dirname)/unpriv-only-protect.tmpl";
 }
