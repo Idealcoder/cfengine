@@ -5,7 +5,7 @@ bundle agent minecraft {
 
   methods:
       "minecraft_mcrcon" usebundle => minecraft_mcrcon;
-      "minecraft_systemd" usebundle => minecraft_systemd;
+      "minecraft_systemd" usebundle => minecraft_systemd($(user));
 
   classes:
     "user_exists" expression => userexists("$(user)");

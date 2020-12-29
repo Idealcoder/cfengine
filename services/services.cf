@@ -17,6 +17,8 @@ body file control {
             , "services/zfs/zfs.cf"
             , "services/lxd/lxd.cf"
 	    , "services/minecraft/minecraft.cf"
+	    , "services/minecraft/minecraft_mcrcon.cf"
+	    , "services/minecraft/minecraft_systemd.cf"
 
             , "services/motd/motd.cf"
 	    , "services/debloat/debloat.cf"
