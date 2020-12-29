@@ -48,9 +48,15 @@ bundle agent minecraft {
         create => "true",
         perms => readable($(user));
 
+      # TODO requires 2nd pass for permissions to update
       "/home/$(user)/server/server.jar"
         create => "false",
         perms => executable($(user));
+
+      "/home/$(user)/server/eula.txt"
+        create => "true",
+        perms => readable($(user)),
+        edit_line => lines_present("eula=true");
 
   methods:
     build_ready::
