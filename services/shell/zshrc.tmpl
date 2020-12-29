@@ -69,9 +69,11 @@ fi
 
 # show hostname if connected over ssh
 if [[ -n "$SSH_CLIENT" ]]; then
-  PROMPT="%F{$PROMPT_USER_COL}%n%B%F{$PROMPT_USER_COL}@%m%b%f${PROMPT_SUFFIX} "
+  PROMPT="%F{$PROMPT_USER_COL}%n%B%F{green}@%m%b%f${PROMPT_SUFFIX} "
+  RPROMPT="%F{\${1:-$PROMPT_USER_COL}}%~%f"
 else 
-  PROMPT="%F{$PROMP_USER_COL}%n%f${PROMPT_SUFFIX} "
+  PROMPT="%F{$PROMPT_USER_COL}%n%f${PROMPT_SUFFIX} "
+  RPROMPT="%F{\${1:-$PROMPT_USER_COL}}%~%f"
 fi
 
 # enable prompt function expansion
