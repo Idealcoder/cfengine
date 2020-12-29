@@ -73,6 +73,10 @@ bundle agent shell {
       create => "true",
       perms => readable("root"),
       edit_line => insert_file("$(this.promise_dirname)/zshrc-stub.tmpl");
+    "/etc/sudoers.d/90-cfengine"
+      create => "true",
+      perms => private("root"),
+      edit_line => lines_present("env_keep += \"SSH_CLIENT\"");
 }
 
 # TODO cloud vm packaged
