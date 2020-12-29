@@ -24,7 +24,7 @@ bundle agent minecraft {
 	classes => if_ok("user_exists");
 
     !jar_exists::
-      "wget -O /home/$(user)/server/server.jar https://papermc.io/api/v1/paper/$(version)/latest/download";
+      "/usr/bin/wget -O /home/$(user)/server/server.jar https://papermc.io/api/v1/paper/$(version)/latest/download";
 
   files:
     # workaround, mcrcon needs directory to exist
