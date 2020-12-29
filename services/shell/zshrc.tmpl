@@ -54,7 +54,7 @@ prompt walters
 # change username colour based on privilege
 if [[ $UID == 0 || $EUID == 0 ]]; then
   PROMPT_USER_COL="red"
-else [ id -nG "\$USER" | grep -qw "sudo" ]; then
+else if [[ id -nG "\$USER" | grep -qw "sudo" ]]; then
   PROMPT_USER_COL="yellow"
 else
   PROMPT_USER_COL="blue"
