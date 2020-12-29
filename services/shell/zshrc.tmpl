@@ -51,29 +51,27 @@ promptinit
 
 prompt walters
 
-# show hostname if connected over ssh
-if [[ -n "$SSH_CLIENT" ]]; then
-        if [[ $UID == 0 || $EUID == 0 ]]; then
-        	# show red when root
-		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
-	else
-		PROMPT='%F{yellow}%n%B%F{green}@%m%b%f$ '
-	fi
-else 
-        if [[ $UID == 0 || $EUID == 0 ]]; then
-        	# show red when root
-		PROMPT='%F{red}%n%B%F{green}@%m%b%f# '
-	else
-		PROMPT='%F{cyan}%n%f$ '
-	fi
+# change username colour based on privilege
+if [[ $UID == 0 || $EUID == 0 ]]; then
+  PROMPT_USER_COL="red"
+else [[ id -nG "\$USER" | grep -qw "sudo" ]]; then
+  PROMPT_USER_COL="yellow"
+else
+  PROMPT_USER_COL="blue"
 fi
 
-# show current directory on right
+# end with '#' for root, '$' otherwise
 if [[ $UID == 0 || $EUID == 0 ]]; then
-        # show red when root
-	export RPROMPT='%F{${1:-red}}%~%f'
+  PROMPT_SUFFIX="#"
 else
-	export RPROMPT='%F{${1:-yellow}}%~%f'
+  PROMPT_SUFFIX="$"
+fi
+
+# show hostname if connected over ssh
+if [[ -n "$SSH_CLIENT" ]]; then
+  PROMPT="%F{$PROMPT_USER_COL}%n%B%F{green}@%m%b%f${PROMPT_SUFFIX} "
+else 
+  PROMPT="%F{$PROMP_USER_COL}%n%f${PROMPT_SUFFIX} "
 fi
 
 # enable prompt function expansion
