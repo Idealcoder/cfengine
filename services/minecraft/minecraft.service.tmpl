@@ -9,11 +9,15 @@ KillMode=none
 SuccessExitStatus=0 1
 
 NoNewPrivileges=yes
+MemoryDenyWriteExecute=yes
+RestrictRealtime=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
 PrivateTmp=yes
 PrivateUsers=yes
 ProtectControlGroups=yes
 # ProtectHome=yes
 PrivateDevices=yes
+# PrivateNetwork=yes
 ProtectKernelModules=yes
 ProtectKernelTunables=yes
 ProtectSystem=strict
