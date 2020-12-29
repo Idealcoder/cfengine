@@ -76,7 +76,7 @@ bundle agent shell {
     "/etc/sudoers.d/90-cfengine"
       create => "true",
       perms => private("root"),
-      edit_line => lines_present("env_keep += \"SSH_CLIENT\"");
+      edit_line => lines_present("Defaults env_keep += \"SSH_CLIENT\"");
 }
 
 # TODO cloud vm packaged
