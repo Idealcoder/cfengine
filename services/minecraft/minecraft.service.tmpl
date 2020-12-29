@@ -8,11 +8,16 @@ Nice=1
 KillMode=none
 SuccessExitStatus=0 1
 
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateUsers=yes
+ProtectControlGroups=yes
+# ProtectHome=yes
+PrivateDevices=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
 ProtectSystem=strict
 ReadWritePaths=/home/{{user}}
-PrivateTmp=true
-PrivateDevices=true
-NoNewPrivileges=true
 
 WorkingDirectory=/home/{{user}}/server
 ExecStart=/usr/bin/java -Xmx1024M -Xms512M -jar server.jar nogui
