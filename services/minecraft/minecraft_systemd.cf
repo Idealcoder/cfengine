@@ -4,6 +4,10 @@ bundle agent minecraft_systemd(user) {
       create => "true",
       perms => readable("root"),
       edit_template => "$(this.promise_dirname)/minecraft.service.tmpl",
+      template_method => "mustache",
+      template_data => '{
+        "user": "$(user)"
+      }',
       classes => if_repaired("daemon_reload");
 
   commands:
