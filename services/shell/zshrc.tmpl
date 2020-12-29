@@ -54,7 +54,7 @@ prompt walters
 # change username colour based on privilege
 if [[ $UID == 0 || $EUID == 0 ]]; then
   PROMPT_USER_COL="red"
-else if [[ id -nG "\$USER" | grep -qw "sudo" ]]; then
+elif id -nG "$USER" | grep -qw "sudo"; then
   PROMPT_USER_COL="yellow"
 else
   PROMPT_USER_COL="blue"
@@ -69,7 +69,7 @@ fi
 
 # show hostname if connected over ssh
 if [[ -n "$SSH_CLIENT" ]]; then
-  PROMPT="%F{$PROMPT_USER_COL}%n%B%F{green}@%m%b%f${PROMPT_SUFFIX} "
+  PROMPT="%F{$PROMPT_USER_COL}%n%B%F{$PROMPT_USER_COL}@%m%b%f${PROMPT_SUFFIX} "
 else 
   PROMPT="%F{$PROMP_USER_COL}%n%f${PROMPT_SUFFIX} "
 fi
