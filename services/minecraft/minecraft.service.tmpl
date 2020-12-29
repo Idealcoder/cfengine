@@ -26,7 +26,6 @@ ReadWritePaths=/home/{{user}}
 
 WorkingDirectory=/home/{{user}}/server
 ExecStart=/usr/bin/java -Xmx1024M -Xms512M -jar server.jar nogui
-ExecStop=/usr/local/bin/mcrcon -H 127.0.0.1 -P 25575 -p strong-password stop
 
 [Install]
 WantedBy=multi-user.target
